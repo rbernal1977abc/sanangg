@@ -70,12 +70,18 @@
             border-radius: 40px;
             cursor: pointer;
             border: 1px solid transparent;
+            transition: all 0.2s;
         }
 
         .tab-btn.active {
             background: #c1232c;
             color: white;
             border-color: #f7c35c;
+        }
+
+        .tab-btn:hover {
+            background: #2f3b4a;
+            color: white;
         }
 
         .panel {
@@ -92,6 +98,7 @@
             border-radius: 32px;
             overflow: hidden;
             border: 1px solid #2e3a47;
+            box-shadow: 0 12px 30px -8px black;
         }
 
         .featured-img {
@@ -149,6 +156,12 @@
             cursor: pointer;
             border: none;
             font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
         }
 
         .info-btn {
@@ -173,6 +186,12 @@
             border-radius: 24px;
             border: 1px solid #283340;
             overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .event-card:hover {
+            transform: scale(1.02);
+            border-color: #c1232c;
         }
 
         .card-img {
@@ -225,6 +244,13 @@
             align-items: center;
             justify-content: center;
             gap: 0.3rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .card-action-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
         }
 
         .card-info-btn {
@@ -278,6 +304,10 @@
             outline: none;
         }
 
+        .email-input:focus {
+            outline: 2px solid #f7c35c;
+        }
+
         .email-btn {
             background: #f7c35c;
             border: none;
@@ -285,6 +315,12 @@
             border-radius: 50px;
             font-weight: 700;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .email-btn:hover {
+            background: #ffd57a;
+            transform: scale(1.05);
         }
 
         .footer {
@@ -296,6 +332,12 @@
 
         .footer strong {
             color: #f7c35c;
+        }
+
+        /* Fix for links */
+        a {
+            color: inherit;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -540,7 +582,7 @@
         
         container.innerHTML = `
             <div>
-                <img class="featured-img" src="${featured.image}" alt="${featured.name}">
+                <img class="featured-img" src="${featured.image}" alt="${featured.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop'">
                 <div class="featured-content">
                     <h2>${featured.name}</h2>
                     <div class="event-meta">
@@ -549,10 +591,10 @@
                     </div>
                     <div class="desc">${featured.desc}</div>
                     <div class="event-actions">
-                        <a href="${featured.link}" target="_blank" class="action-btn info-btn">
+                        <a href="${featured.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
                             <i class="fas fa-info-circle"></i> Full Details
                         </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}'); return false;">
+                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}'); event.preventDefault(); event.stopPropagation();">
                             <i class="fas fa-calendar-plus"></i> Add to Calendar
                         </a>
                     </div>
@@ -567,7 +609,7 @@
         
         container.innerHTML = `
             <div>
-                <img class="featured-img" src="${featured.image}" alt="${featured.name}">
+                <img class="featured-img" src="${featured.image}" alt="${featured.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop'">
                 <div class="featured-content">
                     <h2>${featured.name}</h2>
                     <div class="event-meta">
@@ -576,10 +618,10 @@
                     </div>
                     <div class="desc">${featured.desc}</div>
                     <div class="event-actions">
-                        <a href="${featured.link}" target="_blank" class="action-btn info-btn">
+                        <a href="${featured.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
                             <i class="fas fa-info-circle"></i> Full Details
                         </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}'); return false;">
+                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}'); event.preventDefault(); event.stopPropagation();">
                             <i class="fas fa-calendar-plus"></i> Add to Calendar
                         </a>
                     </div>
@@ -597,7 +639,7 @@
         otherEvents.forEach(ev => {
             html += `
                 <div class="event-card">
-                    <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}">
+                    <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
                     <div class="card-content">
                         <h3>${ev.name}</h3>
                         <div class="card-meta">
@@ -606,10 +648,10 @@
                         </div>
                         <div class="card-desc">${ev.desc}</div>
                         <div class="card-actions">
-                            <a href="${ev.link}" target="_blank" class="card-action-btn card-info-btn">
+                            <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
                                 <i class="fas fa-info-circle"></i> Details
                             </a>
-                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}'); return false;">
+                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}'); event.preventDefault(); event.stopPropagation();">
                                 <i class="fas fa-calendar-plus"></i> Calendar
                             </a>
                         </div>
@@ -629,7 +671,7 @@
         otherEvents.forEach(ev => {
             html += `
                 <div class="event-card">
-                    <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}">
+                    <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
                     <div class="card-content">
                         <h3>${ev.name}</h3>
                         <div class="card-meta">
@@ -638,10 +680,10 @@
                         </div>
                         <div class="card-desc">${ev.desc}</div>
                         <div class="card-actions">
-                            <a href="${ev.link}" target="_blank" class="card-action-btn card-info-btn">
+                            <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
                                 <i class="fas fa-info-circle"></i> Details
                             </a>
-                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}'); return false;">
+                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}'); event.preventDefault(); event.stopPropagation();">
                                 <i class="fas fa-calendar-plus"></i> Calendar
                             </a>
                         </div>
@@ -655,8 +697,9 @@
     // Calendar function
     window.addToCalendar = function(name, date, location) {
         const text = `${name} at ${location}`;
-        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&details=${encodeURIComponent(text)}&location=${encodeURIComponent(location)}`;
-        window.open(googleUrl, '_blank');
+        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&details=${encodeURIComponent(text)}&location=${encodeURIComponent(location)}&dates=20260312/20260315`;
+        window.open(googleUrl, '_blank', 'noopener,noreferrer');
+        return false;
     };
 
     // Render everything
@@ -682,21 +725,21 @@
 
     // Email subscription
     document.getElementById('subscribeBtn').addEventListener('click', function() {
-        const email = document.getElementById('emailInput').value;
-        if (email && email.includes('@')) {
+        const email = document.getElementById('emailInput').value.trim();
+        if (email && email.includes('@') && email.includes('.')) {
             alert('Thanks! You\'ll get Sumaang ang G! event updates.');
             document.getElementById('emailInput').value = '';
         } else {
-            alert('Please enter a valid email');
+            alert('Please enter a valid email address');
         }
     });
 
-    // Handle image errors
-    document.addEventListener('error', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.target.src = 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop';
+    // Handle enter key on email input
+    document.getElementById('emailInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('subscribeBtn').click();
         }
-    }, true);
+    });
 </script>
 </body>
 </html>
