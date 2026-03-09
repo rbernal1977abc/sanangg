@@ -37,7 +37,7 @@
             align-items: center;
             text-align: center;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             border-bottom: 2px solid #c1232c;
             padding-bottom: 1rem;
         }
@@ -60,27 +60,6 @@
             color: #f7c35c;
             border: 1px solid #c1232c;
             display: inline-block;
-        }
-
-        .last-updated {
-            text-align: right;
-            font-size: 0.8rem;
-            color: #8f9eb2;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 0.5rem;
-        }
-
-        .last-updated i {
-            color: #f7c35c;
-        }
-
-        .last-updated span {
-            background: #1e2630;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
         }
 
         .section-header {
@@ -459,13 +438,10 @@
 <div class="container">
     <div class="brand">
         <h1>San ang G!</h1>
-        <div class="tag">Philippine Car Events · Daily Updates</div>
+        <div class="tag">Philippine Car Events</div>
     </div>
 
-    <div class="last-updated">
-        <i class="fas fa-sync-alt"></i>
-        <span id="lastUpdated">Loading...</span>
-    </div>
+    <!-- Refresh icon and timestamp removed -->
 
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-fire"></i></div>
@@ -491,10 +467,8 @@
         </div>
     </div>
 
-    <!-- Email signup section completely removed -->
-
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong>
+        Designed & Developed by <strong>RP8</strong> | Events updated daily
     </div>
 </div>
 
@@ -779,13 +753,10 @@ END:VCALENDAR`;
         }
     }
 
-    // Load events and render
+    // Load events and render - removed lastUpdated display update
     function loadEvents() {
         loadEventDatabase();
         checkForDailyUpdate();
-        
-        // Update last updated display
-        document.getElementById('lastUpdated').innerHTML = eventDatabase.lastUpdated;
 
         const today = new Date();
         const nextWeek = new Date(today);
