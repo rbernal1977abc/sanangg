@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sumaang ang G! – Philippine Car Events (Verified)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Vercel Analytics - Static HTML version -->
+    <script>
+        window.va = window.va || function () { 
+            (window.vaq = window.vaq || []).push(arguments); 
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- End Vercel Analytics -->
+    
     <style>
         * {
             margin: 0;
@@ -440,7 +450,6 @@
 
 <script>
     // VERIFIED PHILIPPINE CAR EVENTS - March-April 2026
-    // All events have working links and official sources
     const events = [
         // ONGOING / UPCOMING (within 7 days from March 9, 2026)
         { 
@@ -539,17 +548,34 @@
         return '';
     }
 
+    // Track analytics events
+    function trackEvent(category, action, label) {
+        if (window.va) {
+            window.va('event', {
+                name: action,
+                data: {
+                    category: category,
+                    label: label
+                }
+            });
+        }
+    }
+
     // Calendar function with correct dates
     window.addToCalendar = function(name, dateRange, location, startDate, endDate) {
         const start = startDate.replace(/-/g, '');
         const end = endDate ? endDate.replace(/-/g, '') : start;
         const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${start}/${end}&details=${encodeURIComponent(name + ' at ' + location)}&location=${encodeURIComponent(location)}`;
+        
+        // Track calendar click
+        trackEvent('Calendar', 'add_to_calendar', name);
+        
         window.open(googleUrl, '_blank', 'noopener,noreferrer');
         return false;
     };
 
     // Filter events by date range
-    const today = new Date('2026-03-09'); // Current date
+    const today = new Date('2026-03-09');
     const nextWeek = new Date('2026-03-16');
     const thirtyDaysAgo = new Date('2026-02-07');
     const thirtyDaysFromNow = new Date('2026-04-08');
@@ -562,17 +588,15 @@
 
     const weekEvents = events.filter(event => {
         const { start, end } = parseEventDateRange(event);
-        // Event overlaps with next 7 days (March 9-16)
         return (start <= nextWeek && end >= today);
     }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
     const monthEvents = events.filter(event => {
         const { start, end } = parseEventDateRange(event);
-        // Event overlaps with last 30 days or next 30 days (Feb 7 - Apr 8)
         return (start <= thirtyDaysFromNow && end >= thirtyDaysAgo);
     }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
-    // Get featured events (prioritize ongoing/upcoming big events)
+    // Get featured events
     const featuredWeek = weekEvents.find(ev => ev.big === true && ev.status !== 'ended') || weekEvents[0];
     const featuredMonth = monthEvents.find(ev => ev.big === true && ev.status !== 'ended') || monthEvents[1] || monthEvents[0];
 
@@ -595,10 +619,10 @@
                     </div>
                     <div class="desc">${event.longDesc || event.desc}</div>
                     <div class="source-info">
-                        <i class="fas fa-newspaper"></i> Source: <a href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer">${event.source}</a>
+                        <i class="fas fa-newspaper"></i> Source: <a href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer" onclick="trackEvent('Source', 'click', '${event.name}')">${event.source}</a>
                     </div>
                     <div class="event-actions">
-                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
+                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="trackEvent('Website', 'click', '${event.name}'); event.stopPropagation();">
                             <i class="fas fa-external-link-alt"></i> Official Website
                         </a>
                         <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${event.name}', '${event.date}', '${event.location}', '${event.startDate}', '${event.endDate}'); event.preventDefault(); event.stopPropagation();">
@@ -641,7 +665,7 @@
                             <i class="fas fa-newspaper"></i> ${ev.source}
                         </div>
                         <div class="card-actions">
-                            <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
+                            <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('Website', 'click', '${ev.name}'); event.stopPropagation();">
                                 <i class="fas fa-external-link-alt"></i> Website
                             </a>
                             <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}', '${ev.startDate}', '${ev.endDate}'); event.preventDefault(); event.stopPropagation();">
@@ -661,12 +685,18 @@
     renderGrid('weekGrid', weekEvents, featuredWeek);
     renderGrid('monthGrid', monthEvents, featuredMonth);
 
-    // Tab switching
+    // Track page view
+    if (window.va) {
+        window.va('pageview');
+    }
+
+    // Tab switching with analytics
     document.getElementById('tabWeek').addEventListener('click', function() {
         document.getElementById('tabWeek').classList.add('active');
         document.getElementById('tabMonth').classList.remove('active');
         document.getElementById('weekPanel').classList.add('active-panel');
         document.getElementById('monthPanel').classList.remove('active-panel');
+        trackEvent('Navigation', 'tab_switch', 'week_view');
     });
 
     document.getElementById('tabMonth').addEventListener('click', function() {
@@ -674,15 +704,18 @@
         document.getElementById('tabWeek').classList.remove('active');
         document.getElementById('monthPanel').classList.add('active-panel');
         document.getElementById('weekPanel').classList.remove('active-panel');
+        trackEvent('Navigation', 'tab_switch', 'month_view');
     });
 
-    // Email subscription
+    // Email subscription with analytics
     document.getElementById('subscribeBtn').addEventListener('click', function() {
         const email = document.getElementById('emailInput').value.trim();
         if (email && email.includes('@') && email.includes('.')) {
+            trackEvent('Subscription', 'signup', 'email_capture');
             alert('Thanks! You\'ll get Sumaang ang G! verified event updates.');
             document.getElementById('emailInput').value = '';
         } else {
+            trackEvent('Subscription', 'failed', 'invalid_email');
             alert('Please enter a valid email address');
         }
     });
