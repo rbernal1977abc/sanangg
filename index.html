@@ -333,79 +333,6 @@
             color: #0f1a24;
         }
 
-        .signup-area {
-            background: linear-gradient(145deg, #10171f, #1b2530);
-            border-radius: 30px;
-            padding: 1.5rem;
-            margin: 2rem 0 1.5rem;
-            border: 1px solid #c1232c40;
-        }
-
-        .signup-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .signup-text span {
-            background: #c1232c;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            color: white;
-            display: inline-block;
-            margin-top: 0.3rem;
-        }
-
-        .email-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        @media (min-width: 480px) {
-            .email-form {
-                flex-direction: row;
-            }
-        }
-
-        .email-input {
-            flex: 1;
-            padding: 1rem;
-            border-radius: 50px;
-            border: none;
-            background: #26313e;
-            color: white;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .email-input:focus {
-            outline: 2px solid #f7c35c;
-        }
-
-        .email-btn {
-            background: #f7c35c;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-
-        @media (min-width: 480px) {
-            .email-btn {
-                width: auto;
-            }
-        }
-
-        .email-btn:active {
-            transform: scale(0.95);
-        }
-
         .footer {
             text-align: center;
             padding: 2rem 0 1rem;
@@ -564,15 +491,7 @@
         </div>
     </div>
 
-    <div class="signup-area">
-        <div class="signup-text">
-            📧 Get daily event updates<br><span>San ang G!</span>
-        </div>
-        <div class="email-form">
-            <input type="email" class="email-input" placeholder="your@email.ph" id="emailInput">
-            <button class="email-btn" id="subscribeBtn">Subscribe</button>
-        </div>
-    </div>
+    <!-- Email signup section completely removed -->
 
     <div class="footer">
         Designed & Developed by <strong>RP8</strong> | Events updated daily
@@ -645,7 +564,6 @@
         
         const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.name)}&dates=${start}/${end}&details=${encodeURIComponent(currentEvent.longDesc || currentEvent.desc)}&location=${encodeURIComponent(currentEvent.location)}`;
         
-        // Try to open in new tab (works in most in-app browsers)
         window.open(googleUrl, '_blank');
         
         trackEvent('Calendar', 'google', currentEvent.name);
@@ -681,13 +599,11 @@ END:VCALENDAR`;
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = `${currentEvent.name.replace(/\s+/g, '_')}.ics`;
-        link.setAttribute('target', '_blank'); // Helps in some in-app browsers
+        link.setAttribute('target', '_blank');
         
-        // Try multiple methods to trigger download
         document.body.appendChild(link);
         link.click();
         
-        // Fallback for some in-app browsers
         setTimeout(() => {
             window.location.href = link.href;
         }, 100);
@@ -859,9 +775,6 @@ END:VCALENDAR`;
                 minute: '2-digit'
             });
             
-            // You could also modify events here based on date
-            // For example, remove past events, add new ones
-            
             saveEventDatabase();
         }
     }
@@ -990,7 +903,7 @@ END:VCALENDAR`;
                         <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('Website', 'click', '${event.name}'); event.stopPropagation();">
                             <i class="fas fa-external-link-alt"></i> Website
                         </a>
-                        <a href="#" class="card-action-btn card-calendar-btn" onclick="openCalendarModal(${JSON.stringify(event).replace(/"/g, '&quot;')}, event);">
+                        <a href="#" class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${JSON.stringify(event).replace(/'/g, "\\'")}, event);'>
                             <i class="fas fa-calendar-plus"></i> Calendar
                         </a>
                     </div>
@@ -1007,25 +920,6 @@ END:VCALENDAR`;
 
     // Track page view
     trackEvent('Navigation', 'page_view', 'home');
-
-    // Email subscription
-    document.getElementById('subscribeBtn').addEventListener('click', function() {
-        const email = document.getElementById('emailInput').value.trim();
-        if (email && email.includes('@') && email.includes('.')) {
-            trackEvent('Subscription', 'signup', 'email_capture');
-            alert('Thanks! You\'ll get San ang G! daily event updates.');
-            document.getElementById('emailInput').value = '';
-        } else {
-            trackEvent('Subscription', 'failed', 'invalid_email');
-            alert('Please enter a valid email address');
-        }
-    });
-
-    document.getElementById('emailInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            document.getElementById('subscribeBtn').click();
-        }
-    });
 </script>
 </body>
 </html>
