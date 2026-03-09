@@ -6,7 +6,7 @@
     <title>San ang G! – Philippine Car Events</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Vercel Analytics - Replace with your actual script from dashboard -->
+    <!-- Vercel Analytics -->
     <script defer src="https://va.vercel-scripts.com/v1/analytics.js" data-project-id="prj_EdbMsvxATzlr5aWZR2tDv2XlqDti"></script>
     
     <style>
@@ -31,14 +31,13 @@
             width: 100%;
         }
 
-        /* Header/Brand - Updated to San ang G! */
         .brand {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             gap: 0.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             border-bottom: 2px solid #c1232c;
             padding-bottom: 1rem;
         }
@@ -63,7 +62,27 @@
             display: inline-block;
         }
 
-        /* Section Headers */
+        .last-updated {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #8f9eb2;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .last-updated i {
+            color: #f7c35c;
+        }
+
+        .last-updated span {
+            background: #1e2630;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
         .section-header {
             display: flex;
             align-items: center;
@@ -93,23 +112,23 @@
             color: #8f9eb2;
             font-size: 0.9rem;
             margin-left: auto;
+            background: #1e2630;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
         }
 
-        /* Week Events Layout */
         .week-events {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        /* When only 1-2 events in week */
         .week-events-compact {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
-        /* When 3+ events in week - featured + grid */
         .week-events-featured {
             display: grid;
             grid-template-columns: 1fr;
@@ -156,7 +175,6 @@
             }
         }
 
-        /* Month Events Grid */
         .month-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -176,7 +194,6 @@
             }
         }
 
-        /* Event Cards */
         .event-card {
             background: #121a22;
             border-radius: 20px;
@@ -316,7 +333,6 @@
             color: #0f1a24;
         }
 
-        /* Signup Area - Updated to San ang G! */
         .signup-area {
             background: linear-gradient(145deg, #10171f, #1b2530);
             border-radius: 30px;
@@ -402,7 +418,6 @@
             color: #f7c35c;
         }
 
-        /* Empty State */
         .empty-state {
             background: #1a232e;
             border-radius: 20px;
@@ -417,36 +432,65 @@
             color: #c1232c;
             margin-bottom: 1rem;
         }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #8f9eb2;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            color: #f7c35c;
+            margin-bottom: 1rem;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Brand - Updated to San ang G! -->
     <div class="brand">
         <h1>San ang G!</h1>
-        <div class="tag">Verified Philippine Car Events</div>
+        <div class="tag">Philippine Car Events · Daily Updates</div>
     </div>
 
-    <!-- Events within 7 days section -->
+    <div class="last-updated">
+        <i class="fas fa-sync-alt"></i>
+        <span id="lastUpdated">Checking for updates...</span>
+    </div>
+
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-fire"></i></div>
         <div class="section-title">This Week's Events</div>
         <div class="section-sub">next 7 days</div>
     </div>
-    <div id="weekEventsContainer" class="week-events"></div>
+    <div id="weekEventsContainer" class="week-events">
+        <div class="loading">
+            <i class="fas fa-circle-notch"></i>
+            <p>Loading latest events...</p>
+        </div>
+    </div>
 
-    <!-- Events within 30 days section -->
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-calendar-alt"></i></div>
         <div class="section-title">Coming Up This Month</div>
         <div class="section-sub">next 30 days</div>
     </div>
-    <div id="monthEventsContainer" class="month-grid"></div>
+    <div id="monthEventsContainer" class="month-grid">
+        <div class="loading">
+            <i class="fas fa-circle-notch"></i>
+            <p>Loading latest events...</p>
+        </div>
+    </div>
 
-    <!-- Email Signup - Updated to San ang G! -->
     <div class="signup-area">
         <div class="signup-text">
-            📧 Get verified event updates<br><span>San ang G!</span>
+            📧 Get daily event updates<br><span>San ang G!</span>
         </div>
         <div class="email-form">
             <input type="email" class="email-input" placeholder="your@email.ph" id="emailInput">
@@ -455,12 +499,12 @@
     </div>
 
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong> | Events verified from official sources
+        Designed & Developed by <strong>RP8</strong> | Events updated daily from official sources
     </div>
 </div>
 
 <script>
-    // Track analytics events (only if Vercel Analytics is loaded)
+    // Track analytics events
     function trackEvent(category, action, label) {
         if (typeof window.va !== 'undefined') {
             window.va('event', {
@@ -473,13 +517,11 @@
         }
     }
 
-    // Native calendar function for mobile (works on Android, iOS, Samsung)
+    // Native calendar function for mobile
     window.addToNativeCalendar = function(name, location, startDate, endDate, description) {
-        // Format dates for calendar
         const start = startDate.replace(/-/g, '');
         const end = endDate ? endDate.replace(/-/g, '') : start;
         
-        // Create ICS file content (works on all mobile calendars)
         const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN
@@ -491,7 +533,6 @@ DTEND:${end}
 LOCATION:${location}
 DESCRIPTION:${description || name}
 STATUS:CONFIRMED
-SEQUENCE:0
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
@@ -500,7 +541,6 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`;
         
-        // Create and trigger download
         const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -514,82 +554,56 @@ END:VCALENDAR`;
         return false;
     };
 
-    // VERIFIED PHILIPPINE CAR EVENTS - March-April 2026
-    const events = [
-        // UPCOMING (within 7 days from March 9, 2026)
-        { 
-            name: "TGR Philippine Cup - Race Weekend 1", 
-            location: "Riverpark, General Trias, Cavite", 
-            date: "March 13-15, 2026",
-            desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission! 30 racers competing in Sprint Races.",
-            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes displays of GR performance vehicles, Lexus favorites, and sim racing rigs.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://www.tgrphcup.com/",
-            source: "Daily Tribune",
-            sourceUrl: "#",
-            startDate: "2026-03-13",
-            endDate: "2026-03-15",
-            status: "upcoming"
-        },
-        
-        // UPCOMING (within 7 days) - second event for demo
-        { 
-            name: "UAAGI On the Move - Cebu", 
-            location: "SM Seaside, Cebu", 
-            date: "March 20-22, 2026",
-            desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar. Test drive over 20 models.",
-            longDesc: "The second leg of UAAGI's annual initiative brings world-class mobility solutions to Cebu. Test drive the latest EVs and hybrids including BAIC B30e Dune, Chery Tiggo rEV, and more.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://www.uaagi.com/",
-            source: "Manila Bulletin",
-            sourceUrl: "#",
-            startDate: "2026-03-20",
-            endDate: "2026-03-22",
-            status: "upcoming"
-        },
-        
-        // UPCOMING (beyond 7 days but within 30)
-        { 
-            name: "Manila International Auto Show 2026", 
-            location: "World Trade Center & PTTC, Pasay", 
-            date: "April 9-12, 2026",
-            desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests.",
-            longDesc: "The 2026 MIAS features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
-            link: "https://manilaautoshow.com/",
-            source: "Top Gear Philippines",
-            sourceUrl: "#",
-            startDate: "2026-04-09",
-            endDate: "2026-04-12",
-            status: "upcoming"
-        },
-        
-        // UPCOMING (within 30 days)
-        { 
-            name: "Ford Island Conquest - SM North", 
-            location: "SM North EDSA, Quezon City", 
-            date: "March 27-29, 2026",
-            desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger.",
-            longDesc: "Ford Philippines brings its Island Conquest test drive roadshow to SM North EDSA. Eventgoers can explore and test drive the full Ford lineup with exclusive promos.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-            link: "https://www.ford.com.ph/",
-            source: "Autocar Philippines",
-            sourceUrl: "#",
-            startDate: "2026-03-27",
-            endDate: "2026-03-29",
-            status: "upcoming"
-        }
-    ];
+    // Load events from API
+    async function loadEvents() {
+        try {
+            const response = await fetch('/api/events.json?t=' + Date.now());
+            if (!response.ok) throw new Error('Failed to load events');
+            
+            const data = await response.json();
+            const events = data.events || [];
+            const lastUpdated = data.lastUpdated || new Date().toLocaleString();
 
-    // Helper to get status badge
+            document.getElementById('lastUpdated').innerHTML = lastUpdated;
+
+            const today = new Date();
+            const nextWeek = new Date(today);
+            nextWeek.setDate(today.getDate() + 7);
+            const next30Days = new Date(today);
+            next30Days.setDate(today.getDate() + 30);
+
+            function parseEventDateRange(event) {
+                const start = new Date(event.startDate);
+                const end = new Date(event.endDate || event.startDate);
+                return { start, end };
+            }
+
+            const upcomingEvents = events.filter(event => {
+                const { start } = parseEventDateRange(event);
+                return start >= today;
+            });
+
+            const weekEvents = upcomingEvents.filter(event => {
+                const { start } = parseEventDateRange(event);
+                return start <= nextWeek;
+            }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+            const monthEvents = upcomingEvents.filter(event => {
+                const { start } = parseEventDateRange(event);
+                return start > nextWeek && start <= next30Days;
+            }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+            renderWeekEvents(weekEvents);
+            renderMonthEvents(monthEvents);
+
+        } catch (error) {
+            console.error('Error loading events:', error);
+            document.getElementById('weekEventsContainer').innerHTML = 
+                '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading events. Please refresh.</p></div>';
+            document.getElementById('monthEventsContainer').innerHTML = '';
+        }
+    }
+
     function getStatusBadge(status) {
         if (status === 'ongoing') return '<span class="status-badge status-ongoing">🔴 ONGOING</span>';
         if (status === 'upcoming') return '<span class="status-badge status-upcoming">⏳ UPCOMING</span>';
@@ -597,36 +611,7 @@ END:VCALENDAR`;
         return '';
     }
 
-    // Filter events by date range (only upcoming, no past)
-    const today = new Date('2026-03-09');
-    const nextWeek = new Date('2026-03-16');
-    const next30Days = new Date('2026-04-08');
-
-    function parseEventDateRange(event) {
-        const start = new Date(event.startDate);
-        const end = new Date(event.endDate || event.startDate);
-        return { start, end };
-    }
-
-    // Get upcoming events only (start date >= today)
-    const upcomingEvents = events.filter(event => {
-        const { start } = parseEventDateRange(event);
-        return start >= today;
-    });
-
-    // Split into week and month
-    const weekEvents = upcomingEvents.filter(event => {
-        const { start } = parseEventDateRange(event);
-        return start <= nextWeek;
-    }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-    const monthEvents = upcomingEvents.filter(event => {
-        const { start } = parseEventDateRange(event);
-        return start > nextWeek && start <= next30Days;
-    }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-    // Render week events based on count
-    function renderWeekEvents() {
+    function renderWeekEvents(weekEvents) {
         const container = document.getElementById('weekEventsContainer');
         if (!container) return;
 
@@ -635,7 +620,6 @@ END:VCALENDAR`;
             return;
         }
 
-        // If 1-2 events, show compact grid
         if (weekEvents.length <= 2) {
             let html = '<div class="week-events-compact">';
             weekEvents.forEach(event => {
@@ -646,18 +630,13 @@ END:VCALENDAR`;
             return;
         }
 
-        // If 3+ events, show featured + grid layout
         const featured = weekEvents[0];
         const rest = weekEvents.slice(1);
 
         let html = '<div class="week-events-featured">';
-        
-        // Featured card (left side)
         html += `<div class="featured-card">`;
         html += createEventCard(featured, true, true);
         html += `</div>`;
-        
-        // Grid for rest (right side)
         html += `<div class="week-grid">`;
         rest.forEach(event => {
             html += createEventCard(event, false);
@@ -668,7 +647,22 @@ END:VCALENDAR`;
         container.innerHTML = html;
     }
 
-    // Create event card HTML
+    function renderMonthEvents(monthEvents) {
+        const container = document.getElementById('monthEventsContainer');
+        if (!container) return;
+
+        if (monthEvents.length === 0) {
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No upcoming events this month</p></div>';
+            return;
+        }
+
+        let html = '';
+        monthEvents.forEach(event => {
+            html += createEventCard(event, false);
+        });
+        container.innerHTML = html;
+    }
+
     function createEventCard(event, showFullImage = false, isFeatured = false) {
         const imgSrc = isFeatured ? event.image : event.thumbnail;
         const desc = isFeatured ? (event.longDesc || event.desc) : event.desc;
@@ -702,36 +696,21 @@ END:VCALENDAR`;
         `;
     }
 
-    // Render month events grid
-    function renderMonthEvents() {
-        const container = document.getElementById('monthEventsContainer');
-        if (!container) return;
+    // Load events when page loads
+    loadEvents();
 
-        if (monthEvents.length === 0) {
-            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No upcoming events this month</p></div>';
-            return;
-        }
-
-        let html = '';
-        monthEvents.forEach(event => {
-            html += createEventCard(event, false);
-        });
-        container.innerHTML = html;
-    }
-
-    // Render everything
-    renderWeekEvents();
-    renderMonthEvents();
+    // Refresh every hour
+    setInterval(loadEvents, 60 * 60 * 1000);
 
     // Track page view
     trackEvent('Navigation', 'page_view', 'home');
 
-    // Email subscription with analytics - Updated to San ang G!
+    // Email subscription
     document.getElementById('subscribeBtn').addEventListener('click', function() {
         const email = document.getElementById('emailInput').value.trim();
         if (email && email.includes('@') && email.includes('.')) {
             trackEvent('Subscription', 'signup', 'email_capture');
-            alert('Thanks! You\'ll get San ang G! verified event updates.');
+            alert('Thanks! You\'ll get San ang G! daily event updates.');
             document.getElementById('emailInput').value = '';
         } else {
             trackEvent('Subscription', 'failed', 'invalid_email');
