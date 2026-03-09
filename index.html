@@ -6,7 +6,7 @@
     <title>San ang G! – Philippine Car Events</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Vercel Analytics -->
+    <!-- Vercel Analytics - Your ID -->
     <script defer src="https://va.vercel-scripts.com/v1/analytics.js" data-project-id="prj_EdbMsvxATzlr5aWZR2tDv2XlqDti"></script>
     
     <style>
@@ -461,13 +461,13 @@
 
     <div class="last-updated">
         <i class="fas fa-sync-alt"></i>
-        <span id="lastUpdated">Checking for updates...</span>
+        <span id="lastUpdated">Loading...</span>
     </div>
 
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-fire"></i></div>
         <div class="section-title">This Week's Events</div>
-        <div class="section-sub">next 7 days</div>
+        <div class="section-sub" id="weekRange">next 7 days</div>
     </div>
     <div id="weekEventsContainer" class="week-events">
         <div class="loading">
@@ -479,7 +479,7 @@
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-calendar-alt"></i></div>
         <div class="section-title">Coming Up This Month</div>
-        <div class="section-sub">next 30 days</div>
+        <div class="section-sub" id="monthRange">next 30 days</div>
     </div>
     <div id="monthEventsContainer" class="month-grid">
         <div class="loading">
@@ -499,7 +499,7 @@
     </div>
 
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong> | Events updated daily from official sources
+        Designed & Developed by <strong>RP8</strong> | Events updated daily
     </div>
 </div>
 
@@ -517,7 +517,7 @@
         }
     }
 
-    // Native calendar function for mobile
+    // Native calendar function
     window.addToNativeCalendar = function(name, location, startDate, endDate, description) {
         const start = startDate.replace(/-/g, '');
         const end = endDate ? endDate.replace(/-/g, '') : start;
@@ -557,20 +557,32 @@ END:VCALENDAR`;
     // Load events from API
     async function loadEvents() {
         try {
+            // Try to fetch from API
             const response = await fetch('/api/events.json?t=' + Date.now());
-            if (!response.ok) throw new Error('Failed to load events');
+            
+            if (!response.ok) {
+                throw new Error('API not available');
+            }
             
             const data = await response.json();
             const events = data.events || [];
             const lastUpdated = data.lastUpdated || new Date().toLocaleString();
 
+            // Update last updated display
             document.getElementById('lastUpdated').innerHTML = lastUpdated;
 
+            // Calculate date ranges
             const today = new Date();
             const nextWeek = new Date(today);
             nextWeek.setDate(today.getDate() + 7);
             const next30Days = new Date(today);
             next30Days.setDate(today.getDate() + 30);
+
+            // Update range displays
+            document.getElementById('weekRange').innerHTML = 
+                `${today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+            document.getElementById('monthRange').innerHTML = 
+                `${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${next30Days.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
 
             function parseEventDateRange(event) {
                 const start = new Date(event.startDate);
@@ -578,11 +590,13 @@ END:VCALENDAR`;
                 return { start, end };
             }
 
+            // Get upcoming events only
             const upcomingEvents = events.filter(event => {
                 const { start } = parseEventDateRange(event);
                 return start >= today;
             });
 
+            // Split into week and month
             const weekEvents = upcomingEvents.filter(event => {
                 const { start } = parseEventDateRange(event);
                 return start <= nextWeek;
@@ -593,13 +607,16 @@ END:VCALENDAR`;
                 return start > nextWeek && start <= next30Days;
             }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
+            // Render events
             renderWeekEvents(weekEvents);
             renderMonthEvents(monthEvents);
 
         } catch (error) {
             console.error('Error loading events:', error);
+            // Show fallback message
+            document.getElementById('lastUpdated').innerHTML = 'Unable to load events';
             document.getElementById('weekEventsContainer').innerHTML = 
-                '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading events. Please refresh.</p></div>';
+                '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Unable to load events. Please check back later.</p></div>';
             document.getElementById('monthEventsContainer').innerHTML = '';
         }
     }
@@ -613,17 +630,16 @@ END:VCALENDAR`;
 
     function renderWeekEvents(weekEvents) {
         const container = document.getElementById('weekEventsContainer');
-        if (!container) return;
-
+        
         if (weekEvents.length === 0) {
-            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No upcoming events this week</p></div>';
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events this week</p></div>';
             return;
         }
 
         if (weekEvents.length <= 2) {
             let html = '<div class="week-events-compact">';
             weekEvents.forEach(event => {
-                html += createEventCard(event, true);
+                html += createEventCard(event);
             });
             html += '</div>';
             container.innerHTML = html;
@@ -634,36 +650,31 @@ END:VCALENDAR`;
         const rest = weekEvents.slice(1);
 
         let html = '<div class="week-events-featured">';
-        html += `<div class="featured-card">`;
-        html += createEventCard(featured, true, true);
-        html += `</div>`;
+        html += `<div class="featured-card">${createEventCard(featured, true)}</div>`;
         html += `<div class="week-grid">`;
         rest.forEach(event => {
-            html += createEventCard(event, false);
+            html += createEventCard(event);
         });
-        html += `</div>`;
-        html += `</div>`;
-        
+        html += `</div></div>`;
         container.innerHTML = html;
     }
 
     function renderMonthEvents(monthEvents) {
         const container = document.getElementById('monthEventsContainer');
-        if (!container) return;
-
+        
         if (monthEvents.length === 0) {
-            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No upcoming events this month</p></div>';
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events this month</p></div>';
             return;
         }
 
         let html = '';
         monthEvents.forEach(event => {
-            html += createEventCard(event, false);
+            html += createEventCard(event);
         });
         container.innerHTML = html;
     }
 
-    function createEventCard(event, showFullImage = false, isFeatured = false) {
+    function createEventCard(event, isFeatured = false) {
         const imgSrc = isFeatured ? event.image : event.thumbnail;
         const desc = isFeatured ? (event.longDesc || event.desc) : event.desc;
         
