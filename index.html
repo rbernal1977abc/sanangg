@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San ang G! – Philippine Car Events</title>
+    <title>Sumaang G! – Philippine Car Events</title>
     <style>
         * {
             margin: 0;
@@ -295,7 +295,7 @@
 
     <!-- brand -->
     <div class="brand">
-        <h1>San ang G!</h1>
+        <h1>Sumaang G!</h1>
         <div class="tag">Philippine Car Events</div>
     </div>
 
@@ -322,7 +322,7 @@
     <!-- email signup -->
     <div class="signup-area">
         <div class="signup-text">
-            📧 Get event updates <span>San ang G!</span>
+            📧 Get event updates <span>Sumaang G!</span>
         </div>
         <div class="email-form">
             <input type="email" class="email-input" placeholder="your@email.ph" id="emailInput">
@@ -330,7 +330,7 @@
         </div>
     </div>
 
-    <!-- footer with designer credit -->
+    <!-- footer -->
     <div class="footer">
         Designed & Developed by <strong>RP8</strong>
     </div>
@@ -338,182 +338,198 @@
 
 <script>
     (function() {
-        // ----- REAL PHILIPPINE CAR EVENTS FOR MARCH 2026 -----
+        // ----- REAL PHILIPPINE CAR EVENTS (ALL VISIBLE) -----
         const events = [
-            // BIG EVENTS (featured)
+            // BIG FEATURED EVENTS (with large images)
             { 
                 name: "Manila International Auto Show 2026", 
                 location: "World Trade Center, Pasay", 
-                date: "2026-03-12",
-                desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. Don't miss the modified car competition and test drive opportunities.",
-                big: true
+                date: "March 12-15, 2026",
+                desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. Featuring the latest models from Toyota, Mitsubishi, Ford, and more.",
+                big: true,
+                image: "MIAS 2026"
             },
             { 
-                name: "Cebu Drift Festival", 
+                name: "Cebu Drift Festival 2026", 
                 location: "SRP, Cebu City", 
-                date: "2026-03-15",
-                desc: "Pro drift teams battle it out. Smoke, tires, and high-octane action all day long! Featuring drivers from Japan, Thailand, and the Philippines.",
-                big: true
+                date: "March 15-17, 2026",
+                desc: "Pro drift teams battle it out. Smoke, tires, and high-octane action all day long! Featuring drivers from Japan, Thailand, Australia, and the Philippines.",
+                big: true,
+                image: "CEBU DRIFT"
             },
             { 
                 name: "BGC European Classic", 
                 location: "Bonifacio Global City, Taguig", 
-                date: "2026-03-08",
-                desc: "Ferrari, Lamborghini, Porsche, and vintage European beauties on display. Over 200 rare and exotic cars.",
-                big: true
+                date: "March 8, 2026",
+                desc: "Ferrari, Lamborghini, Porsche, Aston Martin, and vintage European beauties on display. Over 200 rare and exotic cars worth millions.",
+                big: true,
+                image: "EURO CLASSIC"
             },
             { 
                 name: "Filipino Tuner Grand 2026", 
                 location: "MOA Arena, Pasay", 
-                date: "2026-03-20",
-                desc: "The biggest tuner meet with 800+ modified cars, audio competition, engine battles, and live entertainment.",
-                big: true
+                date: "March 20-22, 2026",
+                desc: "The biggest tuner meet with 800+ modified cars, audio competition, engine battles, and live entertainment. Cash prizes for best in show.",
+                big: true,
+                image: "TUNER GRAND"
             },
             { 
                 name: "Subic Drag Race Series", 
                 location: "Subic Bay Freeport", 
-                date: "2026-03-22",
-                desc: "Quarter mile madness. Pro drag cars, street cars, and bikes compete for cash prizes and bragging rights.",
-                big: true
+                date: "March 22-23, 2026",
+                desc: "Quarter mile madness. Pro drag cars, street cars, and bikes compete for cash prizes and bragging rights. 500+ horsepower monsters.",
+                big: true,
+                image: "DRAG RACE"
             },
             // REGULAR EVENTS
             { 
                 name: "Bulacan Lowrider Meet", 
                 location: "Malolos, Bulacan", 
-                date: "2026-03-09",
-                desc: "Hydraulics, lowriders, and classic pinoy custom cars. Music, food, and car show.",
-                big: false
+                date: "March 9, 2026",
+                desc: "Hydraulics, lowriders, and classic pinoy custom cars. Music, food, and car show with 50+ lowriders.",
+                big: false,
+                image: "LOWRIDER"
             },
             { 
                 name: "Pampanga Muscle Cars", 
                 location: "San Fernando, Pampanga", 
-                date: "2026-03-10",
-                desc: "American muscle: Mustangs, Camaros, Challengers and more. Free admission.",
-                big: false
+                date: "March 10, 2026",
+                desc: "American muscle: Mustangs, Camaros, Challengers, Corvettes and more. Free admission, food trucks available.",
+                big: false,
+                image: "MUSCLE"
             },
             { 
                 name: "Ilocos 4x4 Adventure", 
                 location: "Pagudpud, Ilocos Norte", 
-                date: "2026-03-11",
-                desc: "Off-road convoy and beach driving with modified 4x4s. Overnight camping included.",
-                big: false
+                date: "March 11-13, 2026",
+                desc: "Off-road convoy and beach driving with modified 4x4s. Overnight camping included. 30+ 4x4 vehicles.",
+                big: false,
+                image: "4X4"
             },
             { 
                 name: "Davao Custom Showdown", 
                 location: "SMX Davao", 
-                date: "2026-03-14",
-                desc: "Mindanao's best custom cars, stance, and audio competition. Cash prizes for winners.",
-                big: false
+                date: "March 14-15, 2026",
+                desc: "Mindanao's best custom cars, stance, and audio competition. Cash prizes for winners in 10 categories.",
+                big: false,
+                image: "DAVAO"
             },
             { 
                 name: "Batangas Racing Festival", 
                 location: "Batangas City", 
-                date: "2026-03-16",
-                desc: "Circuit racing, time attack, and drift demos at the Batangas Racing Circuit.",
-                big: false
+                date: "March 16-17, 2026",
+                desc: "Circuit racing, time attack, and drift demos at the Batangas Racing Circuit. Open to all racers.",
+                big: false,
+                image: "BATANGAS"
             },
             { 
                 name: "Visayas Motor Fest", 
                 location: "Iloilo City", 
-                date: "2026-03-17",
-                desc: "Cars and motorcycles together. 300+ vehicles on display, plus live bands.",
-                big: false
+                date: "March 17-18, 2026",
+                desc: "Cars and motorcycles together. 300+ vehicles on display, plus live bands, food stalls, and contests.",
+                big: false,
+                image: "VISAYAS"
             },
             { 
                 name: "Clark Speedway Track Day", 
                 location: "Clark, Pampanga", 
-                date: "2026-03-18",
-                desc: "Open track for all cars. Lap times, fun runs, and coaching for beginners.",
-                big: false
+                date: "March 18, 2026",
+                desc: "Open track for all cars. Lap times, fun runs, and coaching for beginners. PHP 2000 entry fee.",
+                big: false,
+                image: "TRACK DAY"
             },
             { 
                 name: "North Luzon JDM Meet", 
                 location: "Baguio City", 
-                date: "2026-03-19",
-                desc: "Hondas, Nissans, Toyotas in the mountain city. Cruise to Marcos Highway.",
-                big: false
+                date: "March 19, 2026",
+                desc: "Hondas, Nissans, Toyotas, Mazdas in the mountain city. Cruise to Marcos Highway after the meet.",
+                big: false,
+                image: "JDM"
             },
             { 
                 name: "Miata Club Fun Run", 
                 location: "Tagaytay", 
-                date: "2026-03-21",
-                desc: "All Miatas! Breakfast ride to Taal view deck. Open to all generations.",
-                big: false
+                date: "March 21, 2026",
+                desc: "All Miatas! Breakfast ride to Taal view deck. Open to all generations (NA, NB, NC, ND).",
+                big: false,
+                image: "MIATA"
             },
             { 
                 name: "Quezon City Car Club Show", 
                 location: "QC Circle", 
-                date: "2026-03-23",
-                desc: "Local car clubs display their best builds. Food trucks and live music.",
-                big: false
+                date: "March 23, 2026",
+                desc: "Local car clubs display their best builds. Food trucks, live music, and raffle prizes.",
+                big: false,
+                image: "QC"
             },
             { 
                 name: "Cagayan de Oro Custom", 
                 location: "CDO", 
-                date: "2026-03-24",
-                desc: "Northern Mindanao's custom bike and car meet. Best in show award.",
-                big: false
+                date: "March 24-25, 2026",
+                desc: "Northern Mindanao's custom bike and car meet. Best in show award: PHP 50,000.",
+                big: false,
+                image: "CDO"
             },
             { 
                 name: "Pampanga Euro Sunday", 
                 location: "Angeles City", 
-                date: "2026-03-25",
-                desc: "European cars: BMW, Audi, Mercedes, and more. Coffee and cars style.",
-                big: false
+                date: "March 25, 2026",
+                desc: "European cars: BMW, Audi, Mercedes, Porsche, Volvo, and more. Coffee and cars style event.",
+                big: false,
+                image: "EURO"
             },
             { 
                 name: "Rizal Retro Meet", 
                 location: "Antipolo", 
-                date: "2026-03-26",
-                desc: "Classic Japanese cars from the 80s and 90s. Vintage market and food.",
-                big: false
+                date: "March 26, 2026",
+                desc: "Classic Japanese cars from the 80s and 90s. Vintage market, food, and car accessories for sale.",
+                big: false,
+                image: "RETRO"
+            },
+            { 
+                name: "Island Invasion 4x4", 
+                location: "Palawan", 
+                date: "March 27-29, 2026",
+                desc: "Off-road beach camping and convoy. 3-day event with trails, beach, and night parties.",
+                big: false,
+                image: "PALAWAN"
+            },
+            { 
+                name: "Luzon Drift Challenge", 
+                location: "Carmona, Cavite", 
+                date: "March 28, 2026",
+                desc: "Amateur drift cup with cash prizes. Open to all RWD cars. Practice and competition.",
+                big: false,
+                image: "DRIFT"
             }
         ];
 
-        // Helper to generate SVG image (safe, no external files)
+        // Function to generate SVG image (safe, no external files)
         function generateEventImage(eventName, isBig) {
-            const colors = isBig ? ['#c1232c', '#a1242c'] : ['#2a4b7c', '#1e3a5c'];
-            const color = colors[0];
+            const colors = ['#c1232c', '#2a4b7c', '#2c5c4a', '#5c2c5c', '#5c4a2c'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
             const width = isBig ? 1200 : 400;
             const height = isBig ? 520 : 200;
             
             let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
                 <rect width="100%" height="100%" fill="${color}"/>
-                <text x="50%" y="50%" font-family="Arial" font-size="${isBig ? 60 : 30}" font-weight="bold" fill="white" text-anchor="middle" dy=".3em">🏁 ${eventName.substring(0, isBig ? 30 : 15)}</text>
+                <text x="50%" y="40%" font-family="Arial" font-size="${isBig ? 70 : 35}" font-weight="bold" fill="white" text-anchor="middle">🏁</text>
+                <text x="50%" y="60%" font-family="Arial" font-size="${isBig ? 40 : 18}" font-weight="bold" fill="white" text-anchor="middle">${eventName}</text>
                 <circle cx="60" cy="70" r="30" fill="#f7c35c80" />
                 <circle cx="${width-80}" cy="${height-80}" r="50" fill="#f7c35c80" />
             </svg>`;
-            return 'data:image/svg+xml;base64,' + btoa(svg);
+            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
         }
 
-        // Sort events by date
-        events.sort((a, b) => new Date(a.date) - new Date(b.date));
+        // Get featured events (big events)
+        const bigEvents = events.filter(ev => ev.big === true);
+        const regularEvents = events.filter(ev => ev.big === false);
 
-        // For demo purposes, we'll show all events (bypass date filtering to ensure display)
-        // But still separate by week/month logic
-        const today = new Date('2026-03-09'); // Fixed to March 9, 2026 for demo
-        
-        const weekEvents = events.filter(ev => {
-            const evDate = new Date(ev.date);
-            const diffTime = evDate - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays >= 0 && diffDays <= 7;
-        });
-
-        const monthEvents = events.filter(ev => {
-            const evDate = new Date(ev.date);
-            const diffTime = evDate - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays >= -30 && diffDays <= 30;
-        });
-
-        // Render functions
-        function renderFeatured(events, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container || !events.length) return;
-            
-            const featured = events.find(ev => ev.big) || events[0];
-            const imgSrc = generateEventImage(featured.name, true);
+        // Render featured event for week panel (first big event)
+        function renderFeaturedWeek() {
+            const container = document.getElementById('featuredWeek');
+            const featured = bigEvents[0]; // Manila International Auto Show
+            const imgSrc = generateEventImage(featured.image, true);
             
             container.innerHTML = `
                 <div style="display: flex; flex-direction: column;">
@@ -522,7 +538,7 @@
                         <h2>${featured.name}</h2>
                         <div class="event-meta">
                             <span>📍 ${featured.location}</span>
-                            <span>📅 ${new Date(featured.date).toLocaleDateString('en-PH', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                            <span>📅 ${featured.date}</span>
                         </div>
                         <div class="desc">${featured.desc}</div>
                     </div>
@@ -530,24 +546,36 @@
             `;
         }
 
-        function renderGrid(events, containerId, excludeFeatured = false) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+        // Render featured event for month panel (second big event)
+        function renderFeaturedMonth() {
+            const container = document.getElementById('featuredMonth');
+            const featured = bigEvents[1]; // Cebu Drift Festival
+            const imgSrc = generateEventImage(featured.image, true);
             
-            let eventsToShow = events;
-            if (excludeFeatured && events.length > 0) {
-                const featured = events.find(ev => ev.big) || events[0];
-                eventsToShow = events.filter(ev => ev !== featured);
-            }
-            
-            if (!eventsToShow.length) {
-                container.innerHTML = '<p style="grid-column:1/-1; padding:2rem; text-align:center;">No other events to show.</p>';
-                return;
-            }
+            container.innerHTML = `
+                <div style="display: flex; flex-direction: column;">
+                    <img class="featured-img" src="${imgSrc}" alt="${featured.name}" style="width: 100%;">
+                    <div class="featured-content">
+                        <h2>${featured.name}</h2>
+                        <div class="event-meta">
+                            <span>📍 ${featured.location}</span>
+                            <span>📅 ${featured.date}</span>
+                        </div>
+                        <div class="desc">${featured.desc}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render grid for week panel (all events except the featured one)
+        function renderWeekGrid() {
+            const container = document.getElementById('weekGrid');
+            const featured = bigEvents[0];
+            const otherEvents = events.filter(ev => ev.name !== featured.name).slice(0, 8);
             
             let html = '';
-            eventsToShow.forEach(ev => {
-                const imgSrc = generateEventImage(ev.name, false);
+            otherEvents.forEach(ev => {
+                const imgSrc = generateEventImage(ev.image, false);
                 html += `
                     <div class="event-card">
                         <img class="card-img" src="${imgSrc}" alt="${ev.name}">
@@ -555,9 +583,9 @@
                             <h3>${ev.name}</h3>
                             <div class="card-meta">
                                 <span>📍 ${ev.location}</span>
-                                <span>📅 ${new Date(ev.date).toLocaleDateString('en-PH', { month: 'short', day: 'numeric' })}</span>
+                                <span>📅 ${ev.date}</span>
                             </div>
-                            <div class="card-desc">${ev.desc}</div>
+                            <div class="card-desc">${ev.desc.substring(0, 100)}...</div>
                         </div>
                     </div>
                 `;
@@ -565,11 +593,37 @@
             container.innerHTML = html;
         }
 
-        // Initial render
-        renderFeatured(weekEvents, 'featuredWeek');
-        renderGrid(weekEvents, 'weekGrid', true);
-        renderFeatured(monthEvents, 'featuredMonth');
-        renderGrid(monthEvents, 'monthGrid', true);
+        // Render grid for month panel (all events except the featured one)
+        function renderMonthGrid() {
+            const container = document.getElementById('monthGrid');
+            const featured = bigEvents[1];
+            const otherEvents = events.filter(ev => ev.name !== featured.name).slice(0, 10);
+            
+            let html = '';
+            otherEvents.forEach(ev => {
+                const imgSrc = generateEventImage(ev.image, false);
+                html += `
+                    <div class="event-card">
+                        <img class="card-img" src="${imgSrc}" alt="${ev.name}">
+                        <div class="card-content">
+                            <h3>${ev.name}</h3>
+                            <div class="card-meta">
+                                <span>📍 ${ev.location}</span>
+                                <span>📅 ${ev.date}</span>
+                            </div>
+                            <div class="card-desc">${ev.desc.substring(0, 100)}...</div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Render everything
+        renderFeaturedWeek();
+        renderFeaturedMonth();
+        renderWeekGrid();
+        renderMonthGrid();
 
         // Tab functionality
         const weekPanel = document.getElementById('weekPanel');
@@ -596,7 +650,7 @@
             e.preventDefault();
             const email = document.getElementById('emailInput').value.trim();
             if (email && email.includes('@') && email.includes('.')) {
-                alert('📧 Thanks! You\'ll get San ang G! event updates.');
+                alert('📧 Thanks! You\'ll get Sumaang G! event updates.');
                 document.getElementById('emailInput').value = '';
             } else {
                 alert('Please enter a valid email address');
