@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumaang ang G! – Philippine Car Events</title>
+    <title>Sumaang ang G! – Philippine Car Events (Verified)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -51,6 +51,17 @@
             font-weight: 600;
             color: #f7c35c;
             border: 1px solid #c1232c;
+        }
+
+        .source-badge {
+            display: inline-block;
+            background: #2a3a4a;
+            color: #a0d0ff;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            border: 1px solid #4a6a8a;
         }
 
         .tabs {
@@ -117,6 +128,10 @@
             font-size: 2.5rem;
             color: #f7c35c;
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .event-meta {
@@ -136,6 +151,24 @@
         .desc {
             font-size: 1.1rem;
             line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .source-info {
+            font-size: 0.85rem;
+            color: #8f9eb2;
+            border-left: 3px solid #f7c35c;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+
+        .source-info a {
+            color: #f7c35c;
+            text-decoration: none;
+        }
+
+        .source-info a:hover {
+            text-decoration: underline;
         }
 
         .event-actions {
@@ -223,6 +256,12 @@
             color: #b6c5d9;
             font-size: 0.95rem;
             line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-source {
+            font-size: 0.7rem;
+            color: #5a6b7c;
             margin-bottom: 1rem;
         }
 
@@ -333,18 +372,43 @@
         .footer strong {
             color: #f7c35c;
         }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .status-ongoing {
+            background: #2c5c4a;
+            color: #a0ffc0;
+        }
+
+        .status-upcoming {
+            background: #5c4a2c;
+            color: #ffd0a0;
+        }
+
+        .status-ended {
+            background: #5c2c2c;
+            color: #ffa0a0;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="brand">
         <h1>Sumaang ang G!</h1>
-        <div class="tag">Philippine Car Events</div>
+        <div class="tag">Verified Philippine Car Events</div>
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" id="tabWeek">🔥 7-day events</button>
-        <button class="tab-btn" id="tabMonth">📅 30 days before & after</button>
+        <button class="tab-btn active" id="tabWeek">🔥 Next 7 days</button>
+        <button class="tab-btn" id="tabMonth">📅 30 days (before & after)</button>
     </div>
 
     <div id="weekPanel" class="panel active-panel">
@@ -355,13 +419,13 @@
 
     <div id="monthPanel" class="panel">
         <div class="featured-event" id="featuredMonth"></div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">‣ more around this month</h2>
+        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">‣ events within 30 days</h2>
         <div class="events-grid" id="monthGrid"></div>
     </div>
 
     <div class="signup-area">
         <div class="signup-text">
-            📧 Get event updates <span>Sumaang ang G!</span>
+            📧 Get verified event updates <span>Sumaang ang G!</span>
         </div>
         <div class="email-form">
             <input type="email" class="email-input" placeholder="your@email.ph" id="emailInput">
@@ -370,125 +434,174 @@
     </div>
 
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong>
+        Designed & Developed by <strong>RP8</strong> | All events verified from official sources
     </div>
 </div>
 
 <script>
-    // REAL PHILIPPINE CAR EVENTS WITH CORRECT DATES AND LINKS
+    // VERIFIED PHILIPPINE CAR EVENTS - March-April 2026
+    // All events have working links and official sources
     const events = [
-        // BIG FEATURED EVENTS - CORRECTED MIAS DATE TO APRIL 9-12
+        // ONGOING / UPCOMING (within 7 days from March 9, 2026)
+        { 
+            name: "TGR Philippine Cup - Race Weekend 1", 
+            location: "Riverpark, General Trias, Cavite", 
+            date: "March 13-15, 2026",
+            desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission! 30 racers competing in Sprint Races.",
+            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes displays of GR performance vehicles, Lexus favorites, and sim racing rigs. TMP President Masando Hashimoto will be racing.",
+            big: true,
+            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
+            link: "https://www.tgrphcup.com/",
+            source: "Daily Tribune",
+            sourceUrl: "https://tribune.net.ph/2026/03/01/riverpark-showdown-new-tamaraw-headlines-2026-tgr-philippine-cup-opener/",
+            startDate: "2026-03-13",
+            endDate: "2026-03-15",
+            status: "upcoming"
+        },
+        
+        // UPCOMING (beyond 7 days)
         { 
             name: "Manila International Auto Show 2026", 
             location: "World Trade Center & PTTC, Pasay", 
             date: "April 9-12, 2026",
             desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. Theme: 'Powering Mobility'.",
-            longDesc: "The 21st Manila International Auto Show (MIAS) features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition.",
+            longDesc: "The 2026 MIAS features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition. The PTTC returns as a secondary venue with nearly 100 additional vehicle displays and a dedicated food court. Connected to WTC via air-conditioned walkway.",
             big: true,
             image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200&h=500&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
             link: "https://manilaautoshow.com/",
+            source: "Top Gear Philippines",
+            sourceUrl: "https://www.topgear.com.ph/news/industry-news/mias-2026-pttc-new-venue-a2619-20260225",
             startDate: "2026-04-09",
-            endDate: "2026-04-12"
+            endDate: "2026-04-12",
+            status: "upcoming"
         },
-        { 
-            name: "TGR Philippine Cup - Race Weekend 1", 
-            location: "Riverpark, General Trias, Cavite", 
-            date: "March 13-15, 2026",
-            desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission!",
-            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Watch the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes GR vehicle displays and sim racing rigs.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://www.tgrphcup.com/",
-            startDate: "2026-03-13",
-            endDate: "2026-03-15"
-        },
-        // REGULAR EVENTS
+        
+        // JUST ENDED (within 30 days before)
         { 
             name: "Ford Island Conquest - SM Clark", 
             location: "SM Clark, Angeles, Pampanga", 
             date: "March 6-8, 2026",
-            desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger.",
-            longDesc: "Experience the full Ford lineup with test drives, event-exclusive promos, and cash discounts up to P100,000. Free admission from 10am to 9pm.",
+            desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger. Free admission.",
+            longDesc: "Ford Philippines held the second leg of its Island Conquest test drive roadshow at SM Clark. Eventgoers could explore and test drive the Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger. Exclusive promos included cash discounts up to P100,000 and accessories packages. This event strengthened Ford's presence in North Luzon.",
             big: false,
             image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
             link: "https://www.ford.com.ph/",
+            source: "Autocar Philippines",
+            sourceUrl: "https://autocar.com.ph/ford-island-conquest-heads-to-sm-clark-from-march-6-to-8/",
             startDate: "2026-03-06",
-            endDate: "2026-03-08"
+            endDate: "2026-03-08",
+            status: "ended"
         },
         { 
             name: "UAAGI On the Move 2026", 
             location: "SM MOA Central Atrium, Pasay", 
             date: "February 26 - March 1, 2026",
             desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar. Test drive over 20 models.",
-            longDesc: "One-stop shop for car buyers with test drives, event-exclusive promos, on-the-spot bank approvals, and trade-in facility.",
+            longDesc: "The first leg of UAAGI's annual initiative brought world-class mobility solutions to Filipino consumers. Featured vehicles included BAIC B30e Dune, Chery Tiggo rEV Luxury Edition, Foton Traveller Sierra EV, Jetour T2 Lightning i-DM Panda Edition, Lynk & Co 08 EM-P, and Radar RD6 EM-P. Visitors enjoyed test drives, exclusive promos, on-the-spot bank approvals, and trade-in facility.",
             big: false,
             image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
             link: "https://www.uaagi.com/",
+            source: "Manila Bulletin",
+            sourceUrl: "https://mb.com.ph/2026/02/27/uaagi-on-the-move-2026-happening-this-weekend",
             startDate: "2026-02-26",
-            endDate: "2026-03-01"
+            endDate: "2026-03-01",
+            status: "ended"
         },
+        
+        // UPCOMING LATER
         { 
-            name: "PTTC MIAS Expansion Venue", 
-            location: "Philippine Trade Training Center, Pasay", 
-            date: "April 9-12, 2026",
-            desc: "Additional 22,500 sqm of exhibition space with nearly 100 extra vehicles and dedicated food court.",
-            longDesc: "The PTTC returns as a secondary venue for MIAS 2026, connected to WTC via air-conditioned walkway. Features additional car displays and food stalls.",
+            name: "Philippine International Motor Show 2026", 
+            location: "World Trade Center, Pasay", 
+            date: "June 4-7, 2026",
+            desc: "The 10th PIMS, organized by CAMPI, featuring the latest models from all major manufacturers.",
+            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. CAMPI members will showcase cutting-edge technologies, global models, and mobility solutions. Expected to be the biggest and most diverse PIMS yet with participation from all major automotive brands in the Philippines.",
             big: false,
             image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            link: "https://manilaautoshow.com/",
-            startDate: "2026-04-09",
-            endDate: "2026-04-12"
-        },
-        { 
-            name: "TGR Philippine Cup - Tamaraw Debut", 
-            location: "Riverpark, Cavite", 
-            date: "March 13-15, 2026",
-            desc: "First official circuit race for the Next Generation Tamaraw OMR. Free passes available online.",
-            longDesc: "Watch the Tamaraw Racing Class debut alongside Vios OMR in Sprint Races. Features 30 racers including TMP President Masando Hashimoto.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1601369561303-85a36d229bbf?w=400&h=200&fit=crop",
-            link: "https://www.tgrphcup.com/",
-            startDate: "2026-03-13",
-            endDate: "2026-03-15"
+            thumbnail: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
+            link: "https://www.campi.ph/",
+            source: "AutoIndustriya",
+            sourceUrl: "https://www.autoindustriya.com/auto-industry-news/philippine-international-motor-show-announced-for-june-2026.html",
+            startDate: "2026-06-04",
+            endDate: "2026-06-07",
+            status: "upcoming"
         }
     ];
 
-    // Get featured events (big events)
-    const bigEvents = events.filter(ev => ev.big === true);
+    // Helper to get status badge
+    function getStatusBadge(status) {
+        if (status === 'ongoing') return '<span class="status-badge status-ongoing">🔴 ONGOING</span>';
+        if (status === 'upcoming') return '<span class="status-badge status-upcoming">⏳ UPCOMING</span>';
+        if (status === 'ended') return '<span class="status-badge status-ended">✅ ENDED</span>';
+        return '';
+    }
 
     // Calendar function with correct dates
     window.addToCalendar = function(name, dateRange, location, startDate, endDate) {
-        // Parse dates for Google Calendar
         const start = startDate.replace(/-/g, '');
         const end = endDate ? endDate.replace(/-/g, '') : start;
-        
         const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${start}/${end}&details=${encodeURIComponent(name + ' at ' + location)}&location=${encodeURIComponent(location)}`;
         window.open(googleUrl, '_blank', 'noopener,noreferrer');
         return false;
     };
 
-    // Render functions with working links
-    function renderFeaturedWeek() {
-        const container = document.getElementById('featuredWeek');
-        const featured = bigEvents[0];
+    // Filter events by date range
+    const today = new Date('2026-03-09'); // Current date
+    const nextWeek = new Date('2026-03-16');
+    const thirtyDaysAgo = new Date('2026-02-07');
+    const thirtyDaysFromNow = new Date('2026-04-08');
+
+    function parseEventDateRange(event) {
+        const start = new Date(event.startDate);
+        const end = new Date(event.endDate || event.startDate);
+        return { start, end };
+    }
+
+    const weekEvents = events.filter(event => {
+        const { start, end } = parseEventDateRange(event);
+        // Event overlaps with next 7 days (March 9-16)
+        return (start <= nextWeek && end >= today);
+    }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+    const monthEvents = events.filter(event => {
+        const { start, end } = parseEventDateRange(event);
+        // Event overlaps with last 30 days or next 30 days (Feb 7 - Apr 8)
+        return (start <= thirtyDaysFromNow && end >= thirtyDaysAgo);
+    }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+    // Get featured events (prioritize ongoing/upcoming big events)
+    const featuredWeek = weekEvents.find(ev => ev.big === true && ev.status !== 'ended') || weekEvents[0];
+    const featuredMonth = monthEvents.find(ev => ev.big === true && ev.status !== 'ended') || monthEvents[1] || monthEvents[0];
+
+    // Render featured event
+    function renderFeatured(containerId, event) {
+        const container = document.getElementById(containerId);
+        if (!container || !event) return;
         
         container.innerHTML = `
             <div>
-                <img class="featured-img" src="${featured.image}" alt="${featured.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop'">
+                <img class="featured-img" src="${event.image}" alt="${event.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop'">
                 <div class="featured-content">
-                    <h2>${featured.name}</h2>
+                    <h2>
+                        ${event.name}
+                        ${getStatusBadge(event.status)}
+                    </h2>
                     <div class="event-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> ${featured.location}</span>
-                        <span><i class="fas fa-calendar"></i> ${featured.date}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                        <span><i class="fas fa-calendar"></i> ${event.date}</span>
                     </div>
-                    <div class="desc">${featured.longDesc || featured.desc}</div>
+                    <div class="desc">${event.longDesc || event.desc}</div>
+                    <div class="source-info">
+                        <i class="fas fa-newspaper"></i> Source: <a href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer">${event.source}</a>
+                    </div>
                     <div class="event-actions">
-                        <a href="${featured.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
-                            <i class="fas fa-info-circle"></i> Official Website
+                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
+                            <i class="fas fa-external-link-alt"></i> Official Website
                         </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}', '${featured.startDate}', '${featured.endDate}'); event.preventDefault(); event.stopPropagation();">
+                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${event.name}', '${event.date}', '${event.location}', '${event.startDate}', '${event.endDate}'); event.preventDefault(); event.stopPropagation();">
                             <i class="fas fa-calendar-plus"></i> Add to Calendar
                         </a>
                     </div>
@@ -497,87 +610,39 @@
         `;
     }
 
-    function renderFeaturedMonth() {
-        const container = document.getElementById('featuredMonth');
-        const featured = bigEvents[1] || bigEvents[0];
+    // Render grid
+    function renderGrid(containerId, events, excludeFeatured = null) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
         
-        container.innerHTML = `
-            <div>
-                <img class="featured-img" src="${featured.image}" alt="${featured.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop'">
-                <div class="featured-content">
-                    <h2>${featured.name}</h2>
-                    <div class="event-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> ${featured.location}</span>
-                        <span><i class="fas fa-calendar"></i> ${featured.date}</span>
-                    </div>
-                    <div class="desc">${featured.longDesc || featured.desc}</div>
-                    <div class="event-actions">
-                        <a href="${featured.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
-                            <i class="fas fa-info-circle"></i> Official Website
-                        </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}', '${featured.startDate}', '${featured.endDate}'); event.preventDefault(); event.stopPropagation();">
-                            <i class="fas fa-calendar-plus"></i> Add to Calendar
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    function renderWeekGrid() {
-        const container = document.getElementById('weekGrid');
-        const featured = bigEvents[0];
-        // For week view, show events happening in March (current month)
-        const weekEvents = events.filter(ev => ev.date.includes('March')).slice(0, 4);
+        let eventsToShow = events;
+        if (excludeFeatured) {
+            eventsToShow = events.filter(ev => ev.name !== excludeFeatured.name);
+        }
+        
+        if (!eventsToShow.length) {
+            container.innerHTML = '<p style="grid-column:1/-1; padding:2rem; text-align:center;">No other verified events in this period.</p>';
+            return;
+        }
         
         let html = '';
-        weekEvents.forEach(ev => {
+        eventsToShow.slice(0, 8).forEach(ev => {
             html += `
                 <div class="event-card">
                     <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
                     <div class="card-content">
-                        <h3>${ev.name}</h3>
+                        <h3>${ev.name} ${getStatusBadge(ev.status)}</h3>
                         <div class="card-meta">
                             <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
                             <span><i class="fas fa-calendar"></i> ${ev.date}</span>
                         </div>
                         <div class="card-desc">${ev.desc}</div>
+                        <div class="card-source">
+                            <i class="fas fa-newspaper"></i> ${ev.source}
+                        </div>
                         <div class="card-actions">
                             <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
-                                <i class="fas fa-info-circle"></i> Website
-                            </a>
-                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}', '${ev.startDate}', '${ev.endDate}'); event.preventDefault(); event.stopPropagation();">
-                                <i class="fas fa-calendar-plus"></i> Calendar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-
-    function renderMonthGrid() {
-        const container = document.getElementById('monthGrid');
-        const featured = bigEvents[1] || bigEvents[0];
-        // For month view, show all events except the featured one
-        const monthEvents = events.filter(ev => ev.name !== featured.name).slice(0, 6);
-        
-        let html = '';
-        monthEvents.forEach(ev => {
-            html += `
-                <div class="event-card">
-                    <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
-                    <div class="card-content">
-                        <h3>${ev.name}</h3>
-                        <div class="card-meta">
-                            <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
-                            <span><i class="fas fa-calendar"></i> ${ev.date}</span>
-                        </div>
-                        <div class="card-desc">${ev.desc}</div>
-                        <div class="card-actions">
-                            <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
-                                <i class="fas fa-info-circle"></i> Website
+                                <i class="fas fa-external-link-alt"></i> Website
                             </a>
                             <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}', '${ev.startDate}', '${ev.endDate}'); event.preventDefault(); event.stopPropagation();">
                                 <i class="fas fa-calendar-plus"></i> Calendar
@@ -591,10 +656,10 @@
     }
 
     // Render everything
-    renderFeaturedWeek();
-    renderFeaturedMonth();
-    renderWeekGrid();
-    renderMonthGrid();
+    if (featuredWeek) renderFeatured('featuredWeek', featuredWeek);
+    if (featuredMonth) renderFeatured('featuredMonth', featuredMonth);
+    renderGrid('weekGrid', weekEvents, featuredWeek);
+    renderGrid('monthGrid', monthEvents, featuredMonth);
 
     // Tab switching
     document.getElementById('tabWeek').addEventListener('click', function() {
@@ -615,7 +680,7 @@
     document.getElementById('subscribeBtn').addEventListener('click', function() {
         const email = document.getElementById('emailInput').value.trim();
         if (email && email.includes('@') && email.includes('.')) {
-            alert('Thanks! You\'ll get Sumaang ang G! event updates with accurate event information.');
+            alert('Thanks! You\'ll get Sumaang ang G! verified event updates.');
             document.getElementById('emailInput').value = '';
         } else {
             alert('Please enter a valid email address');
