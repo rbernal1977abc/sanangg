@@ -450,6 +450,82 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+
+        /* Calendar fallback modal */
+        .calendar-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .calendar-modal.active {
+            display: flex;
+        }
+
+        .calendar-modal-content {
+            background: #1a2530;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            border: 2px solid #c1232c;
+        }
+
+        .calendar-modal-content h3 {
+            color: #f7c35c;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .calendar-modal-content p {
+            color: #e0e4e9;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #0f1a24;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            border: 1px solid #2e3a47;
+        }
+
+        .calendar-option:hover {
+            border-color: #f7c35c;
+        }
+
+        .calendar-option i {
+            font-size: 1.5rem;
+            color: #f7c35c;
+        }
+
+        .calendar-option span {
+            font-weight: 600;
+        }
+
+        .calendar-close {
+            width: 100%;
+            padding: 1rem;
+            background: #2f3b4a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -503,6 +579,31 @@
     </div>
 </div>
 
+<!-- Calendar Fallback Modal -->
+<div id="calendarModal" class="calendar-modal">
+    <div class="calendar-modal-content">
+        <h3><i class="fas fa-calendar-plus"></i> Add to Calendar</h3>
+        <p id="modalEventName"></p>
+        <div class="calendar-option" id="googleCalendarOption">
+            <i class="fab fa-google"></i>
+            <span>Google Calendar</span>
+        </div>
+        <div class="calendar-option" id="appleCalendarOption">
+            <i class="fab fa-apple"></i>
+            <span>Apple Calendar (download .ics)</span>
+        </div>
+        <div class="calendar-option" id="outlookCalendarOption">
+            <i class="fab fa-microsoft"></i>
+            <span>Outlook Calendar</span>
+        </div>
+        <div class="calendar-option" id="copyDatesOption">
+            <i class="fas fa-copy"></i>
+            <span>Copy Event Dates</span>
+        </div>
+        <button class="calendar-close" onclick="closeCalendarModal()">Close</button>
+    </div>
+</div>
+
 <script>
     // Track analytics events
     function trackEvent(category, action, label) {
@@ -517,21 +618,56 @@
         }
     }
 
-    // Native calendar function
-    window.addToNativeCalendar = function(name, location, startDate, endDate, description) {
-        const start = startDate.replace(/-/g, '');
-        const end = endDate ? endDate.replace(/-/g, '') : start;
+    // Calendar modal state
+    let currentEvent = null;
+
+    // Open calendar modal
+    function openCalendarModal(event, e) {
+        e.preventDefault();
+        e.stopPropagation();
+        currentEvent = event;
+        document.getElementById('modalEventName').innerHTML = `<strong>${event.name}</strong><br>${event.location}<br>${event.date}`;
+        document.getElementById('calendarModal').classList.add('active');
+        trackEvent('Calendar', 'open_modal', event.name);
+    }
+
+    function closeCalendarModal() {
+        document.getElementById('calendarModal').classList.remove('active');
+        currentEvent = null;
+    }
+
+    // Calendar option handlers
+    document.getElementById('googleCalendarOption').addEventListener('click', function() {
+        if (!currentEvent) return;
+        
+        const start = currentEvent.startDate.replace(/-/g, '');
+        const end = currentEvent.endDate ? currentEvent.endDate.replace(/-/g, '') : start;
+        
+        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.name)}&dates=${start}/${end}&details=${encodeURIComponent(currentEvent.longDesc || currentEvent.desc)}&location=${encodeURIComponent(currentEvent.location)}`;
+        
+        // Try to open in new tab (works in most in-app browsers)
+        window.open(googleUrl, '_blank');
+        
+        trackEvent('Calendar', 'google', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('appleCalendarOption').addEventListener('click', function() {
+        if (!currentEvent) return;
+        
+        const start = currentEvent.startDate.replace(/-/g, '');
+        const end = currentEvent.endDate ? currentEvent.endDate.replace(/-/g, '') : start;
         
         const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-SUMMARY:${name}
+SUMMARY:${currentEvent.name}
 DTSTART:${start}
 DTEND:${end}
-LOCATION:${location}
-DESCRIPTION:${description || name}
+LOCATION:${currentEvent.location}
+DESCRIPTION:${currentEvent.longDesc || currentEvent.desc}
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:-PT30M
@@ -544,15 +680,71 @@ END:VCALENDAR`;
         const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `${name.replace(/\s+/g, '_')}.ics`;
+        link.download = `${currentEvent.name.replace(/\s+/g, '_')}.ics`;
+        link.setAttribute('target', '_blank'); // Helps in some in-app browsers
+        
+        // Try multiple methods to trigger download
         document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
         
-        trackEvent('Calendar', 'add_to_calendar', name);
-        return false;
-    };
+        // Fallback for some in-app browsers
+        setTimeout(() => {
+            window.location.href = link.href;
+        }, 100);
+        
+        setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        }, 1000);
+        
+        trackEvent('Calendar', 'apple', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('outlookCalendarOption').addEventListener('click', function() {
+        if (!currentEvent) return;
+        
+        const start = currentEvent.startDate.replace(/-/g, '');
+        const end = currentEvent.endDate ? currentEvent.endDate.replace(/-/g, '') : start;
+        
+        const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(currentEvent.name)}&startdt=${currentEvent.startDate}&enddt=${currentEvent.endDate || currentEvent.startDate}&location=${encodeURIComponent(currentEvent.location)}&body=${encodeURIComponent(currentEvent.longDesc || currentEvent.desc)}`;
+        
+        window.open(outlookUrl, '_blank');
+        
+        trackEvent('Calendar', 'outlook', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('copyDatesOption').addEventListener('click', function() {
+        if (!currentEvent) return;
+        
+        const text = `${currentEvent.name}\n${currentEvent.location}\n${currentEvent.date}`;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Event details copied to clipboard!');
+        }).catch(() => {
+            prompt('Copy these details:', text);
+        });
+        
+        trackEvent('Calendar', 'copy', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('calendarModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeCalendarModal();
+        }
+    });
+
+    // Detect if in in-app browser
+    function isInAppBrowser() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        return (
+            /FBAN|FBAV|Instagram|FBIOS|Messenger|Line|Twitter|Snapchat|WhatsApp/i.test(ua) ||
+            (ua.includes('Twitter') && ua.includes('iPhone')) ||
+            (ua.includes('FBAN') || ua.includes('FBAV'))
+        );
+    }
 
     // Event database (updates daily via localStorage)
     let eventDatabase = {
@@ -798,7 +990,7 @@ END:VCALENDAR`;
                         <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('Website', 'click', '${event.name}'); event.stopPropagation();">
                             <i class="fas fa-external-link-alt"></i> Website
                         </a>
-                        <a href="#" class="card-action-btn card-calendar-btn" onclick="addToNativeCalendar('${event.name}', '${event.location}', '${event.startDate}', '${event.endDate}', '${event.longDesc || event.desc}'); event.preventDefault(); event.stopPropagation();">
+                        <a href="#" class="card-action-btn card-calendar-btn" onclick="openCalendarModal(${JSON.stringify(event).replace(/"/g, '&quot;')}, event);">
                             <i class="fas fa-calendar-plus"></i> Calendar
                         </a>
                     </div>
