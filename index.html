@@ -6,13 +6,9 @@
     <title>Sumaan ang G! – Philippine Car Events (Verified)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Vercel Analytics - Static HTML version -->
-    <script>
-        window.va = window.va || function () { 
-            (window.vaq = window.vaq || []).push(arguments); 
-        };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Vercel Analytics - REPLACE WITH YOUR ACTUAL SCRIPT FROM DASHBOARD -->
+    <!-- Go to Vercel Dashboard → Your Project → Analytics → Enable → Copy Script -->
+    <script defer src="https://va.vercel-scripts.com/v1/analytics.js" data-project-id="prj_EdbMsvxATzlr5aWZR2tDv2XlqDti"></script>
     <!-- End Vercel Analytics -->
     
     <style>
@@ -411,6 +407,7 @@
 </head>
 <body>
 <div class="container">
+    <!-- Brand with updated name "Sumaan ang G!" -->
     <div class="brand">
         <h1>Sumaan ang G!</h1>
         <div class="tag">Verified Philippine Car Events</div>
@@ -433,6 +430,7 @@
         <div class="events-grid" id="monthGrid"></div>
     </div>
 
+    <!-- Email signup with updated name -->
     <div class="signup-area">
         <div class="signup-text">
             📧 Get verified event updates <span>Sumaan ang G!</span>
@@ -449,9 +447,35 @@
 </div>
 
 <script>
+    // Track analytics events (only if Vercel Analytics is loaded)
+    function trackEvent(category, action, label) {
+        if (typeof window.va !== 'undefined') {
+            window.va('event', {
+                name: action,
+                data: {
+                    category: category,
+                    label: label
+                }
+            });
+        }
+    }
+
+    // Calendar function with correct dates
+    window.addToCalendar = function(name, dateRange, location, startDate, endDate) {
+        const start = startDate.replace(/-/g, '');
+        const end = endDate ? endDate.replace(/-/g, '') : start;
+        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${start}/${end}&details=${encodeURIComponent(name + ' at ' + location)}&location=${encodeURIComponent(location)}`;
+        
+        // Track calendar click
+        trackEvent('Calendar', 'add_to_calendar', name);
+        
+        window.open(googleUrl, '_blank', 'noopener,noreferrer');
+        return false;
+    };
+
     // VERIFIED PHILIPPINE CAR EVENTS - March-April 2026
     const events = [
-        // ONGOING / UPCOMING (within 7 days from March 9, 2026)
+        // UPCOMING (within 7 days from March 9, 2026)
         { 
             name: "TGR Philippine Cup - Race Weekend 1", 
             location: "Riverpark, General Trias, Cavite", 
@@ -548,34 +572,8 @@
         return '';
     }
 
-    // Track analytics events
-    function trackEvent(category, action, label) {
-        if (window.va) {
-            window.va('event', {
-                name: action,
-                data: {
-                    category: category,
-                    label: label
-                }
-            });
-        }
-    }
-
-    // Calendar function with correct dates
-    window.addToCalendar = function(name, dateRange, location, startDate, endDate) {
-        const start = startDate.replace(/-/g, '');
-        const end = endDate ? endDate.replace(/-/g, '') : start;
-        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${start}/${end}&details=${encodeURIComponent(name + ' at ' + location)}&location=${encodeURIComponent(location)}`;
-        
-        // Track calendar click
-        trackEvent('Calendar', 'add_to_calendar', name);
-        
-        window.open(googleUrl, '_blank', 'noopener,noreferrer');
-        return false;
-    };
-
     // Filter events by date range
-    const today = new Date('2026-03-09');
+    const today = new Date('2026-03-09'); // Current date
     const nextWeek = new Date('2026-03-16');
     const thirtyDaysAgo = new Date('2026-02-07');
     const thirtyDaysFromNow = new Date('2026-04-08');
@@ -588,15 +586,17 @@
 
     const weekEvents = events.filter(event => {
         const { start, end } = parseEventDateRange(event);
+        // Event overlaps with next 7 days (March 9-16)
         return (start <= nextWeek && end >= today);
     }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
     const monthEvents = events.filter(event => {
         const { start, end } = parseEventDateRange(event);
+        // Event overlaps with last 30 days or next 30 days (Feb 7 - Apr 8)
         return (start <= thirtyDaysFromNow && end >= thirtyDaysAgo);
     }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
-    // Get featured events
+    // Get featured events (prioritize ongoing/upcoming big events)
     const featuredWeek = weekEvents.find(ev => ev.big === true && ev.status !== 'ended') || weekEvents[0];
     const featuredMonth = monthEvents.find(ev => ev.big === true && ev.status !== 'ended') || monthEvents[1] || monthEvents[0];
 
@@ -686,9 +686,7 @@
     renderGrid('monthGrid', monthEvents, featuredMonth);
 
     // Track page view
-    if (window.va) {
-        window.va('pageview');
-    }
+    trackEvent('Navigation', 'page_view', 'home');
 
     // Tab switching with analytics
     document.getElementById('tabWeek').addEventListener('click', function() {
