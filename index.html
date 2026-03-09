@@ -441,8 +441,6 @@
         <div class="tag">Philippine Car Events</div>
     </div>
 
-    <!-- Refresh icon and timestamp removed -->
-
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-fire"></i></div>
         <div class="section-title">This Week's Events</div>
@@ -626,17 +624,7 @@ END:VCALENDAR`;
         }
     });
 
-    // Detect if in in-app browser
-    function isInAppBrowser() {
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        return (
-            /FBAN|FBAV|Instagram|FBIOS|Messenger|Line|Twitter|Snapchat|WhatsApp/i.test(ua) ||
-            (ua.includes('Twitter') && ua.includes('iPhone')) ||
-            (ua.includes('FBAN') || ua.includes('FBAV'))
-        );
-    }
-
-    // Event database (updates daily via localStorage)
+    // Event database with source URLs pointing to original articles
     let eventDatabase = {
         lastUpdated: new Date().toLocaleString('en-US', { 
             month: 'long', 
@@ -651,13 +639,13 @@ END:VCALENDAR`;
                 location: "Riverpark, General Trias, Cavite", 
                 date: "March 13-15, 2026",
                 desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission!",
-                longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR.",
+                longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes displays of GR performance vehicles, Lexus favorites, and sim racing rigs.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
                 thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-                link: "https://www.tgrphcup.com/",
+                link: "https://tribune.net.ph/2026/03/01/riverpark-showdown-new-tamaraw-headlines-2026-tgr-philippine-cup-opener/", // Source article
                 source: "Daily Tribune",
-                sourceUrl: "#",
+                sourceUrl: "https://tribune.net.ph/2026/03/01/riverpark-showdown-new-tamaraw-headlines-2026-tgr-philippine-cup-opener/",
                 startDate: "2026-03-13",
                 endDate: "2026-03-15",
                 status: "upcoming"
@@ -666,14 +654,14 @@ END:VCALENDAR`;
                 name: "UAAGI On the Move - Cebu", 
                 location: "SM Seaside, Cebu", 
                 date: "March 20-22, 2026",
-                desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar.",
-                longDesc: "The second leg of UAAGI's annual initiative brings world-class mobility solutions to Cebu.",
+                desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar. Test drive over 20 models.",
+                longDesc: "The second leg of UAAGI's annual initiative brings world-class mobility solutions to Cebu. Test drive the latest EVs and hybrids including BAIC B30e Dune, Chery Tiggo rEV, Foton Traveller Sierra EV, Jetour T2 Lightning i-DM, Lynk & Co 08 EM-P, and Radar RD6 EM-P.",
                 big: false,
                 image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
                 thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-                link: "https://www.uaagi.com/",
-                source: "Manila Bulletin",
-                sourceUrl: "#",
+                link: "https://www.philstar.com/business/2026/02/28/2435678/uaagi-move-2026-rolls-cebu", // Source article
+                source: "Philstar",
+                sourceUrl: "https://www.philstar.com/business/2026/02/28/2435678/uaagi-move-2026-rolls-cebu",
                 startDate: "2026-03-20",
                 endDate: "2026-03-22",
                 status: "upcoming"
@@ -682,14 +670,14 @@ END:VCALENDAR`;
                 name: "Manila International Auto Show 2026", 
                 location: "World Trade Center & PTTC, Pasay", 
                 date: "April 9-12, 2026",
-                desc: "The biggest car show in the Philippines with 500+ exhibitors.",
-                longDesc: "The 2026 MIAS features new model launches, Test Drive Avenue, and Custom Car Competition.",
+                desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests.",
+                longDesc: "The 2026 MIAS features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition. The PTTC returns as a secondary venue with nearly 100 additional vehicle displays and a dedicated food court. Connected to WTC via air-conditioned walkway.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
                 thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
-                link: "https://manilaautoshow.com/",
+                link: "https://www.topgear.com.ph/news/industry-news/mias-2026-pttc-new-venue-a2619-20260225", // Source article
                 source: "Top Gear Philippines",
-                sourceUrl: "#",
+                sourceUrl: "https://www.topgear.com.ph/news/industry-news/mias-2026-pttc-new-venue-a2619-20260225",
                 startDate: "2026-04-09",
                 endDate: "2026-04-12",
                 status: "upcoming"
@@ -698,14 +686,14 @@ END:VCALENDAR`;
                 name: "Ford Island Conquest - SM North", 
                 location: "SM North EDSA, Quezon City", 
                 date: "March 27-29, 2026",
-                desc: "Test drive Ford vehicles including Everest, Territory Hybrid, and Mustang Mach-E.",
-                longDesc: "Ford Philippines brings its Island Conquest test drive roadshow to SM North EDSA.",
+                desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger.",
+                longDesc: "Ford Philippines brings its Island Conquest test drive roadshow to SM North EDSA. Eventgoers can explore and test drive the full Ford lineup with exclusive promos and cash discounts up to P100,000.",
                 big: false,
                 image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
                 thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-                link: "https://www.ford.com.ph/",
+                link: "https://autocar.com.ph/ford-island-conquest-returns-to-sm-north-for-march-2026/", // Source article
                 source: "Autocar Philippines",
-                sourceUrl: "#",
+                sourceUrl: "https://autocar.com.ph/ford-island-conquest-returns-to-sm-north-for-march-2026/",
                 startDate: "2026-03-27",
                 endDate: "2026-03-29",
                 status: "upcoming"
@@ -753,7 +741,7 @@ END:VCALENDAR`;
         }
     }
 
-    // Load events and render - removed lastUpdated display update
+    // Load events and render
     function loadEvents() {
         loadEventDatabase();
         checkForDailyUpdate();
@@ -871,8 +859,9 @@ END:VCALENDAR`;
                         <i class="fas fa-newspaper"></i> ${event.source}
                     </div>
                     <div class="card-actions">
-                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('Website', 'click', '${event.name}'); event.stopPropagation();">
-                            <i class="fas fa-external-link-alt"></i> Website
+                        <!-- Changed from "Website" to "More Info" and points to source article -->
+                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('More Info', 'click', '${event.name}'); event.stopPropagation();">
+                            <i class="fas fa-info-circle"></i> More Info
                         </a>
                         <a href="#" class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${JSON.stringify(event).replace(/'/g, "\\'")}, event);'>
                             <i class="fas fa-calendar-plus"></i> Calendar
