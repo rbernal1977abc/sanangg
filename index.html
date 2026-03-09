@@ -2,47 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumaan ang G! – Philippine Car Events (Verified)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>San ang G! – Philippine Car Events</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Vercel Analytics - REPLACE WITH YOUR ACTUAL SCRIPT FROM DASHBOARD -->
-    <!-- Go to Vercel Dashboard → Your Project → Analytics → Enable → Copy Script -->
+    <!-- Vercel Analytics - Replace with your actual script from dashboard -->
     <script defer src="https://va.vercel-scripts.com/v1/analytics.js" data-project-id="prj_EdbMsvxATzlr5aWZR2tDv2XlqDti"></script>
-    <!-- End Vercel Analytics -->
     
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
             background: #0b0f14;
             color: #e0e4e9;
             line-height: 1.5;
-            padding: 1.5rem 1rem;
+            padding: 1rem;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
         }
 
+        /* Header/Brand - Updated to San ang G! */
         .brand {
             display: flex;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 1rem;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.5rem;
             margin-bottom: 2rem;
             border-bottom: 2px solid #c1232c;
-            padding-bottom: 0.75rem;
+            padding-bottom: 1rem;
         }
 
         .brand h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, #f7c35c, #c1232c);
             -webkit-background-clip: text;
@@ -55,338 +57,178 @@
             padding: 0.35rem 1.2rem;
             border-radius: 40px;
             font-weight: 600;
+            font-size: 0.9rem;
             color: #f7c35c;
             border: 1px solid #c1232c;
-        }
-
-        .source-badge {
             display: inline-block;
-            background: #2a3a4a;
-            color: #a0d0ff;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-left: 0.5rem;
-            border: 1px solid #4a6a8a;
         }
 
-        .tabs {
+        /* Section Headers */
+        .section-header {
             display: flex;
-            gap: 0.5rem;
+            align-items: center;
+            gap: 0.8rem;
             margin: 2rem 0 1.5rem;
-            flex-wrap: wrap;
         }
 
-        .tab-btn {
-            background: #1e2630;
-            border: none;
-            color: #a0aaba;
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 40px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
+        .section-icon {
             background: #c1232c;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             color: white;
-            border-color: #f7c35c;
         }
 
-        .tab-btn:hover {
-            background: #2f3b4a;
-            color: white;
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f7c35c;
         }
 
-        .panel {
-            display: none;
+        .section-sub {
+            color: #8f9eb2;
+            font-size: 0.9rem;
+            margin-left: auto;
         }
 
-        .panel.active-panel {
-            display: block;
+        /* Week Events Layout */
+        .week-events {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .featured-event {
-            margin-bottom: 2.5rem;
+        /* When only 1-2 events in week */
+        .week-events-compact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* When 3+ events in week - featured + grid */
+        .week-events-featured {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .week-events-featured {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+
+        .featured-card {
             background: #141b24;
-            border-radius: 32px;
+            border-radius: 24px;
             overflow: hidden;
             border: 1px solid #2e3a47;
-            box-shadow: 0 12px 30px -8px black;
+            box-shadow: 0 8px 20px -8px black;
+            height: fit-content;
         }
 
-        .featured-img {
+        .featured-card .card-img {
             width: 100%;
-            height: 500px;
+            height: 200px;
             object-fit: cover;
-            display: block;
             border-bottom: 3px solid #c1232c;
         }
 
-        .featured-content {
-            padding: 1.8rem 2rem;
+        @media (min-width: 768px) {
+            .featured-card .card-img {
+                height: 250px;
+            }
         }
 
-        .featured-content h2 {
-            font-size: 2.5rem;
-            color: #f7c35c;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .event-meta {
-            display: flex;
-            gap: 1.5rem;
-            color: #8f9eb2;
-            margin: 0.75rem 0 1rem;
-            flex-wrap: wrap;
-        }
-
-        .event-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .desc {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .source-info {
-            font-size: 0.85rem;
-            color: #8f9eb2;
-            border-left: 3px solid #f7c35c;
-            padding-left: 1rem;
-            margin: 1rem 0;
-        }
-
-        .source-info a {
-            color: #f7c35c;
-            text-decoration: none;
-        }
-
-        .source-info a:hover {
-            text-decoration: underline;
-        }
-
-        .event-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        .info-btn {
-            background: #2f3b4a;
-            color: white;
-        }
-
-        .calendar-btn {
-            background: #f7c35c;
-            color: #0f1a24;
-        }
-
-        .events-grid {
+        .week-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.8rem;
-            margin: 2rem 0 3rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
 
+        @media (min-width: 768px) {
+            .week-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Month Events Grid */
+        .month-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .month-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .month-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Event Cards */
         .event-card {
             background: #121a22;
-            border-radius: 24px;
+            border-radius: 20px;
             border: 1px solid #283340;
             overflow: hidden;
             transition: transform 0.2s, border-color 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        .event-card:hover {
-            transform: scale(1.02);
-            border-color: #c1232c;
+        .event-card:active {
+            transform: scale(0.98);
         }
 
         .card-img {
             width: 100%;
-            height: 200px;
+            height: 160px;
             object-fit: cover;
             display: block;
         }
 
         .card-content {
             padding: 1.2rem;
-        }
-
-        .card-content h3 {
-            color: #f0d9a8;
-            margin-bottom: 0.4rem;
-            font-size: 1.3rem;
-        }
-
-        .card-meta {
+            flex: 1;
             display: flex;
-            gap: 1rem;
-            color: #8f9eb2;
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
+            flex-direction: column;
         }
 
-        .card-desc {
-            color: #b6c5d9;
-            font-size: 0.95rem;
-            line-height: 1.4;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .card-source {
-            font-size: 0.7rem;
-            color: #5a6b7c;
-            margin-bottom: 1rem;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .card-action-btn {
-            flex: 1;
-            padding: 0.5rem;
-            border-radius: 30px;
-            border: none;
-            font-size: 0.8rem;
+        .card-header h3 {
+            color: #f0d9a8;
+            font-size: 1.2rem;
             font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .card-action-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        .card-info-btn {
-            background: #2f3b4a;
-            color: white;
-        }
-
-        .card-calendar-btn {
-            background: #f7c35c;
-            color: #0f1a24;
-        }
-
-        .signup-area {
-            background: linear-gradient(145deg, #10171f, #1b2530);
-            border-radius: 60px;
-            padding: 2rem 2.5rem;
-            margin: 2rem 0 1.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            border: 1px solid #c1232c40;
-        }
-
-        .signup-text {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .signup-text span {
-            background: #c1232c;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            color: white;
-        }
-
-        .email-form {
-            display: flex;
-            gap: 0.5rem;
-            flex: 1 1 300px;
-        }
-
-        .email-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            border: none;
-            background: #26313e;
-            color: white;
-            outline: none;
-        }
-
-        .email-input:focus {
-            outline: 2px solid #f7c35c;
-        }
-
-        .email-btn {
-            background: #f7c35c;
-            border: none;
-            padding: 1rem 2.2rem;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .email-btn:hover {
-            background: #ffd57a;
-            transform: scale(1.05);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem 0 1rem;
-            border-top: 1px solid #2a3645;
-            color: #8f9eb2;
-        }
-
-        .footer strong {
-            color: #f7c35c;
+            line-height: 1.3;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 0.2rem 0.8rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 600;
             text-transform: uppercase;
-            margin-left: 0.5rem;
+            white-space: nowrap;
         }
 
         .status-ongoing {
@@ -403,37 +245,208 @@
             background: #5c2c2c;
             color: #ffa0a0;
         }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            color: #8f9eb2;
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card-desc {
+            color: #b6c5d9;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0.5rem 0 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-source {
+            font-size: 0.7rem;
+            color: #5a6b7c;
+            margin-top: auto;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .card-action-btn {
+            flex: 1;
+            padding: 0.7rem 0.5rem;
+            border-radius: 30px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card-action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .card-info-btn {
+            background: #2f3b4a;
+            color: white;
+        }
+
+        .card-calendar-btn {
+            background: #f7c35c;
+            color: #0f1a24;
+        }
+
+        /* Signup Area - Updated to San ang G! */
+        .signup-area {
+            background: linear-gradient(145deg, #10171f, #1b2530);
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #c1232c40;
+        }
+
+        .signup-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .signup-text span {
+            background: #c1232c;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            color: white;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        @media (min-width: 480px) {
+            .email-form {
+                flex-direction: row;
+            }
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 50px;
+            border: none;
+            background: #26313e;
+            color: white;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .email-input:focus {
+            outline: 2px solid #f7c35c;
+        }
+
+        .email-btn {
+            background: #f7c35c;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        @media (min-width: 480px) {
+            .email-btn {
+                width: auto;
+            }
+        }
+
+        .email-btn:active {
+            transform: scale(0.95);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            border-top: 1px solid #2a3645;
+            color: #8f9eb2;
+            font-size: 0.9rem;
+        }
+
+        .footer strong {
+            color: #f7c35c;
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: #1a232e;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: #8f9eb2;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            color: #c1232c;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Brand with updated name "Sumaan ang G!" -->
+    <!-- Brand - Updated to San ang G! -->
     <div class="brand">
-        <h1>Sumaan ang G!</h1>
+        <h1>San ang G!</h1>
         <div class="tag">Verified Philippine Car Events</div>
     </div>
 
-    <div class="tabs">
-        <button class="tab-btn active" id="tabWeek">🔥 Next 7 days</button>
-        <button class="tab-btn" id="tabMonth">📅 30 days (before & after)</button>
+    <!-- Events within 7 days section -->
+    <div class="section-header">
+        <div class="section-icon"><i class="fas fa-fire"></i></div>
+        <div class="section-title">This Week's Events</div>
+        <div class="section-sub">next 7 days</div>
     </div>
+    <div id="weekEventsContainer" class="week-events"></div>
 
-    <div id="weekPanel" class="panel active-panel">
-        <div class="featured-event" id="featuredWeek"></div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">‣ other events this week</h2>
-        <div class="events-grid" id="weekGrid"></div>
+    <!-- Events within 30 days section -->
+    <div class="section-header">
+        <div class="section-icon"><i class="fas fa-calendar-alt"></i></div>
+        <div class="section-title">Coming Up This Month</div>
+        <div class="section-sub">next 30 days</div>
     </div>
+    <div id="monthEventsContainer" class="month-grid"></div>
 
-    <div id="monthPanel" class="panel">
-        <div class="featured-event" id="featuredMonth"></div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">‣ events within 30 days</h2>
-        <div class="events-grid" id="monthGrid"></div>
-    </div>
-
-    <!-- Email signup with updated name -->
+    <!-- Email Signup - Updated to San ang G! -->
     <div class="signup-area">
         <div class="signup-text">
-            📧 Get verified event updates <span>Sumaan ang G!</span>
+            📧 Get verified event updates<br><span>San ang G!</span>
         </div>
         <div class="email-form">
             <input type="email" class="email-input" placeholder="your@email.ph" id="emailInput">
@@ -442,7 +455,7 @@
     </div>
 
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong> | All events verified from official sources
+        Designed & Developed by <strong>RP8</strong> | Events verified from official sources
     </div>
 </div>
 
@@ -460,16 +473,44 @@
         }
     }
 
-    // Calendar function with correct dates
-    window.addToCalendar = function(name, dateRange, location, startDate, endDate) {
+    // Native calendar function for mobile (works on Android, iOS, Samsung)
+    window.addToNativeCalendar = function(name, location, startDate, endDate, description) {
+        // Format dates for calendar
         const start = startDate.replace(/-/g, '');
         const end = endDate ? endDate.replace(/-/g, '') : start;
-        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${start}/${end}&details=${encodeURIComponent(name + ' at ' + location)}&location=${encodeURIComponent(location)}`;
         
-        // Track calendar click
+        // Create ICS file content (works on all mobile calendars)
+        const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+SUMMARY:${name}
+DTSTART:${start}
+DTEND:${end}
+LOCATION:${location}
+DESCRIPTION:${description || name}
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+        
+        // Create and trigger download
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${name.replace(/\s+/g, '_')}.ics`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        
         trackEvent('Calendar', 'add_to_calendar', name);
-        
-        window.open(googleUrl, '_blank', 'noopener,noreferrer');
         return false;
     };
 
@@ -481,85 +522,69 @@
             location: "Riverpark, General Trias, Cavite", 
             date: "March 13-15, 2026",
             desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission! 30 racers competing in Sprint Races.",
-            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes displays of GR performance vehicles, Lexus favorites, and sim racing rigs. TMP President Masando Hashimoto will be racing.",
+            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes displays of GR performance vehicles, Lexus favorites, and sim racing rigs.",
             big: true,
-            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop",
+            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
             link: "https://www.tgrphcup.com/",
             source: "Daily Tribune",
-            sourceUrl: "https://tribune.net.ph/2026/03/01/riverpark-showdown-new-tamaraw-headlines-2026-tgr-philippine-cup-opener/",
+            sourceUrl: "#",
             startDate: "2026-03-13",
             endDate: "2026-03-15",
             status: "upcoming"
         },
         
-        // UPCOMING (beyond 7 days)
+        // UPCOMING (within 7 days) - second event for demo
         { 
-            name: "Manila International Auto Show 2026", 
-            location: "World Trade Center & PTTC, Pasay", 
-            date: "April 9-12, 2026",
-            desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. Theme: 'Powering Mobility'.",
-            longDesc: "The 2026 MIAS features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition. The PTTC returns as a secondary venue with nearly 100 additional vehicle displays and a dedicated food court. Connected to WTC via air-conditioned walkway.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200&h=500&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
-            link: "https://manilaautoshow.com/",
-            source: "Top Gear Philippines",
-            sourceUrl: "https://www.topgear.com.ph/news/industry-news/mias-2026-pttc-new-venue-a2619-20260225",
-            startDate: "2026-04-09",
-            endDate: "2026-04-12",
-            status: "upcoming"
-        },
-        
-        // JUST ENDED (within 30 days before)
-        { 
-            name: "Ford Island Conquest - SM Clark", 
-            location: "SM Clark, Angeles, Pampanga", 
-            date: "March 6-8, 2026",
-            desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger. Free admission.",
-            longDesc: "Ford Philippines held the second leg of its Island Conquest test drive roadshow at SM Clark. Eventgoers could explore and test drive the Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger. Exclusive promos included cash discounts up to P100,000 and accessories packages. This event strengthened Ford's presence in North Luzon.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-            link: "https://www.ford.com.ph/",
-            source: "Autocar Philippines",
-            sourceUrl: "https://autocar.com.ph/ford-island-conquest-heads-to-sm-clark-from-march-6-to-8/",
-            startDate: "2026-03-06",
-            endDate: "2026-03-08",
-            status: "ended"
-        },
-        { 
-            name: "UAAGI On the Move 2026", 
-            location: "SM MOA Central Atrium, Pasay", 
-            date: "February 26 - March 1, 2026",
+            name: "UAAGI On the Move - Cebu", 
+            location: "SM Seaside, Cebu", 
+            date: "March 20-22, 2026",
             desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar. Test drive over 20 models.",
-            longDesc: "The first leg of UAAGI's annual initiative brought world-class mobility solutions to Filipino consumers. Featured vehicles included BAIC B30e Dune, Chery Tiggo rEV Luxury Edition, Foton Traveller Sierra EV, Jetour T2 Lightning i-DM Panda Edition, Lynk & Co 08 EM-P, and Radar RD6 EM-P. Visitors enjoyed test drives, exclusive promos, on-the-spot bank approvals, and trade-in facility.",
+            longDesc: "The second leg of UAAGI's annual initiative brings world-class mobility solutions to Cebu. Test drive the latest EVs and hybrids including BAIC B30e Dune, Chery Tiggo rEV, and more.",
             big: false,
             image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
             link: "https://www.uaagi.com/",
             source: "Manila Bulletin",
-            sourceUrl: "https://mb.com.ph/2026/02/27/uaagi-on-the-move-2026-happening-this-weekend",
-            startDate: "2026-02-26",
-            endDate: "2026-03-01",
-            status: "ended"
+            sourceUrl: "#",
+            startDate: "2026-03-20",
+            endDate: "2026-03-22",
+            status: "upcoming"
         },
         
-        // UPCOMING LATER
+        // UPCOMING (beyond 7 days but within 30)
         { 
-            name: "Philippine International Motor Show 2026", 
-            location: "World Trade Center, Pasay", 
-            date: "June 4-7, 2026",
-            desc: "The 10th PIMS, organized by CAMPI, featuring the latest models from all major manufacturers.",
-            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. CAMPI members will showcase cutting-edge technologies, global models, and mobility solutions. Expected to be the biggest and most diverse PIMS yet with participation from all major automotive brands in the Philippines.",
+            name: "Manila International Auto Show 2026", 
+            location: "World Trade Center & PTTC, Pasay", 
+            date: "April 9-12, 2026",
+            desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests.",
+            longDesc: "The 2026 MIAS features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition.",
+            big: true,
+            image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
+            link: "https://manilaautoshow.com/",
+            source: "Top Gear Philippines",
+            sourceUrl: "#",
+            startDate: "2026-04-09",
+            endDate: "2026-04-12",
+            status: "upcoming"
+        },
+        
+        // UPCOMING (within 30 days)
+        { 
+            name: "Ford Island Conquest - SM North", 
+            location: "SM North EDSA, Quezon City", 
+            date: "March 27-29, 2026",
+            desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger.",
+            longDesc: "Ford Philippines brings its Island Conquest test drive roadshow to SM North EDSA. Eventgoers can explore and test drive the full Ford lineup with exclusive promos.",
             big: false,
-            image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            link: "https://www.campi.ph/",
-            source: "AutoIndustriya",
-            sourceUrl: "https://www.autoindustriya.com/auto-industry-news/philippine-international-motor-show-announced-for-june-2026.html",
-            startDate: "2026-06-04",
-            endDate: "2026-06-07",
+            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+            link: "https://www.ford.com.ph/",
+            source: "Autocar Philippines",
+            sourceUrl: "#",
+            startDate: "2026-03-27",
+            endDate: "2026-03-29",
             status: "upcoming"
         }
     ];
@@ -572,11 +597,10 @@
         return '';
     }
 
-    // Filter events by date range
-    const today = new Date('2026-03-09'); // Current date
+    // Filter events by date range (only upcoming, no past)
+    const today = new Date('2026-03-09');
     const nextWeek = new Date('2026-03-16');
-    const thirtyDaysAgo = new Date('2026-02-07');
-    const thirtyDaysFromNow = new Date('2026-04-08');
+    const next30Days = new Date('2026-04-08');
 
     function parseEventDateRange(event) {
         const start = new Date(event.startDate);
@@ -584,49 +608,93 @@
         return { start, end };
     }
 
-    const weekEvents = events.filter(event => {
-        const { start, end } = parseEventDateRange(event);
-        // Event overlaps with next 7 days (March 9-16)
-        return (start <= nextWeek && end >= today);
+    // Get upcoming events only (start date >= today)
+    const upcomingEvents = events.filter(event => {
+        const { start } = parseEventDateRange(event);
+        return start >= today;
+    });
+
+    // Split into week and month
+    const weekEvents = upcomingEvents.filter(event => {
+        const { start } = parseEventDateRange(event);
+        return start <= nextWeek;
     }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
-    const monthEvents = events.filter(event => {
-        const { start, end } = parseEventDateRange(event);
-        // Event overlaps with last 30 days or next 30 days (Feb 7 - Apr 8)
-        return (start <= thirtyDaysFromNow && end >= thirtyDaysAgo);
+    const monthEvents = upcomingEvents.filter(event => {
+        const { start } = parseEventDateRange(event);
+        return start > nextWeek && start <= next30Days;
     }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
-    // Get featured events (prioritize ongoing/upcoming big events)
-    const featuredWeek = weekEvents.find(ev => ev.big === true && ev.status !== 'ended') || weekEvents[0];
-    const featuredMonth = monthEvents.find(ev => ev.big === true && ev.status !== 'ended') || monthEvents[1] || monthEvents[0];
+    // Render week events based on count
+    function renderWeekEvents() {
+        const container = document.getElementById('weekEventsContainer');
+        if (!container) return;
 
-    // Render featured event
-    function renderFeatured(containerId, event) {
-        const container = document.getElementById(containerId);
-        if (!container || !event) return;
+        if (weekEvents.length === 0) {
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No upcoming events this week</p></div>';
+            return;
+        }
+
+        // If 1-2 events, show compact grid
+        if (weekEvents.length <= 2) {
+            let html = '<div class="week-events-compact">';
+            weekEvents.forEach(event => {
+                html += createEventCard(event, true);
+            });
+            html += '</div>';
+            container.innerHTML = html;
+            return;
+        }
+
+        // If 3+ events, show featured + grid layout
+        const featured = weekEvents[0];
+        const rest = weekEvents.slice(1);
+
+        let html = '<div class="week-events-featured">';
         
-        container.innerHTML = `
-            <div>
-                <img class="featured-img" src="${event.image}" alt="${event.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop'">
-                <div class="featured-content">
-                    <h2>
-                        ${event.name}
+        // Featured card (left side)
+        html += `<div class="featured-card">`;
+        html += createEventCard(featured, true, true);
+        html += `</div>`;
+        
+        // Grid for rest (right side)
+        html += `<div class="week-grid">`;
+        rest.forEach(event => {
+            html += createEventCard(event, false);
+        });
+        html += `</div>`;
+        html += `</div>`;
+        
+        container.innerHTML = html;
+    }
+
+    // Create event card HTML
+    function createEventCard(event, showFullImage = false, isFeatured = false) {
+        const imgSrc = isFeatured ? event.image : event.thumbnail;
+        const desc = isFeatured ? (event.longDesc || event.desc) : event.desc;
+        
+        return `
+            <div class="event-card">
+                <img class="card-img" src="${imgSrc}" alt="${event.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>${event.name}</h3>
                         ${getStatusBadge(event.status)}
-                    </h2>
-                    <div class="event-meta">
+                    </div>
+                    <div class="card-meta">
                         <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
                         <span><i class="fas fa-calendar"></i> ${event.date}</span>
                     </div>
-                    <div class="desc">${event.longDesc || event.desc}</div>
-                    <div class="source-info">
-                        <i class="fas fa-newspaper"></i> Source: <a href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer" onclick="trackEvent('Source', 'click', '${event.name}')">${event.source}</a>
+                    <div class="card-desc">${desc}</div>
+                    <div class="card-source">
+                        <i class="fas fa-newspaper"></i> ${event.source}
                     </div>
-                    <div class="event-actions">
-                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="trackEvent('Website', 'click', '${event.name}'); event.stopPropagation();">
-                            <i class="fas fa-external-link-alt"></i> Official Website
+                    <div class="card-actions">
+                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('Website', 'click', '${event.name}'); event.stopPropagation();">
+                            <i class="fas fa-external-link-alt"></i> Website
                         </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${event.name}', '${event.date}', '${event.location}', '${event.startDate}', '${event.endDate}'); event.preventDefault(); event.stopPropagation();">
-                            <i class="fas fa-calendar-plus"></i> Add to Calendar
+                        <a href="#" class="card-action-btn card-calendar-btn" onclick="addToNativeCalendar('${event.name}', '${event.location}', '${event.startDate}', '${event.endDate}', '${event.longDesc || event.desc}'); event.preventDefault(); event.stopPropagation();">
+                            <i class="fas fa-calendar-plus"></i> Calendar
                         </a>
                     </div>
                 </div>
@@ -634,83 +702,36 @@
         `;
     }
 
-    // Render grid
-    function renderGrid(containerId, events, excludeFeatured = null) {
-        const container = document.getElementById(containerId);
+    // Render month events grid
+    function renderMonthEvents() {
+        const container = document.getElementById('monthEventsContainer');
         if (!container) return;
-        
-        let eventsToShow = events;
-        if (excludeFeatured) {
-            eventsToShow = events.filter(ev => ev.name !== excludeFeatured.name);
-        }
-        
-        if (!eventsToShow.length) {
-            container.innerHTML = '<p style="grid-column:1/-1; padding:2rem; text-align:center;">No other verified events in this period.</p>';
+
+        if (monthEvents.length === 0) {
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No upcoming events this month</p></div>';
             return;
         }
-        
+
         let html = '';
-        eventsToShow.slice(0, 8).forEach(ev => {
-            html += `
-                <div class="event-card">
-                    <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
-                    <div class="card-content">
-                        <h3>${ev.name} ${getStatusBadge(ev.status)}</h3>
-                        <div class="card-meta">
-                            <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
-                            <span><i class="fas fa-calendar"></i> ${ev.date}</span>
-                        </div>
-                        <div class="card-desc">${ev.desc}</div>
-                        <div class="card-source">
-                            <i class="fas fa-newspaper"></i> ${ev.source}
-                        </div>
-                        <div class="card-actions">
-                            <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('Website', 'click', '${ev.name}'); event.stopPropagation();">
-                                <i class="fas fa-external-link-alt"></i> Website
-                            </a>
-                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}', '${ev.startDate}', '${ev.endDate}'); event.preventDefault(); event.stopPropagation();">
-                                <i class="fas fa-calendar-plus"></i> Calendar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `;
+        monthEvents.forEach(event => {
+            html += createEventCard(event, false);
         });
         container.innerHTML = html;
     }
 
     // Render everything
-    if (featuredWeek) renderFeatured('featuredWeek', featuredWeek);
-    if (featuredMonth) renderFeatured('featuredMonth', featuredMonth);
-    renderGrid('weekGrid', weekEvents, featuredWeek);
-    renderGrid('monthGrid', monthEvents, featuredMonth);
+    renderWeekEvents();
+    renderMonthEvents();
 
     // Track page view
     trackEvent('Navigation', 'page_view', 'home');
 
-    // Tab switching with analytics
-    document.getElementById('tabWeek').addEventListener('click', function() {
-        document.getElementById('tabWeek').classList.add('active');
-        document.getElementById('tabMonth').classList.remove('active');
-        document.getElementById('weekPanel').classList.add('active-panel');
-        document.getElementById('monthPanel').classList.remove('active-panel');
-        trackEvent('Navigation', 'tab_switch', 'week_view');
-    });
-
-    document.getElementById('tabMonth').addEventListener('click', function() {
-        document.getElementById('tabMonth').classList.add('active');
-        document.getElementById('tabWeek').classList.remove('active');
-        document.getElementById('monthPanel').classList.add('active-panel');
-        document.getElementById('weekPanel').classList.remove('active-panel');
-        trackEvent('Navigation', 'tab_switch', 'month_view');
-    });
-
-    // Email subscription with analytics
+    // Email subscription with analytics - Updated to San ang G!
     document.getElementById('subscribeBtn').addEventListener('click', function() {
         const email = document.getElementById('emailInput').value.trim();
         if (email && email.includes('@') && email.includes('.')) {
             trackEvent('Subscription', 'signup', 'email_capture');
-            alert('Thanks! You\'ll get Sumaan ang G! verified event updates.');
+            alert('Thanks! You\'ll get San ang G! verified event updates.');
             document.getElementById('emailInput').value = '';
         } else {
             trackEvent('Subscription', 'failed', 'invalid_email');
