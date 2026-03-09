@@ -333,12 +333,6 @@
         .footer strong {
             color: #f7c35c;
         }
-
-        /* Fix for links */
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
@@ -381,201 +375,101 @@
 </div>
 
 <script>
-    // All events with working links and themed images
+    // REAL PHILIPPINE CAR EVENTS WITH CORRECT DATES AND LINKS
     const events = [
-        // BIG FEATURED EVENTS
+        // BIG FEATURED EVENTS - CORRECTED MIAS DATE TO APRIL 9-12
         { 
             name: "Manila International Auto Show 2026", 
-            location: "World Trade Center, Pasay", 
-            date: "March 12-15, 2026",
-            desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests.",
+            location: "World Trade Center & PTTC, Pasay", 
+            date: "April 9-12, 2026",
+            desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. Theme: 'Powering Mobility'.",
+            longDesc: "The 21st Manila International Auto Show (MIAS) features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition.",
             big: true,
             image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200&h=500&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
-            link: "https://www.mias.ph"
+            link: "https://manilaautoshow.com/",
+            startDate: "2026-04-09",
+            endDate: "2026-04-12"
         },
         { 
-            name: "Cebu Drift Festival 2026", 
-            location: "SRP, Cebu City", 
-            date: "March 15-17, 2026",
-            desc: "Pro drift teams battle it out. Smoke, tires, and high-octane action all day long!",
+            name: "TGR Philippine Cup - Race Weekend 1", 
+            location: "Riverpark, General Trias, Cavite", 
+            date: "March 13-15, 2026",
+            desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission!",
+            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Watch the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes GR vehicle displays and sim racing rigs.",
             big: true,
             image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/cebudriftfestival"
-        },
-        { 
-            name: "BGC European Classic", 
-            location: "Bonifacio Global City, Taguig", 
-            date: "March 8, 2026",
-            desc: "Ferrari, Lamborghini, Porsche, Aston Martin, and vintage European beauties.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=500&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=200&fit=crop",
-            link: "https://www.bgceuropeanclassic.com"
-        },
-        { 
-            name: "Filipino Tuner Grand 2026", 
-            location: "MOA Arena, Pasay", 
-            date: "March 20-22, 2026",
-            desc: "The biggest tuner meet with 800+ modified cars, audio competition, and engine battles.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1494905998402-395d579af36f?w=1200&h=500&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1494905998402-395d579af36f?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/filipinotunergrand"
-        },
-        { 
-            name: "Subic Drag Race Series", 
-            location: "Subic Bay Freeport", 
-            date: "March 22-23, 2026",
-            desc: "Quarter mile madness. Pro drag cars, street cars, and bikes compete.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200&h=500&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/subicdragseries"
+            link: "https://www.tgrphcup.com/",
+            startDate: "2026-03-13",
+            endDate: "2026-03-15"
         },
         // REGULAR EVENTS
         { 
-            name: "Bulacan Lowrider Meet", 
-            location: "Malolos, Bulacan", 
-            date: "March 9, 2026",
-            desc: "Hydraulics, lowriders, and classic pinoy custom cars.",
+            name: "Ford Island Conquest - SM Clark", 
+            location: "SM Clark, Angeles, Pampanga", 
+            date: "March 6-8, 2026",
+            desc: "Test drive Ford vehicles including Everest, Territory Hybrid, Mustang Mach-E, Bronco, and Ranger.",
+            longDesc: "Experience the full Ford lineup with test drives, event-exclusive promos, and cash discounts up to P100,000. Free admission from 10am to 9pm.",
             big: false,
-            image: "https://images.unsplash.com/photo-1568605117036-5fe5e7fa0ad8?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/bulacanlowrider"
+            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+            link: "https://www.ford.com.ph/",
+            startDate: "2026-03-06",
+            endDate: "2026-03-08"
         },
         { 
-            name: "Pampanga Muscle Cars", 
-            location: "San Fernando, Pampanga", 
-            date: "March 10, 2026",
-            desc: "American muscle: Mustangs, Camaros, Challengers, Corvettes and more.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/pampangamuscle"
-        },
-        { 
-            name: "Ilocos 4x4 Adventure", 
-            location: "Pagudpud, Ilocos Norte", 
-            date: "March 11-13, 2026",
-            desc: "Off-road convoy and beach driving with modified 4x4s.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/ilocos4x4"
-        },
-        { 
-            name: "Davao Custom Showdown", 
-            location: "SMX Davao", 
-            date: "March 14-15, 2026",
-            desc: "Mindanao's best custom cars, stance, and audio competition.",
+            name: "UAAGI On the Move 2026", 
+            location: "SM MOA Central Atrium, Pasay", 
+            date: "February 26 - March 1, 2026",
+            desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar. Test drive over 20 models.",
+            longDesc: "One-stop shop for car buyers with test drives, event-exclusive promos, on-the-spot bank approvals, and trade-in facility.",
             big: false,
             image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/davaocustomshow"
+            link: "https://www.uaagi.com/",
+            startDate: "2026-02-26",
+            endDate: "2026-03-01"
         },
         { 
-            name: "Batangas Racing Festival", 
-            location: "Batangas City", 
-            date: "March 16-17, 2026",
-            desc: "Circuit racing, time attack, and drift demos.",
+            name: "PTTC MIAS Expansion Venue", 
+            location: "Philippine Trade Training Center, Pasay", 
+            date: "April 9-12, 2026",
+            desc: "Additional 22,500 sqm of exhibition space with nearly 100 extra vehicles and dedicated food court.",
+            longDesc: "The PTTC returns as a secondary venue for MIAS 2026, connected to WTC via air-conditioned walkway. Features additional car displays and food stalls.",
             big: false,
             image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            link: "https://www.batangasracingcircuit.com"
+            link: "https://manilaautoshow.com/",
+            startDate: "2026-04-09",
+            endDate: "2026-04-12"
         },
         { 
-            name: "Visayas Motor Fest", 
-            location: "Iloilo City", 
-            date: "March 17-18, 2026",
-            desc: "Cars and motorcycles together. 300+ vehicles on display.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1603584173870-7f891474afd5?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/visayasmotorfest"
-        },
-        { 
-            name: "Clark Speedway Track Day", 
-            location: "Clark, Pampanga", 
-            date: "March 18, 2026",
-            desc: "Open track for all cars. Lap times and fun runs.",
+            name: "TGR Philippine Cup - Tamaraw Debut", 
+            location: "Riverpark, Cavite", 
+            date: "March 13-15, 2026",
+            desc: "First official circuit race for the Next Generation Tamaraw OMR. Free passes available online.",
+            longDesc: "Watch the Tamaraw Racing Class debut alongside Vios OMR in Sprint Races. Features 30 racers including TMP President Masando Hashimoto.",
             big: false,
             image: "https://images.unsplash.com/photo-1601369561303-85a36d229bbf?w=400&h=200&fit=crop",
-            link: "https://www.clarkspeedway.com"
-        },
-        { 
-            name: "North Luzon JDM Meet", 
-            location: "Baguio City", 
-            date: "March 19, 2026",
-            desc: "Hondas, Nissans, Toyotas, Mazdas in the mountain city.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/northluzonjdm"
-        },
-        { 
-            name: "Miata Club Fun Run", 
-            location: "Tagaytay", 
-            date: "March 21, 2026",
-            desc: "All Miatas! Breakfast ride to Taal view deck.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1551830820-330a71b99659?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/miataclubph"
-        },
-        { 
-            name: "Quezon City Car Club Show", 
-            location: "QC Circle", 
-            date: "March 23, 2026",
-            desc: "Local car clubs display their best builds.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/qccarclub"
-        },
-        { 
-            name: "Cagayan de Oro Custom", 
-            location: "CDO", 
-            date: "March 24-25, 2026",
-            desc: "Northern Mindanao's custom bike and car meet.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1566473965997-3de9c817e938?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/cdocustom"
-        },
-        { 
-            name: "Pampanga Euro Sunday", 
-            location: "Angeles City", 
-            date: "March 25, 2026",
-            desc: "European cars: BMW, Audi, Mercedes, Porsche, and more.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/pampangaeurosunday"
-        },
-        { 
-            name: "Rizal Retro Meet", 
-            location: "Antipolo", 
-            date: "March 26, 2026",
-            desc: "Classic Japanese cars from the 80s and 90s.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/rizalretro"
-        },
-        { 
-            name: "Island Invasion 4x4", 
-            location: "Palawan", 
-            date: "March 27-29, 2026",
-            desc: "Off-road beach camping and convoy.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1506968186497-3dee41a4c43b?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/islandinvasion4x4"
-        },
-        { 
-            name: "Luzon Drift Challenge", 
-            location: "Carmona, Cavite", 
-            date: "March 28, 2026",
-            desc: "Amateur drift cup with cash prizes.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://www.facebook.com/luzondrift"
+            link: "https://www.tgrphcup.com/",
+            startDate: "2026-03-13",
+            endDate: "2026-03-15"
         }
     ];
 
-    // Get featured events
+    // Get featured events (big events)
     const bigEvents = events.filter(ev => ev.big === true);
 
-    // Render functions
+    // Calendar function with correct dates
+    window.addToCalendar = function(name, dateRange, location, startDate, endDate) {
+        // Parse dates for Google Calendar
+        const start = startDate.replace(/-/g, '');
+        const end = endDate ? endDate.replace(/-/g, '') : start;
+        
+        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${start}/${end}&details=${encodeURIComponent(name + ' at ' + location)}&location=${encodeURIComponent(location)}`;
+        window.open(googleUrl, '_blank', 'noopener,noreferrer');
+        return false;
+    };
+
+    // Render functions with working links
     function renderFeaturedWeek() {
         const container = document.getElementById('featuredWeek');
         const featured = bigEvents[0];
@@ -589,12 +483,12 @@
                         <span><i class="fas fa-map-marker-alt"></i> ${featured.location}</span>
                         <span><i class="fas fa-calendar"></i> ${featured.date}</span>
                     </div>
-                    <div class="desc">${featured.desc}</div>
+                    <div class="desc">${featured.longDesc || featured.desc}</div>
                     <div class="event-actions">
                         <a href="${featured.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
-                            <i class="fas fa-info-circle"></i> Full Details
+                            <i class="fas fa-info-circle"></i> Official Website
                         </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}'); event.preventDefault(); event.stopPropagation();">
+                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}', '${featured.startDate}', '${featured.endDate}'); event.preventDefault(); event.stopPropagation();">
                             <i class="fas fa-calendar-plus"></i> Add to Calendar
                         </a>
                     </div>
@@ -605,7 +499,7 @@
 
     function renderFeaturedMonth() {
         const container = document.getElementById('featuredMonth');
-        const featured = bigEvents[1];
+        const featured = bigEvents[1] || bigEvents[0];
         
         container.innerHTML = `
             <div>
@@ -616,12 +510,12 @@
                         <span><i class="fas fa-map-marker-alt"></i> ${featured.location}</span>
                         <span><i class="fas fa-calendar"></i> ${featured.date}</span>
                     </div>
-                    <div class="desc">${featured.desc}</div>
+                    <div class="desc">${featured.longDesc || featured.desc}</div>
                     <div class="event-actions">
                         <a href="${featured.link}" target="_blank" rel="noopener noreferrer" class="action-btn info-btn" onclick="event.stopPropagation()">
-                            <i class="fas fa-info-circle"></i> Full Details
+                            <i class="fas fa-info-circle"></i> Official Website
                         </a>
-                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}'); event.preventDefault(); event.stopPropagation();">
+                        <a href="#" class="action-btn calendar-btn" onclick="addToCalendar('${featured.name}', '${featured.date}', '${featured.location}', '${featured.startDate}', '${featured.endDate}'); event.preventDefault(); event.stopPropagation();">
                             <i class="fas fa-calendar-plus"></i> Add to Calendar
                         </a>
                     </div>
@@ -633,10 +527,11 @@
     function renderWeekGrid() {
         const container = document.getElementById('weekGrid');
         const featured = bigEvents[0];
-        const otherEvents = events.filter(ev => ev.name !== featured.name).slice(0, 8);
+        // For week view, show events happening in March (current month)
+        const weekEvents = events.filter(ev => ev.date.includes('March')).slice(0, 4);
         
         let html = '';
-        otherEvents.forEach(ev => {
+        weekEvents.forEach(ev => {
             html += `
                 <div class="event-card">
                     <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
@@ -649,9 +544,9 @@
                         <div class="card-desc">${ev.desc}</div>
                         <div class="card-actions">
                             <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
-                                <i class="fas fa-info-circle"></i> Details
+                                <i class="fas fa-info-circle"></i> Website
                             </a>
-                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}'); event.preventDefault(); event.stopPropagation();">
+                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}', '${ev.startDate}', '${ev.endDate}'); event.preventDefault(); event.stopPropagation();">
                                 <i class="fas fa-calendar-plus"></i> Calendar
                             </a>
                         </div>
@@ -664,11 +559,12 @@
 
     function renderMonthGrid() {
         const container = document.getElementById('monthGrid');
-        const featured = bigEvents[1];
-        const otherEvents = events.filter(ev => ev.name !== featured.name).slice(0, 10);
+        const featured = bigEvents[1] || bigEvents[0];
+        // For month view, show all events except the featured one
+        const monthEvents = events.filter(ev => ev.name !== featured.name).slice(0, 6);
         
         let html = '';
-        otherEvents.forEach(ev => {
+        monthEvents.forEach(ev => {
             html += `
                 <div class="event-card">
                     <img class="card-img" src="${ev.thumbnail}" alt="${ev.name}" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
@@ -681,9 +577,9 @@
                         <div class="card-desc">${ev.desc}</div>
                         <div class="card-actions">
                             <a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation()">
-                                <i class="fas fa-info-circle"></i> Details
+                                <i class="fas fa-info-circle"></i> Website
                             </a>
-                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}'); event.preventDefault(); event.stopPropagation();">
+                            <a href="#" class="card-action-btn card-calendar-btn" onclick="addToCalendar('${ev.name}', '${ev.date}', '${ev.location}', '${ev.startDate}', '${ev.endDate}'); event.preventDefault(); event.stopPropagation();">
                                 <i class="fas fa-calendar-plus"></i> Calendar
                             </a>
                         </div>
@@ -693,14 +589,6 @@
         });
         container.innerHTML = html;
     }
-
-    // Calendar function
-    window.addToCalendar = function(name, date, location) {
-        const text = `${name} at ${location}`;
-        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&details=${encodeURIComponent(text)}&location=${encodeURIComponent(location)}&dates=20260312/20260315`;
-        window.open(googleUrl, '_blank', 'noopener,noreferrer');
-        return false;
-    };
 
     // Render everything
     renderFeaturedWeek();
@@ -727,14 +615,13 @@
     document.getElementById('subscribeBtn').addEventListener('click', function() {
         const email = document.getElementById('emailInput').value.trim();
         if (email && email.includes('@') && email.includes('.')) {
-            alert('Thanks! You\'ll get Sumaang ang G! event updates.');
+            alert('Thanks! You\'ll get Sumaang ang G! event updates with accurate event information.');
             document.getElementById('emailInput').value = '';
         } else {
             alert('Please enter a valid email address');
         }
     });
 
-    // Handle enter key on email input
     document.getElementById('emailInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             document.getElementById('subscribeBtn').click();
