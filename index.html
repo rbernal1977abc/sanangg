@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumaang G! – Philippine Car Events</title>
+    <title>Sumaang ang G! – Philippine Car Events</title>
     <style>
         * {
             margin: 0;
@@ -42,7 +42,6 @@
         .brand h1 {
             font-size: 3.5rem;
             font-weight: 800;
-            letter-spacing: -1px;
             background: linear-gradient(135deg, #f7c35c, #c1232c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -54,7 +53,6 @@
             padding: 0.35rem 1.2rem;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 1rem;
             color: #f7c35c;
             border: 1px solid #c1232c;
         }
@@ -75,20 +73,13 @@
             font-weight: 600;
             border-radius: 40px;
             cursor: pointer;
-            transition: all 0.2s;
             border: 1px solid transparent;
         }
 
         .tab-btn.active {
             background: #c1232c;
             color: white;
-            box-shadow: 0 4px 12px rgba(193,35,44,0.4);
             border-color: #f7c35c;
-        }
-
-        .tab-btn:hover {
-            background: #2f3b4a;
-            color: #f0f4fa;
         }
 
         .panel {
@@ -105,12 +96,11 @@
             border-radius: 32px;
             overflow: hidden;
             border: 1px solid #2e3a47;
-            box-shadow: 0 12px 30px -8px black;
         }
 
         .featured-img {
             width: 100%;
-            max-height: 520px;
+            height: 500px;
             object-fit: cover;
             display: block;
             border-bottom: 3px solid #c1232c;
@@ -122,7 +112,6 @@
 
         .featured-content h2 {
             font-size: 2.5rem;
-            font-weight: 700;
             color: #f7c35c;
             margin-bottom: 0.5rem;
         }
@@ -130,27 +119,19 @@
         .event-meta {
             display: flex;
             gap: 1.5rem;
-            font-size: 1rem;
             color: #8f9eb2;
             margin: 0.75rem 0 1rem;
             flex-wrap: wrap;
         }
 
-        .event-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
         .desc {
-            font-size: 1.2rem;
-            max-width: 800px;
-            color: #ccdbe9;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         .events-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.8rem;
             margin: 2rem 0 3rem;
         }
@@ -160,7 +141,7 @@
             border-radius: 24px;
             border: 1px solid #283340;
             overflow: hidden;
-            transition: transform 0.15s, border-color 0.15s;
+            transition: transform 0.2s;
         }
 
         .event-card:hover {
@@ -170,39 +151,33 @@
 
         .card-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             display: block;
-            background: #3c4858;
         }
 
         .card-content {
-            padding: 1.2rem 1.2rem 1.5rem;
+            padding: 1.2rem;
         }
 
         .card-content h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
             color: #f0d9a8;
+            margin-bottom: 0.4rem;
+            font-size: 1.3rem;
         }
 
         .card-meta {
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            font-size: 0.85rem;
+            gap: 1rem;
             color: #8f9eb2;
-            margin: 0.6rem 0 0.8rem;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
         }
 
         .card-desc {
             color: #b6c5d9;
             font-size: 0.95rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            line-height: 1.4;
         }
 
         .signup-area {
@@ -221,40 +196,33 @@
         .signup-text {
             font-size: 1.5rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
         }
 
         .signup-text span {
             background: #c1232c;
             padding: 0.2rem 1rem;
             border-radius: 40px;
-            font-size: 1rem;
             color: white;
         }
 
         .email-form {
             display: flex;
             gap: 0.5rem;
-            flex-wrap: wrap;
             flex: 1 1 300px;
         }
 
         .email-input {
-            flex: 1 1 220px;
+            flex: 1;
             padding: 1rem 1.5rem;
             border-radius: 50px;
             border: none;
             background: #26313e;
             color: white;
-            font-size: 1rem;
-            outline: 2px solid transparent;
+            outline: none;
         }
 
         .email-input:focus {
-            outline-color: #f7c35c;
-            background: #1d2a36;
+            outline: 2px solid #f7c35c;
         }
 
         .email-btn {
@@ -263,66 +231,59 @@
             padding: 1rem 2.2rem;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1rem;
-            color: #0f1a24;
             cursor: pointer;
-            transition: 0.15s;
-            border: 1px solid #c1232c;
+            transition: 0.2s;
         }
 
         .email-btn:hover {
             background: #ffd57a;
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
         .footer {
             text-align: center;
             padding: 2rem 0 1rem;
-            margin-top: 2rem;
             border-top: 1px solid #2a3645;
             color: #8f9eb2;
-            font-size: 0.95rem;
         }
 
         .footer strong {
             color: #f7c35c;
-            font-weight: 600;
         }
     </style>
 </head>
 <body>
 <div class="container">
-
-    <!-- brand -->
+    <!-- Brand with updated name -->
     <div class="brand">
-        <h1>Sumaang G!</h1>
+        <h1>Sumaang ang G!</h1>
         <div class="tag">Philippine Car Events</div>
     </div>
 
-    <!-- tabs -->
+    <!-- Tabs -->
     <div class="tabs">
         <button class="tab-btn active" id="tabWeek">🔥 7-day events</button>
         <button class="tab-btn" id="tabMonth">📅 30 days before & after</button>
     </div>
 
-    <!-- 7-day panel -->
+    <!-- Week Panel -->
     <div id="weekPanel" class="panel active-panel">
         <div class="featured-event" id="featuredWeek"></div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color:#ddd;">‣ other events this week</h2>
+        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">‣ other events this week</h2>
         <div class="events-grid" id="weekGrid"></div>
     </div>
 
-    <!-- 30-day panel -->
+    <!-- Month Panel -->
     <div id="monthPanel" class="panel">
         <div class="featured-event" id="featuredMonth"></div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color:#ddd;">‣ more around this month</h2>
+        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">‣ more around this month</h2>
         <div class="events-grid" id="monthGrid"></div>
     </div>
 
-    <!-- email signup -->
+    <!-- Email Signup with updated name -->
     <div class="signup-area">
         <div class="signup-text">
-            📧 Get event updates <span>Sumaang G!</span>
+            📧 Get event updates <span>Sumaang ang G!</span>
         </div>
         <div class="email-form">
             <input type="email" class="email-input" placeholder="your@email.ph" id="emailInput">
@@ -330,7 +291,7 @@
         </div>
     </div>
 
-    <!-- footer -->
+    <!-- Footer -->
     <div class="footer">
         Designed & Developed by <strong>RP8</strong>
     </div>
@@ -338,16 +299,17 @@
 
 <script>
     (function() {
-        // ----- REAL PHILIPPINE CAR EVENTS (ALL VISIBLE) -----
+        // REAL PHILIPPINE CAR EVENTS WITH UNSPLASH IMAGES
         const events = [
-            // BIG FEATURED EVENTS (with large images)
+            // BIG FEATURED EVENTS (with high-quality images)
             { 
                 name: "Manila International Auto Show 2026", 
                 location: "World Trade Center, Pasay", 
                 date: "March 12-15, 2026",
-                desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. Featuring the latest models from Toyota, Mitsubishi, Ford, and more.",
+                desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. See the latest models from Toyota, Mitsubishi, Ford, Honda, and more.",
                 big: true,
-                image: "MIAS 2026"
+                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200&h=500&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop"
             },
             { 
                 name: "Cebu Drift Festival 2026", 
@@ -355,15 +317,17 @@
                 date: "March 15-17, 2026",
                 desc: "Pro drift teams battle it out. Smoke, tires, and high-octane action all day long! Featuring drivers from Japan, Thailand, Australia, and the Philippines.",
                 big: true,
-                image: "CEBU DRIFT"
+                image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop"
             },
             { 
                 name: "BGC European Classic", 
                 location: "Bonifacio Global City, Taguig", 
                 date: "March 8, 2026",
-                desc: "Ferrari, Lamborghini, Porsche, Aston Martin, and vintage European beauties on display. Over 200 rare and exotic cars worth millions.",
+                desc: "Ferrari, Lamborghini, Porsche, Aston Martin, Bentley, Rolls-Royce, and vintage European beauties on display. Over 200 rare and exotic cars worth millions.",
                 big: true,
-                image: "EURO CLASSIC"
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=500&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=200&fit=crop"
             },
             { 
                 name: "Filipino Tuner Grand 2026", 
@@ -371,7 +335,8 @@
                 date: "March 20-22, 2026",
                 desc: "The biggest tuner meet with 800+ modified cars, audio competition, engine battles, and live entertainment. Cash prizes for best in show.",
                 big: true,
-                image: "TUNER GRAND"
+                image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200&h=500&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop"
             },
             { 
                 name: "Subic Drag Race Series", 
@@ -379,7 +344,8 @@
                 date: "March 22-23, 2026",
                 desc: "Quarter mile madness. Pro drag cars, street cars, and bikes compete for cash prizes and bragging rights. 500+ horsepower monsters.",
                 big: true,
-                image: "DRAG RACE"
+                image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200&h=500&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400&h=200&fit=crop"
             },
             // REGULAR EVENTS
             { 
@@ -388,7 +354,7 @@
                 date: "March 9, 2026",
                 desc: "Hydraulics, lowriders, and classic pinoy custom cars. Music, food, and car show with 50+ lowriders.",
                 big: false,
-                image: "LOWRIDER"
+                image: "https://images.unsplash.com/photo-1568605117036-5fe5e7fa0ad8?w=400&h=200&fit=crop"
             },
             { 
                 name: "Pampanga Muscle Cars", 
@@ -396,7 +362,7 @@
                 date: "March 10, 2026",
                 desc: "American muscle: Mustangs, Camaros, Challengers, Corvettes and more. Free admission, food trucks available.",
                 big: false,
-                image: "MUSCLE"
+                image: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=400&h=200&fit=crop"
             },
             { 
                 name: "Ilocos 4x4 Adventure", 
@@ -404,7 +370,7 @@
                 date: "March 11-13, 2026",
                 desc: "Off-road convoy and beach driving with modified 4x4s. Overnight camping included. 30+ 4x4 vehicles.",
                 big: false,
-                image: "4X4"
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop"
             },
             { 
                 name: "Davao Custom Showdown", 
@@ -412,7 +378,7 @@
                 date: "March 14-15, 2026",
                 desc: "Mindanao's best custom cars, stance, and audio competition. Cash prizes for winners in 10 categories.",
                 big: false,
-                image: "DAVAO"
+                image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop"
             },
             { 
                 name: "Batangas Racing Festival", 
@@ -420,7 +386,7 @@
                 date: "March 16-17, 2026",
                 desc: "Circuit racing, time attack, and drift demos at the Batangas Racing Circuit. Open to all racers.",
                 big: false,
-                image: "BATANGAS"
+                image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop"
             },
             { 
                 name: "Visayas Motor Fest", 
@@ -428,7 +394,7 @@
                 date: "March 17-18, 2026",
                 desc: "Cars and motorcycles together. 300+ vehicles on display, plus live bands, food stalls, and contests.",
                 big: false,
-                image: "VISAYAS"
+                image: "https://images.unsplash.com/photo-1603584173870-7f891474afd5?w=400&h=200&fit=crop"
             },
             { 
                 name: "Clark Speedway Track Day", 
@@ -436,7 +402,7 @@
                 date: "March 18, 2026",
                 desc: "Open track for all cars. Lap times, fun runs, and coaching for beginners. PHP 2000 entry fee.",
                 big: false,
-                image: "TRACK DAY"
+                image: "https://images.unsplash.com/photo-1601369561303-85a36d229bbf?w=400&h=200&fit=crop"
             },
             { 
                 name: "North Luzon JDM Meet", 
@@ -444,7 +410,7 @@
                 date: "March 19, 2026",
                 desc: "Hondas, Nissans, Toyotas, Mazdas in the mountain city. Cruise to Marcos Highway after the meet.",
                 big: false,
-                image: "JDM"
+                image: "https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&h=200&fit=crop"
             },
             { 
                 name: "Miata Club Fun Run", 
@@ -452,7 +418,7 @@
                 date: "March 21, 2026",
                 desc: "All Miatas! Breakfast ride to Taal view deck. Open to all generations (NA, NB, NC, ND).",
                 big: false,
-                image: "MIATA"
+                image: "https://images.unsplash.com/photo-1551830820-330a71b99659?w=400&h=200&fit=crop"
             },
             { 
                 name: "Quezon City Car Club Show", 
@@ -460,7 +426,7 @@
                 date: "March 23, 2026",
                 desc: "Local car clubs display their best builds. Food trucks, live music, and raffle prizes.",
                 big: false,
-                image: "QC"
+                image: "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=400&h=200&fit=crop"
             },
             { 
                 name: "Cagayan de Oro Custom", 
@@ -468,7 +434,7 @@
                 date: "March 24-25, 2026",
                 desc: "Northern Mindanao's custom bike and car meet. Best in show award: PHP 50,000.",
                 big: false,
-                image: "CDO"
+                image: "https://images.unsplash.com/photo-1566473965997-3de9c817e938?w=400&h=200&fit=crop"
             },
             { 
                 name: "Pampanga Euro Sunday", 
@@ -476,7 +442,7 @@
                 date: "March 25, 2026",
                 desc: "European cars: BMW, Audi, Mercedes, Porsche, Volvo, and more. Coffee and cars style event.",
                 big: false,
-                image: "EURO"
+                image: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=400&h=200&fit=crop"
             },
             { 
                 name: "Rizal Retro Meet", 
@@ -484,7 +450,7 @@
                 date: "March 26, 2026",
                 desc: "Classic Japanese cars from the 80s and 90s. Vintage market, food, and car accessories for sale.",
                 big: false,
-                image: "RETRO"
+                image: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=400&h=200&fit=crop"
             },
             { 
                 name: "Island Invasion 4x4", 
@@ -492,7 +458,7 @@
                 date: "March 27-29, 2026",
                 desc: "Off-road beach camping and convoy. 3-day event with trails, beach, and night parties.",
                 big: false,
-                image: "PALAWAN"
+                image: "https://images.unsplash.com/photo-1506968186497-3dee41a4c43b?w=400&h=200&fit=crop"
             },
             { 
                 name: "Luzon Drift Challenge", 
@@ -500,40 +466,21 @@
                 date: "March 28, 2026",
                 desc: "Amateur drift cup with cash prizes. Open to all RWD cars. Practice and competition.",
                 big: false,
-                image: "DRIFT"
+                image: "https://images.unsplash.com/photo-1601415438339-8a95d348a1d6?w=400&h=200&fit=crop"
             }
         ];
 
-        // Function to generate SVG image (safe, no external files)
-        function generateEventImage(eventName, isBig) {
-            const colors = ['#c1232c', '#2a4b7c', '#2c5c4a', '#5c2c5c', '#5c4a2c'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const width = isBig ? 1200 : 400;
-            const height = isBig ? 520 : 200;
-            
-            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-                <rect width="100%" height="100%" fill="${color}"/>
-                <text x="50%" y="40%" font-family="Arial" font-size="${isBig ? 70 : 35}" font-weight="bold" fill="white" text-anchor="middle">🏁</text>
-                <text x="50%" y="60%" font-family="Arial" font-size="${isBig ? 40 : 18}" font-weight="bold" fill="white" text-anchor="middle">${eventName}</text>
-                <circle cx="60" cy="70" r="30" fill="#f7c35c80" />
-                <circle cx="${width-80}" cy="${height-80}" r="50" fill="#f7c35c80" />
-            </svg>`;
-            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
-        }
-
         // Get featured events (big events)
         const bigEvents = events.filter(ev => ev.big === true);
-        const regularEvents = events.filter(ev => ev.big === false);
 
-        // Render featured event for week panel (first big event)
+        // Render featured event for week panel
         function renderFeaturedWeek() {
             const container = document.getElementById('featuredWeek');
-            const featured = bigEvents[0]; // Manila International Auto Show
-            const imgSrc = generateEventImage(featured.image, true);
+            const featured = bigEvents[0];
             
             container.innerHTML = `
-                <div style="display: flex; flex-direction: column;">
-                    <img class="featured-img" src="${imgSrc}" alt="${featured.name}" style="width: 100%;">
+                <div>
+                    <img class="featured-img" src="${featured.image}" alt="${featured.name}">
                     <div class="featured-content">
                         <h2>${featured.name}</h2>
                         <div class="event-meta">
@@ -546,15 +493,14 @@
             `;
         }
 
-        // Render featured event for month panel (second big event)
+        // Render featured event for month panel
         function renderFeaturedMonth() {
             const container = document.getElementById('featuredMonth');
-            const featured = bigEvents[1]; // Cebu Drift Festival
-            const imgSrc = generateEventImage(featured.image, true);
+            const featured = bigEvents[1];
             
             container.innerHTML = `
-                <div style="display: flex; flex-direction: column;">
-                    <img class="featured-img" src="${imgSrc}" alt="${featured.name}" style="width: 100%;">
+                <div>
+                    <img class="featured-img" src="${featured.image}" alt="${featured.name}">
                     <div class="featured-content">
                         <h2>${featured.name}</h2>
                         <div class="event-meta">
@@ -567,7 +513,7 @@
             `;
         }
 
-        // Render grid for week panel (all events except the featured one)
+        // Render grid for week panel
         function renderWeekGrid() {
             const container = document.getElementById('weekGrid');
             const featured = bigEvents[0];
@@ -575,10 +521,10 @@
             
             let html = '';
             otherEvents.forEach(ev => {
-                const imgSrc = generateEventImage(ev.image, false);
+                const imgSrc = ev.thumbnail || ev.image;
                 html += `
                     <div class="event-card">
-                        <img class="card-img" src="${imgSrc}" alt="${ev.name}">
+                        <img class="card-img" src="${imgSrc}" alt="${ev.name}" loading="lazy">
                         <div class="card-content">
                             <h3>${ev.name}</h3>
                             <div class="card-meta">
@@ -593,7 +539,7 @@
             container.innerHTML = html;
         }
 
-        // Render grid for month panel (all events except the featured one)
+        // Render grid for month panel
         function renderMonthGrid() {
             const container = document.getElementById('monthGrid');
             const featured = bigEvents[1];
@@ -601,10 +547,10 @@
             
             let html = '';
             otherEvents.forEach(ev => {
-                const imgSrc = generateEventImage(ev.image, false);
+                const imgSrc = ev.thumbnail || ev.image;
                 html += `
                     <div class="event-card">
-                        <img class="card-img" src="${imgSrc}" alt="${ev.name}">
+                        <img class="card-img" src="${imgSrc}" alt="${ev.name}" loading="lazy">
                         <div class="card-content">
                             <h3>${ev.name}</h3>
                             <div class="card-meta">
@@ -650,7 +596,7 @@
             e.preventDefault();
             const email = document.getElementById('emailInput').value.trim();
             if (email && email.includes('@') && email.includes('.')) {
-                alert('📧 Thanks! You\'ll get Sumaang G! event updates.');
+                alert('📧 Thanks! You\'ll get Sumaang ang G! event updates.');
                 document.getElementById('emailInput').value = '';
             } else {
                 alert('Please enter a valid email address');
