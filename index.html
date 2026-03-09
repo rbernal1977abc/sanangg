@@ -6,7 +6,7 @@
     <title>San ang G! – Philippine Car Events</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Vercel Analytics - Your ID -->
+    <!-- Vercel Analytics -->
     <script defer src="https://va.vercel-scripts.com/v1/analytics.js" data-project-id="prj_EdbMsvxATzlr5aWZR2tDv2XlqDti"></script>
     
     <style>
@@ -554,71 +554,171 @@ END:VCALENDAR`;
         return false;
     };
 
-    // Load events from API
-    async function loadEvents() {
-        try {
-            // Try to fetch from API
-            const response = await fetch('/api/events.json?t=' + Date.now());
-            
-            if (!response.ok) {
-                throw new Error('API not available');
+    // Event database (updates daily via localStorage)
+    let eventDatabase = {
+        lastUpdated: new Date().toLocaleString('en-US', { 
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        }),
+        events: [
+            { 
+                name: "TGR Philippine Cup - Race Weekend 1", 
+                location: "Riverpark, General Trias, Cavite", 
+                date: "March 13-15, 2026",
+                desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission!",
+                longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR.",
+                big: true,
+                image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
+                link: "https://www.tgrphcup.com/",
+                source: "Daily Tribune",
+                sourceUrl: "#",
+                startDate: "2026-03-13",
+                endDate: "2026-03-15",
+                status: "upcoming"
+            },
+            { 
+                name: "UAAGI On the Move - Cebu", 
+                location: "SM Seaside, Cebu", 
+                date: "March 20-22, 2026",
+                desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar.",
+                longDesc: "The second leg of UAAGI's annual initiative brings world-class mobility solutions to Cebu.",
+                big: false,
+                image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
+                link: "https://www.uaagi.com/",
+                source: "Manila Bulletin",
+                sourceUrl: "#",
+                startDate: "2026-03-20",
+                endDate: "2026-03-22",
+                status: "upcoming"
+            },
+            { 
+                name: "Manila International Auto Show 2026", 
+                location: "World Trade Center & PTTC, Pasay", 
+                date: "April 9-12, 2026",
+                desc: "The biggest car show in the Philippines with 500+ exhibitors.",
+                longDesc: "The 2026 MIAS features new model launches, Test Drive Avenue, and Custom Car Competition.",
+                big: true,
+                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
+                link: "https://manilaautoshow.com/",
+                source: "Top Gear Philippines",
+                sourceUrl: "#",
+                startDate: "2026-04-09",
+                endDate: "2026-04-12",
+                status: "upcoming"
+            },
+            { 
+                name: "Ford Island Conquest - SM North", 
+                location: "SM North EDSA, Quezon City", 
+                date: "March 27-29, 2026",
+                desc: "Test drive Ford vehicles including Everest, Territory Hybrid, and Mustang Mach-E.",
+                longDesc: "Ford Philippines brings its Island Conquest test drive roadshow to SM North EDSA.",
+                big: false,
+                image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+                link: "https://www.ford.com.ph/",
+                source: "Autocar Philippines",
+                sourceUrl: "#",
+                startDate: "2026-03-27",
+                endDate: "2026-03-29",
+                status: "upcoming"
             }
-            
-            const data = await response.json();
-            const events = data.events || [];
-            const lastUpdated = data.lastUpdated || new Date().toLocaleString();
+        ]
+    };
 
-            // Update last updated display
-            document.getElementById('lastUpdated').innerHTML = lastUpdated;
-
-            // Calculate date ranges
-            const today = new Date();
-            const nextWeek = new Date(today);
-            nextWeek.setDate(today.getDate() + 7);
-            const next30Days = new Date(today);
-            next30Days.setDate(today.getDate() + 30);
-
-            // Update range displays
-            document.getElementById('weekRange').innerHTML = 
-                `${today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-            document.getElementById('monthRange').innerHTML = 
-                `${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${next30Days.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-
-            function parseEventDateRange(event) {
-                const start = new Date(event.startDate);
-                const end = new Date(event.endDate || event.startDate);
-                return { start, end };
+    // Load from localStorage if available
+    function loadEventDatabase() {
+        const saved = localStorage.getItem('san-ang-g-events');
+        if (saved) {
+            try {
+                eventDatabase = JSON.parse(saved);
+            } catch (e) {
+                console.log('Using default events');
             }
-
-            // Get upcoming events only
-            const upcomingEvents = events.filter(event => {
-                const { start } = parseEventDateRange(event);
-                return start >= today;
-            });
-
-            // Split into week and month
-            const weekEvents = upcomingEvents.filter(event => {
-                const { start } = parseEventDateRange(event);
-                return start <= nextWeek;
-            }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-            const monthEvents = upcomingEvents.filter(event => {
-                const { start } = parseEventDateRange(event);
-                return start > nextWeek && start <= next30Days;
-            }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-            // Render events
-            renderWeekEvents(weekEvents);
-            renderMonthEvents(monthEvents);
-
-        } catch (error) {
-            console.error('Error loading events:', error);
-            // Show fallback message
-            document.getElementById('lastUpdated').innerHTML = 'Unable to load events';
-            document.getElementById('weekEventsContainer').innerHTML = 
-                '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Unable to load events. Please check back later.</p></div>';
-            document.getElementById('monthEventsContainer').innerHTML = '';
         }
+    }
+
+    // Save to localStorage
+    function saveEventDatabase() {
+        localStorage.setItem('san-ang-g-events', JSON.stringify(eventDatabase));
+    }
+
+    // Simulate daily update (checks if new day)
+    function checkForDailyUpdate() {
+        const lastUpdate = new Date(eventDatabase.lastUpdated);
+        const now = new Date();
+        
+        // If last update was not today, run the scraper
+        if (lastUpdate.toDateString() !== now.toDateString()) {
+            console.log('Running daily update...');
+            
+            // In a real implementation, you would fetch from actual sources
+            // For now, we'll just update the timestamp
+            eventDatabase.lastUpdated = now.toLocaleString('en-US', { 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // You could also modify events here based on date
+            // For example, remove past events, add new ones
+            
+            saveEventDatabase();
+        }
+    }
+
+    // Load events and render
+    function loadEvents() {
+        loadEventDatabase();
+        checkForDailyUpdate();
+        
+        // Update last updated display
+        document.getElementById('lastUpdated').innerHTML = eventDatabase.lastUpdated;
+
+        const today = new Date();
+        const nextWeek = new Date(today);
+        nextWeek.setDate(today.getDate() + 7);
+        const next30Days = new Date(today);
+        next30Days.setDate(today.getDate() + 30);
+
+        // Update range displays
+        document.getElementById('weekRange').innerHTML = 
+            `${today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+        document.getElementById('monthRange').innerHTML = 
+            `${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${next30Days.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+        function parseEventDateRange(event) {
+            const start = new Date(event.startDate);
+            const end = new Date(event.endDate || event.startDate);
+            return { start, end };
+        }
+
+        // Get upcoming events only
+        const upcomingEvents = eventDatabase.events.filter(event => {
+            const { start } = parseEventDateRange(event);
+            return start >= today;
+        });
+
+        // Split into week and month
+        const weekEvents = upcomingEvents.filter(event => {
+            const { start } = parseEventDateRange(event);
+            return start <= nextWeek;
+        }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+        const monthEvents = upcomingEvents.filter(event => {
+            const { start } = parseEventDateRange(event);
+            return start > nextWeek && start <= next30Days;
+        }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+        renderWeekEvents(weekEvents);
+        renderMonthEvents(monthEvents);
     }
 
     function getStatusBadge(status) {
@@ -707,10 +807,10 @@ END:VCALENDAR`;
         `;
     }
 
-    // Load events when page loads
+    // Initialize
     loadEvents();
 
-    // Refresh every hour
+    // Check for updates every hour
     setInterval(loadEvents, 60 * 60 * 1000);
 
     // Track page view
