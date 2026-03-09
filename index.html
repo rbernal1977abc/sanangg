@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sumaang ang G! – Philippine Car Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -74,12 +75,18 @@
             border-radius: 40px;
             cursor: pointer;
             border: 1px solid transparent;
+            transition: all 0.2s;
         }
 
         .tab-btn.active {
             background: #c1232c;
             color: white;
             border-color: #f7c35c;
+        }
+
+        .tab-btn:hover {
+            background: #2f3b4a;
+            color: white;
         }
 
         .panel {
@@ -96,6 +103,7 @@
             border-radius: 32px;
             overflow: hidden;
             border: 1px solid #2e3a47;
+            box-shadow: 0 12px 30px -8px black;
         }
 
         .featured-img {
@@ -124,9 +132,56 @@
             flex-wrap: wrap;
         }
 
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
         .desc {
             font-size: 1.1rem;
             line-height: 1.6;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .info-btn {
+            background: #2f3b4a;
+            color: white;
+        }
+
+        .info-btn:hover {
+            background: #3f4b5a;
+            transform: translateY(-2px);
+        }
+
+        .calendar-btn {
+            background: #f7c35c;
+            color: #0f1a24;
+        }
+
+        .calendar-btn:hover {
+            background: #ffd57a;
+            transform: translateY(-2px);
         }
 
         .events-grid {
@@ -141,7 +196,8 @@
             border-radius: 24px;
             border: 1px solid #283340;
             overflow: hidden;
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
         }
 
         .event-card:hover {
@@ -178,6 +234,50 @@
             color: #b6c5d9;
             font-size: 0.95rem;
             line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .card-action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 30px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            transition: all 0.2s;
+        }
+
+        .card-info-btn {
+            background: #2f3b4a;
+            color: white;
+        }
+
+        .card-calendar-btn {
+            background: #f7c35c;
+            color: #0f1a24;
+        }
+
+        .card-action-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .image-credit {
+            font-size: 0.7rem;
+            color: #5a6b7c;
+            margin-top: 0.3rem;
+            text-align: right;
         }
 
         .signup-area {
@@ -250,11 +350,92 @@
         .footer strong {
             color: #f7c35c;
         }
+
+        /* Modal for event details */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a2530;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 2px solid #c1232c;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: #c1232c;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-info {
+            margin-bottom: 2rem;
+        }
+
+        .modal-info p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Brand with updated name -->
+    <!-- Brand -->
     <div class="brand">
         <h1>Sumaang ang G!</h1>
         <div class="tag">Philippine Car Events</div>
@@ -280,7 +461,7 @@
         <div class="events-grid" id="monthGrid"></div>
     </div>
 
-    <!-- Email Signup with updated name -->
+    <!-- Email Signup -->
     <div class="signup-area">
         <div class="signup-text">
             📧 Get event updates <span>Sumaang ang G!</span>
@@ -297,178 +478,285 @@
     </div>
 </div>
 
+<!-- Event Details Modal -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Event Title</h2>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-info">
+                <p><i class="fas fa-map-marker-alt"></i> <span id="modalLocation"></span></p>
+                <p><i class="fas fa-calendar"></i> <span id="modalDate"></span></p>
+                <p><i class="fas fa-clock"></i> <span id="modalTime">9:00 AM - 6:00 PM</span></p>
+                <p id="modalDesc"></p>
+                <p><i class="fas fa-globe"></i> <a href="#" id="modalLink" target="_blank">Official Event Info</a></p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn calendar-btn" id="modalCalendarBtn">
+                    <i class="fas fa-calendar-plus"></i> Add to Calendar
+                </button>
+                <a href="#" class="modal-btn info-btn" id="modalInfoBtn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Full Details
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     (function() {
-        // REAL PHILIPPINE CAR EVENTS WITH UNSPLASH IMAGES
+        // PHILIPPINE CAR EVENTS WITH THEMATIC IMAGES
         const events = [
-            // BIG FEATURED EVENTS (with high-quality images)
+            // BIG FEATURED EVENTS
             { 
                 name: "Manila International Auto Show 2026", 
                 location: "World Trade Center, Pasay", 
                 date: "March 12-15, 2026",
+                startDate: "2026-03-12",
+                endDate: "2026-03-15",
                 desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests. See the latest models from Toyota, Mitsubishi, Ford, Honda, and more.",
+                longDesc: "The Manila International Auto Show (MIAS) is the premier automotive event in the Philippines. Features include: concept car displays, test drive opportunities, modified car competition, celebrity guests, trade exhibits, and family-friendly activities. Over 100,000 attendees expected.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200&h=500&fit=crop",
-                thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop"
+                thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
+                infoUrl: "https://www.mias.ph",
+                organizer: "World Trade Center Manila"
             },
             { 
                 name: "Cebu Drift Festival 2026", 
                 location: "SRP, Cebu City", 
                 date: "March 15-17, 2026",
+                startDate: "2026-03-15",
+                endDate: "2026-03-17",
                 desc: "Pro drift teams battle it out. Smoke, tires, and high-octane action all day long! Featuring drivers from Japan, Thailand, Australia, and the Philippines.",
+                longDesc: "The Cebu Drift Festival brings together the best drifters from across Asia. Watch as they battle for supremacy on the challenging SRP course. Includes practice sessions, qualifying, and final battles. Food parks, merchandise booths, and meet-and-greet with drivers.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=500&fit=crop",
-                thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop"
+                thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/cebudriftfestival",
+                organizer: "Cebu Drift Association"
             },
             { 
                 name: "BGC European Classic", 
                 location: "Bonifacio Global City, Taguig", 
                 date: "March 8, 2026",
+                startDate: "2026-03-08",
+                endDate: "2026-03-08",
                 desc: "Ferrari, Lamborghini, Porsche, Aston Martin, Bentley, Rolls-Royce, and vintage European beauties on display. Over 200 rare and exotic cars worth millions.",
+                longDesc: "The premier European car show in the Philippines. Features concours d'elegance, luxury brand displays, vintage European classics, and networking with car enthusiasts. Judged by international experts.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=500&fit=crop",
-                thumbnail: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=200&fit=crop"
+                thumbnail: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=200&fit=crop",
+                infoUrl: "https://www.bgceuropeanclassic.com",
+                organizer: "BGC Luxury Car Club"
             },
             { 
                 name: "Filipino Tuner Grand 2026", 
                 location: "MOA Arena, Pasay", 
                 date: "March 20-22, 2026",
+                startDate: "2026-03-20",
+                endDate: "2026-03-22",
                 desc: "The biggest tuner meet with 800+ modified cars, audio competition, engine battles, and live entertainment. Cash prizes for best in show.",
+                longDesc: "The ultimate showcase of Filipino automotive tuning culture. Categories include: Best Engine Swap, Best Paint/Wrap, Best Audio System, Best JDM, Best USDM, and Best Euro. Live entertainment, food vendors, and industry exhibitors.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200&h=500&fit=crop",
-                thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop"
+                thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
+                infoUrl: "https://www.filipinotunergrand.com",
+                organizer: "Philippine Tuning Association"
             },
             { 
                 name: "Subic Drag Race Series", 
                 location: "Subic Bay Freeport", 
                 date: "March 22-23, 2026",
+                startDate: "2026-03-22",
+                endDate: "2026-03-23",
                 desc: "Quarter mile madness. Pro drag cars, street cars, and bikes compete for cash prizes and bragging rights. 500+ horsepower monsters.",
+                longDesc: "The most anticipated drag racing event in the Philippines. Classes: Pro Mod, Super Street, Modified, Stock, and Motorcycles. Prize pool of PHP 500,000. Professional timing system and safety crews.",
                 big: true,
                 image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200&h=500&fit=crop",
-                thumbnail: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400&h=200&fit=crop"
+                thumbnail: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400&h=200&fit=crop",
+                infoUrl: "https://www.subicdragseries.com",
+                organizer: "Subic Bay Racing Association"
             },
             // REGULAR EVENTS
             { 
                 name: "Bulacan Lowrider Meet", 
                 location: "Malolos, Bulacan", 
                 date: "March 9, 2026",
+                startDate: "2026-03-09",
+                endDate: "2026-03-09",
                 desc: "Hydraulics, lowriders, and classic pinoy custom cars. Music, food, and car show with 50+ lowriders.",
+                longDesc: "Celebrate lowrider culture in the Philippines. See amazing hydraulic displays, custom paint jobs, and classic cars. Live DJ, food stalls, and trophies for best in show.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1568605117036-5fe5e7fa0ad8?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1568605117036-5fe5e7fa0ad8?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/bulacanlowrider",
+                organizer: "Bulacan Lowrider Club"
             },
             { 
                 name: "Pampanga Muscle Cars", 
                 location: "San Fernando, Pampanga", 
                 date: "March 10, 2026",
+                startDate: "2026-03-10",
+                endDate: "2026-03-10",
                 desc: "American muscle: Mustangs, Camaros, Challengers, Corvettes and more. Free admission, food trucks available.",
+                longDesc: "The biggest gathering of American muscle cars in Central Luzon. Featuring classic and modern muscle, engine displays, and a burn-out competition. Family-friendly event with food trucks and live music.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/pampangamuscle",
+                organizer: "Pampanga American Car Club"
             },
             { 
                 name: "Ilocos 4x4 Adventure", 
                 location: "Pagudpud, Ilocos Norte", 
                 date: "March 11-13, 2026",
+                startDate: "2026-03-11",
+                endDate: "2026-03-13",
                 desc: "Off-road convoy and beach driving with modified 4x4s. Overnight camping included. 30+ 4x4 vehicles.",
+                longDesc: "3-day off-road adventure through the beautiful landscapes of Ilocos Norte. Trail riding, beach driving, camping under the stars, and camaraderie with fellow 4x4 enthusiasts. All skill levels welcome.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/ilocos4x4",
+                organizer: "Ilocos 4x4 Club"
             },
             { 
                 name: "Davao Custom Showdown", 
                 location: "SMX Davao", 
                 date: "March 14-15, 2026",
+                startDate: "2026-03-14",
+                endDate: "2026-03-15",
                 desc: "Mindanao's best custom cars, stance, and audio competition. Cash prizes for winners in 10 categories.",
+                longDesc: "The premier custom car show in Mindanao. Categories include: Best Stance, Best Engine, Best Interior, Best Audio, and People's Choice. Trade exhibits, food vendors, and live entertainment.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/davaocustomshow",
+                organizer: "Davao Car Enthusiasts"
             },
             { 
                 name: "Batangas Racing Festival", 
                 location: "Batangas City", 
                 date: "March 16-17, 2026",
+                startDate: "2026-03-16",
+                endDate: "2026-03-17",
                 desc: "Circuit racing, time attack, and drift demos at the Batangas Racing Circuit. Open to all racers.",
+                longDesc: "Weekend racing festival at the Batangas Racing Circuit. Time attack sessions, drift demonstrations, and fun runs. Perfect for beginners and experienced racers alike.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
+                infoUrl: "https://www.batangasracingcircuit.com",
+                organizer: "Batangas Racing Circuit"
             },
             { 
                 name: "Visayas Motor Fest", 
                 location: "Iloilo City", 
                 date: "March 17-18, 2026",
+                startDate: "2026-03-17",
+                endDate: "2026-03-18",
                 desc: "Cars and motorcycles together. 300+ vehicles on display, plus live bands, food stalls, and contests.",
+                longDesc: "The biggest motor show in the Visayas. Features cars, motorcycles, scooters, and custom builds. Live bands, dance competitions, food festival, and raffle prizes.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1603584173870-7f891474afd5?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1603584173870-7f891474afd5?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/visayasmotorfest",
+                organizer: "Visayas Motorsports Federation"
             },
             { 
                 name: "Clark Speedway Track Day", 
                 location: "Clark, Pampanga", 
                 date: "March 18, 2026",
+                startDate: "2026-03-18",
+                endDate: "2026-03-18",
                 desc: "Open track for all cars. Lap times, fun runs, and coaching for beginners. PHP 2000 entry fee.",
+                longDesc: "Experience the thrill of track driving at Clark International Speedway. Open to all street-legal cars. Coaching available for beginners. Lap timing and fun runs throughout the day.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1601369561303-85a36d229bbf?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1601369561303-85a36d229bbf?w=400&h=200&fit=crop",
+                infoUrl: "https://www.clarkspeedway.com",
+                organizer: "Clark International Speedway"
             },
             { 
                 name: "North Luzon JDM Meet", 
                 location: "Baguio City", 
                 date: "March 19, 2026",
+                startDate: "2026-03-19",
+                endDate: "2026-03-19",
                 desc: "Hondas, Nissans, Toyotas, Mazdas in the mountain city. Cruise to Marcos Highway after the meet.",
+                longDesc: "JDM enthusiasts gather in Baguio for a day of cars and camaraderie. Display at Burnham Park, followed by a scenic cruise along Marcos Highway. All JDM cars welcome.",
                 big: false,
-                image: "https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Miata Club Fun Run", 
-                location: "Tagaytay", 
-                date: "March 21, 2026",
-                desc: "All Miatas! Breakfast ride to Taal view deck. Open to all generations (NA, NB, NC, ND).",
-                big: false,
-                image: "https://images.unsplash.com/photo-1551830820-330a71b99659?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Quezon City Car Club Show", 
-                location: "QC Circle", 
-                date: "March 23, 2026",
-                desc: "Local car clubs display their best builds. Food trucks, live music, and raffle prizes.",
-                big: false,
-                image: "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Cagayan de Oro Custom", 
-                location: "CDO", 
-                date: "March 24-25, 2026",
-                desc: "Northern Mindanao's custom bike and car meet. Best in show award: PHP 50,000.",
-                big: false,
-                image: "https://images.unsplash.com/photo-1566473965997-3de9c817e938?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Pampanga Euro Sunday", 
-                location: "Angeles City", 
-                date: "March 25, 2026",
-                desc: "European cars: BMW, Audi, Mercedes, Porsche, Volvo, and more. Coffee and cars style event.",
-                big: false,
-                image: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Rizal Retro Meet", 
-                location: "Antipolo", 
-                date: "March 26, 2026",
-                desc: "Classic Japanese cars from the 80s and 90s. Vintage market, food, and car accessories for sale.",
-                big: false,
-                image: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Island Invasion 4x4", 
-                location: "Palawan", 
-                date: "March 27-29, 2026",
-                desc: "Off-road beach camping and convoy. 3-day event with trails, beach, and night parties.",
-                big: false,
-                image: "https://images.unsplash.com/photo-1506968186497-3dee41a4c43b?w=400&h=200&fit=crop"
-            },
-            { 
-                name: "Luzon Drift Challenge", 
-                location: "Carmona, Cavite", 
-                date: "March 28, 2026",
-                desc: "Amateur drift cup with cash prizes. Open to all RWD cars. Practice and competition.",
-                big: false,
-                image: "https://images.unsplash.com/photo-1601415438339-8a95d348a1d6?w=400&h=200&fit=crop"
+                image: "https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&h=200&fit=crop",
+                infoUrl: "https://www.facebook.com/northluzonjdm",
+                organizer: "North Luzon JDM Club"
             }
         ];
+
+        // Function to generate Google Calendar URL
+        function getGoogleCalendarUrl(event) {
+            const startDate = event.startDate.replace(/-/g, '');
+            const endDate = event.endDate ? event.endDate.replace(/-/g, '') : startDate;
+            
+            let details = `${event.name}\n\n${event.longDesc || event.desc}\n\nOrganizer: ${event.organizer || 'TBA'}`;
+            
+            return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(event.location)}`;
+        }
+
+        // Function to generate ICS file for iOS/Apple Calendar
+        function downloadIcs(event) {
+            const startDate = event.startDate.replace(/-/g, '');
+            const endDate = event.endDate ? event.endDate.replace(/-/g, '') : startDate;
+            
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sumaang ang G!//Philippine Car Events//EN
+BEGIN:VEVENT
+UID:${Date.now()}@sumaangangg.com
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:${event.name}
+DESCRIPTION:${event.longDesc || event.desc}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${event.name.replace(/\s+/g, '_')}.ics`;
+            a.click();
+        }
+
+        // Modal functions
+        window.openModal = function(event) {
+            document.getElementById('modalTitle').textContent = event.name;
+            document.getElementById('modalLocation').textContent = event.location;
+            document.getElementById('modalDate').textContent = event.date;
+            document.getElementById('modalDesc').textContent = event.longDesc || event.desc;
+            document.getElementById('modalLink').href = event.infoUrl || '#';
+            
+            const modal = document.getElementById('eventModal');
+            modal.classList.add('active');
+            
+            // Set up calendar button
+            document.getElementById('modalCalendarBtn').onclick = function() {
+                if (/iPhone|iPad|iPod|Mac/i.test(navigator.userAgent)) {
+                    downloadIcs(event);
+                } else {
+                    window.open(getGoogleCalendarUrl(event), '_blank');
+                }
+            };
+            
+            document.getElementById('modalInfoBtn').href = event.infoUrl || '#';
+        };
+
+        window.closeModal = function() {
+            document.getElementById('eventModal').classList.remove('active');
+        };
+
+        // Click outside to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('eventModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
 
         // Get featured events (big events)
         const bigEvents = events.filter(ev => ev.big === true);
@@ -479,15 +767,23 @@
             const featured = bigEvents[0];
             
             container.innerHTML = `
-                <div>
+                <div onclick="openModal(${JSON.stringify(featured).replace(/"/g, '&quot;')})" style="cursor: pointer;">
                     <img class="featured-img" src="${featured.image}" alt="${featured.name}">
                     <div class="featured-content">
                         <h2>${featured.name}</h2>
                         <div class="event-meta">
-                            <span>📍 ${featured.location}</span>
-                            <span>📅 ${featured.date}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${featured.location}</span>
+                            <span><i class="fas fa-calendar"></i> ${featured.date}</span>
                         </div>
                         <div class="desc">${featured.desc}</div>
+                        <div class="event-actions">
+                            <button class="action-btn info-btn" onclick="event.stopPropagation(); window.open('${featured.infoUrl}', '_blank')">
+                                <i class="fas fa-info-circle"></i> Full Details
+                            </button>
+                            <button class="action-btn calendar-btn" onclick="event.stopPropagation(); window.open('${getGoogleCalendarUrl(featured)}', '_blank')">
+                                <i class="fas fa-calendar-plus"></i> Add to Calendar
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -499,15 +795,23 @@
             const featured = bigEvents[1];
             
             container.innerHTML = `
-                <div>
+                <div onclick="openModal(${JSON.stringify(featured).replace(/"/g, '&quot;')})" style="cursor: pointer;">
                     <img class="featured-img" src="${featured.image}" alt="${featured.name}">
                     <div class="featured-content">
                         <h2>${featured.name}</h2>
                         <div class="event-meta">
-                            <span>📍 ${featured.location}</span>
-                            <span>📅 ${featured.date}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${featured.location}</span>
+                            <span><i class="fas fa-calendar"></i> ${featured.date}</span>
                         </div>
                         <div class="desc">${featured.desc}</div>
+                        <div class="event-actions">
+                            <button class="action-btn info-btn" onclick="event.stopPropagation(); window.open('${featured.infoUrl}', '_blank')">
+                                <i class="fas fa-info-circle"></i> Full Details
+                            </button>
+                            <button class="action-btn calendar-btn" onclick="event.stopPropagation(); window.open('${getGoogleCalendarUrl(featured)}', '_blank')">
+                                <i class="fas fa-calendar-plus"></i> Add to Calendar
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -521,17 +825,25 @@
             
             let html = '';
             otherEvents.forEach(ev => {
-                const imgSrc = ev.thumbnail || ev.image;
+                const eventData = JSON.stringify(ev).replace(/"/g, '&quot;');
                 html += `
-                    <div class="event-card">
-                        <img class="card-img" src="${imgSrc}" alt="${ev.name}" loading="lazy">
+                    <div class="event-card" onclick="openModal(${eventData})">
+                        <img class="card-img" src="${ev.thumbnail || ev.image}" alt="${ev.name}" loading="lazy">
                         <div class="card-content">
                             <h3>${ev.name}</h3>
                             <div class="card-meta">
-                                <span>📍 ${ev.location}</span>
-                                <span>📅 ${ev.date}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
+                                <span><i class="fas fa-calendar"></i> ${ev.date}</span>
                             </div>
                             <div class="card-desc">${ev.desc.substring(0, 100)}...</div>
+                            <div class="card-actions" onclick="event.stopPropagation()">
+                                <button class="card-action-btn card-info-btn" onclick="window.open('${ev.infoUrl}', '_blank')">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                                <button class="card-action-btn card-calendar-btn" onclick="window.open('${getGoogleCalendarUrl(ev)}', '_blank')">
+                                    <i class="fas fa-calendar-plus"></i> Calendar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -547,17 +859,25 @@
             
             let html = '';
             otherEvents.forEach(ev => {
-                const imgSrc = ev.thumbnail || ev.image;
+                const eventData = JSON.stringify(ev).replace(/"/g, '&quot;');
                 html += `
-                    <div class="event-card">
-                        <img class="card-img" src="${imgSrc}" alt="${ev.name}" loading="lazy">
+                    <div class="event-card" onclick="openModal(${eventData})">
+                        <img class="card-img" src="${ev.thumbnail || ev.image}" alt="${ev.name}" loading="lazy">
                         <div class="card-content">
                             <h3>${ev.name}</h3>
                             <div class="card-meta">
-                                <span>📍 ${ev.location}</span>
-                                <span>📅 ${ev.date}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
+                                <span><i class="fas fa-calendar"></i> ${ev.date}</span>
                             </div>
                             <div class="card-desc">${ev.desc.substring(0, 100)}...</div>
+                            <div class="card-actions" onclick="event.stopPropagation()">
+                                <button class="card-action-btn card-info-btn" onclick="window.open('${ev.infoUrl}', '_blank')">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                                <button class="card-action-btn card-calendar-btn" onclick="window.open('${getGoogleCalendarUrl(ev)}', '_blank')">
+                                    <i class="fas fa-calendar-plus"></i> Calendar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
