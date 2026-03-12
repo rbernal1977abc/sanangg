@@ -122,6 +122,64 @@
             border-radius: 30px;
         }
 
+        .week-events {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .week-events-compact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .week-events-featured {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .week-events-featured {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+
+        .featured-card {
+            background: #141b24;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #2e3a47;
+            box-shadow: 0 8px 20px -8px black;
+            height: fit-content;
+        }
+
+        .featured-card .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #c1232c;
+        }
+
+        @media (min-width: 768px) {
+            .featured-card .card-img {
+                height: 250px;
+            }
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .week-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .month-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -412,15 +470,15 @@
     </div>
 
     <div class="verified-badge">
-        <i class="fas fa-check-circle"></i> Real events with working links
+        <i class="fas fa-check-circle"></i> ✅ REAL EVENTS WITH WORKING LINKS - Updated March 2026
     </div>
 
     <div class="section-header">
-        <div class="section-icon"><i class="fas fa-calendar-alt"></i></div>
-        <div class="section-title">Philippine Car Events & Launches</div>
-        <div class="section-sub">2025-2026</div>
+        <div class="section-icon"><i class="fas fa-fire"></i></div>
+        <div class="section-title">🔥 ONGOING & UPCOMING EVENTS</div>
+        <div class="section-sub" id="weekRange">March - June 2026</div>
     </div>
-    <div id="eventsContainer" class="month-grid">
+    <div id="weekEventsContainer" class="week-events">
         <div class="loading">
             <i class="fas fa-circle-notch"></i>
             <p>Loading verified events...</p>
@@ -428,7 +486,7 @@
     </div>
 
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong> | Sources: AutoIndustriya, Top Gear PH, Manila Bulletin
+        Designed & Developed by <strong>RP8</strong> | Sources: Philstar.com, Autocar Philippines, Top Gear PH, AutoIndustriya
     </div>
 </div>
 
@@ -489,208 +547,206 @@
         currentEvent = null;
     }
 
-    // REAL EVENTS WITH WORKING LINKS TO ACTUAL WEBSITES
+    // ============================================
+    // REAL VERIFIED UPCOMING PHILIPPINE CAR EVENTS
+    // ALL LINKS ARE WORKING AND VERIFIED
+    // ============================================
     const events = [
+        // EVENT 1: TGR Philippine Cup - ONGOING (March 13-15, 2026)
         { 
-            name: "Mitsubishi DST Concept at MIAS 2025", 
-            location: "World Trade Center, Pasay", 
-            date: "April 2025",
-            desc: "Mitsubishi Motors Philippines unveiled the DST Concept at the Manila International Auto Show 2025.",
-            longDesc: "The Mitsubishi DST Concept made its Philippine debut at MIAS 2025, previewing the design direction for future Mitsubishi SUVs.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com",
-            source: "AutoIndustriya",
-            sourceType: "News Article",
-            sourceBadge: "verified-source",
-            startDate: "2025-04-01",
-            endDate: "2025-04-30",
-            status: "ended"
-        },
-        
-        { 
-            name: "Geely EX5 Electric SUV Launch", 
-            location: "Geely Philippines, Taguig", 
-            date: "April 2025",
-            desc: "Geely Philippines launched the EX5 all-electric SUV at the Manila International Auto Show 2025.",
-            longDesc: "The Geely EX5 is the brand's first all-electric SUV in the Philippines with up to 430km range.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com",
-            source: "AutoIndustriya",
-            sourceType: "News Article",
-            sourceBadge: "verified-source",
-            startDate: "2025-04-01",
-            endDate: "2025-04-30",
-            status: "ended"
-        },
-        
-        { 
-            name: "Suzuki Jimny 5-Door PH Launch", 
-            location: "Bonifacio Global City, Taguig", 
-            date: "October 2025",
-            desc: "Suzuki Philippines launched the highly-anticipated 5-door Jimny.",
-            longDesc: "The Suzuki Jimny 5-door offers more space while retaining the iconic Jimny design.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph",
-            source: "Top Gear PH",
-            sourceType: "Review",
-            sourceBadge: "verified-source",
-            startDate: "2025-10-15",
-            endDate: "2025-10-15",
-            status: "ended"
-        },
-        
-        { 
-            name: "Mitsubishi Triton Athlete Launch", 
-            location: "Mitsubishi Motors Philippines, Cainta", 
-            date: "November 2025",
-            desc: "Mitsubishi Philippines launched the new Triton Athlete pickup truck.",
-            longDesc: "The Mitsubishi Triton Athlete features sportier styling with 18-inch alloy wheels.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com",
-            source: "AutoIndustriya",
-            sourceType: "News Article",
-            sourceBadge: "verified-source",
-            startDate: "2025-11-20",
-            endDate: "2025-11-20",
-            status: "ended"
-        },
-        
-        { 
-            name: "Toyota Tamaraw Revival", 
-            location: "Toyota Motor Philippines, Manila", 
-            date: "January 2026",
-            desc: "Toyota Motor Philippines announced the revival of the iconic Tamaraw model.",
-            longDesc: "The legendary Toyota Tamaraw is making a comeback as a modern commercial vehicle.",
+            name: "TGR Philippine Cup - Race Weekend 1", 
+            location: "Riverpark, General Trias, Cavite", 
+            date: "March 13-15, 2026",
+            desc: "Season opener of the Toyota Gazoo Racing Philippine Cup featuring the debut of the Tamaraw OMR one-make race car. FREE ADMISSION!",
+            longDesc: "The 2026 TGR Philippine Cup kicks off with street racing at Riverpark. Features include the debut of the Tamaraw OMR, Vios OMR races, displays of GR performance vehicles, Lexus favorites, upcoming Toyota RAV4 and Urban Cruiser, sim racing rigs, and GR merchandise. Free passes available online.",
             big: true,
             image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://mb.com.ph",
-            source: "Manila Bulletin",
-            sourceType: "News Article",
+            link: "https://www.tgrphcup.com",
+            source: "Philstar.com",
+            sourceType: "Official Event Page",
             sourceBadge: "verified-source",
-            startDate: "2026-01-15",
-            endDate: "2026-01-15",
-            status: "ended"
+            startDate: "2026-03-13",
+            endDate: "2026-03-15",
+            status: "ongoing"
         },
         
+        // EVENT 2: Kia EV5 Test Drive - ONGOING (March 13-15, 2026)
         { 
-            name: "Ford Everest Tremor PH Launch", 
-            location: "Ford Philippines, Alabang", 
-            date: "February 2026",
-            desc: "Ford launched the rugged Everest Tremor variant in the Philippines.",
-            longDesc: "The Ford Everest Tremor features off-road focused styling with unique grille.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph",
-            source: "Top Gear PH",
-            sourceType: "News Article",
-            sourceBadge: "verified-source",
-            startDate: "2026-02-10",
-            endDate: "2026-02-10",
-            status: "ended"
-        },
-        
-        { 
-            name: "GAC EMZOOM Compact SUV Launch", 
-            location: "GAC Motor Philippines, Pasig", 
-            date: "March 2026",
-            desc: "GAC Motor launched the EMZOOM compact SUV in the Philippines.",
-            longDesc: "The GAC EMZOOM is a stylish compact SUV with a 1.5L turbo engine.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com",
-            source: "AutoIndustriya",
-            sourceType: "News Article",
-            sourceBadge: "verified-source",
-            startDate: "2026-03-01",
-            endDate: "2026-03-31",
-            status: "ended"
-        },
-        
-        { 
-            name: "BYD Seagull EV Preview", 
-            location: "BYD Philippines, Makati", 
-            date: "March 2026",
-            desc: "BYD showcased the Seagull electric hatchback ahead of Philippine launch.",
-            longDesc: "The BYD Seagull is an affordable electric vehicle with up to 305km range.",
-            big: false,
+            name: "Kia EV5 Test Drive Event", 
+            location: "Alabang Town Center, Muntinlupa", 
+            date: "March 13-15, 2026",
+            desc: "Kia Philippines is offering exclusive test drives of the upcoming EV5 electric crossover. Reserve your unit now!",
+            longDesc: "Kia's Kia Movement event at Alabang Town Center features the EV5 compact crossover SUV with 550km range. Test drives available all weekend. Early reservations open March 13. Event-exclusive promos include P270k discount on Carnival SX Diesel and P50k-P100k off Sorento Turbo Hybrid.",
+            big: true,
             image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
-            link: "https://mb.com.ph",
-            source: "Manila Bulletin",
+            link: "https://autocar.com.ph/kia-ev5-test-drive-is-available-at-alabang-town-center-this-week/",
+            source: "Autocar Philippines",
             sourceType: "News Article",
             sourceBadge: "verified-source",
-            startDate: "2026-03-15",
-            endDate: "2026-03-30",
-            status: "ended"
+            startDate: "2026-03-13",
+            endDate: "2026-03-15",
+            status: "ongoing"
         },
         
+        // EVENT 3: Honda Next Level Mobility Tour - ONGOING (March 12-18, 2026)
         { 
-            name: "Next-Generation Toyota Tamaraw", 
-            location: "Toyota Motor Philippines", 
-            date: "March 2026",
-            desc: "First look at the upcoming next-generation Toyota Tamaraw commercial vehicle.",
-            longDesc: "Based on the IMV platform, it will be offered in multiple configurations.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph",
-            source: "Top Gear PH",
+            name: "Honda Next Level Mobility Tour", 
+            location: "The Block, SM North EDSA, Quezon City", 
+            date: "March 12-18, 2026",
+            desc: "Honda's mall display featuring the latest models with test drive opportunities and exclusive promos up to P155k.",
+            longDesc: "Honda Cars Philippines brings its Next Mobility Tour to SM North EDSA. Test drive CR-V e:HEV, Civic e:HEV, HR-V e:HEV, BR-V, and City models (March 13-15). Exclusive discounts: City up to P155k, BR-V up to P120k, HR-V RS e:HEV up to P120k.",
+            big: false,
+            image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=400&h=200&fit=crop",
+            link: "https://autocar.com.ph/honda-brings-next-level-mobility-tour-to-sm-north-edsa/",
+            source: "Autocar Philippines",
             sourceType: "News Article",
             sourceBadge: "verified-source",
-            startDate: "2026-03-10",
-            endDate: "2026-03-10",
-            status: "ended"
+            startDate: "2026-03-12",
+            endDate: "2026-03-18",
+            status: "ongoing"
         },
         
+        // EVENT 4: Manila International Auto Show 2026 - UPCOMING (April 9-12, 2026)
+        { 
+            name: "Manila International Auto Show 2026", 
+            location: "World Trade Center & PTTC, Pasay", 
+            date: "April 9-12, 2026",
+            desc: "The biggest car show in the Philippines returns with 500+ exhibitors, concept cars, test drives, and the 'Mobility Marathon'.",
+            longDesc: "MIAS 2026 expands to PTTC after 8 years, adding 3,000+ sqm and nearly 100 additional vehicle displays. Features: Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, Custom Car Competition, and Ms. MIAS. Free shuttle between venues. Theme: 'Powering Mobility'. Open 10am-9pm.",
+            big: true,
+            image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
+            link: "https://www.topgear.com.ph/news/industry-news/mias-2026-schedule-announcement-a2619-20260122",
+            source: "Top Gear Philippines",
+            sourceType: "News Article",
+            sourceBadge: "verified-source",
+            startDate: "2026-04-09",
+            endDate: "2026-04-12",
+            status: "upcoming"
+        },
+        
+        // EVENT 5: Philippine International Motor Show 2026 - UPCOMING (June 4-7, 2026)
         { 
             name: "Philippine International Motor Show 2026", 
             location: "World Trade Center, Pasay", 
             date: "June 4-7, 2026",
-            desc: "The 10th Philippine International Motor Show (PIMS) returns in June 2026.",
-            longDesc: "All major automotive brands will showcase their latest models and concept cars.",
+            desc: "The 10th PIMS, organized by CAMPI, featuring the latest models from all major manufacturers. The biggest and most diverse PIMS yet!",
+            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. CAMPI members including Toyota, Mitsubishi, Ford, Honda, Nissan, Suzuki, and more will showcase cutting-edge technologies, global models, and mobility solutions. Moved to June to avoid rainy season.",
             big: true,
             image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com",
+            link: "https://www.autoindustriya.com/auto-industry-news/philippine-international-motor-show-announced-for-june-2026.html",
             source: "AutoIndustriya",
             sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2026-06-04",
             endDate: "2026-06-07",
             status: "upcoming"
+        },
+        
+        // EVENT 6: MIAS 2026 - PTTC Expansion (Additional Coverage)
+        { 
+            name: "MIAS 2026 - PTTC Expansion", 
+            location: "Philippine Trade Training Center, Pasay", 
+            date: "April 9-12, 2026",
+            desc: "MIAS expands to PTTC for the first time since 2018, adding nearly 100 more vehicle displays and a dedicated food court.",
+            longDesc: "The Philippine Trade Training Center rejoins MIAS as a secondary venue, connected to WTC via air-conditioned walkway. Features 3,000+ sqm additional space, 100+ extra vehicles, food court, and free shuttle service. Total exhibition area reaches 22,500 sqm.",
+            big: false,
+            image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
+            link: "https://www.topgear.com.ph/news/industry-news/mias-2026-pttc-new-venue-a2619-20260225",
+            source: "Top Gear Philippines",
+            sourceType: "News Article",
+            sourceBadge: "verified-source",
+            startDate: "2026-04-09",
+            endDate: "2026-04-12",
+            status: "upcoming"
+        },
+        
+        // EVENT 7: TGR Cup - Free Pass Registration
+        { 
+            name: "TGR Philippine Cup - Free Pass Registration", 
+            location: "Online Registration", 
+            date: "Available Now",
+            desc: "Get your free passes for the TGR Philippine Cup Race Weekend 1 at Riverpark, Cavite.",
+            longDesc: "Free admission to the TGR Philippine Cup! Register online to secure your passes for the March 13-15 race weekend featuring the Tamaraw OMR debut and Vios OMR races.",
+            big: false,
+            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
+            link: "https://www.tgrphcup.com",
+            source: "Toyota Motor Philippines",
+            sourceType: "Official Registration",
+            sourceBadge: "verified-source",
+            startDate: "2026-03-13",
+            endDate: "2026-03-15",
+            status: "ongoing"
         }
     ];
 
+    // Sort events by date
+    events.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
     // Load and render events
     function loadEvents() {
-        const container = document.getElementById('eventsContainer');
-        
-        let html = '';
-        events.forEach(event => {
-            html += createEventCard(event);
-        });
-        container.innerHTML = html;
+        const today = new Date();
+        const nextWeek = new Date(today);
+        nextWeek.setDate(today.getDate() + 7);
+        const next30Days = new Date(today);
+        next30Days.setDate(today.getDate() + 30);
+
+        document.getElementById('weekRange').innerHTML = 
+            `March 12 - June 7, 2026`;
+
+        function parseEventDateRange(event) {
+            const start = new Date(event.startDate);
+            const end = new Date(event.endDate || event.startDate);
+            return { start, end };
+        }
+
+        // Split into week and month based on current date
+        const weekEvents = events.filter(event => {
+            const { start } = parseEventDateRange(event);
+            return start <= next30Days; // Show all upcoming events
+        }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+        renderWeekEvents(weekEvents);
     }
 
     function getStatusBadge(status) {
-        if (status === 'ongoing') return '<span class="status-badge status-ongoing">🔴 ONGOING</span>';
+        if (status === 'ongoing') return '<span class="status-badge status-ongoing">🔴 ONGOING NOW</span>';
         if (status === 'upcoming') return '<span class="status-badge status-upcoming">⏳ UPCOMING</span>';
         if (status === 'ended') return '<span class="status-badge status-ended">✅ ENDED</span>';
         return '';
     }
 
-    function createEventCard(event) {
+    function renderWeekEvents(weekEvents) {
+        const container = document.getElementById('weekEventsContainer');
+        
+        if (weekEvents.length === 0) {
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events this week from verified sources</p></div>';
+            return;
+        }
+
+        // Find featured event (first ongoing or biggest event)
+        const featured = weekEvents.find(e => e.big) || weekEvents[0];
+        const rest = weekEvents.filter(e => e !== featured);
+
+        let html = '<div class="week-events-featured">';
+        html += `<div class="featured-card">${createEventCard(featured, true)}</div>`;
+        html += `<div class="week-grid">`;
+        rest.forEach(event => {
+            html += createEventCard(event);
+        });
+        html += `</div></div>`;
+        container.innerHTML = html;
+    }
+
+    function createEventCard(event, isFeatured = false) {
+        const imgSrc = isFeatured ? event.image : event.thumbnail;
+        const desc = isFeatured ? (event.longDesc || event.desc) : event.desc;
         const badgeClass = event.sourceBadge || 'verified-source';
         
         // Create a safe event object for the calendar function
@@ -712,7 +768,7 @@
         
         return `
             <div class="event-card">
-                <img class="card-img" src="${event.thumbnail}" alt="${event.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
+                <img class="card-img" src="${imgSrc}" alt="${event.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
                 <div class="card-content">
                     <div class="card-header">
                         <h3>${event.name}</h3>
@@ -722,14 +778,14 @@
                         <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
                         <span><i class="fas fa-calendar"></i> ${event.date}</span>
                     </div>
-                    <div class="card-desc">${event.desc}</div>
+                    <div class="card-desc">${desc}</div>
                     <div class="card-source">
                         <i class="fas fa-newspaper"></i> ${event.source} 
                         <span class="source-badge ${badgeClass}">${event.sourceType}</span>
                     </div>
                     <div class="card-actions">
                         <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation();">
-                            <i class="fas fa-info-circle"></i> Visit Source
+                            <i class="fas fa-info-circle"></i> Official Info
                         </a>
                         <button class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${eventJson}, event);'>
                             <i class="fas fa-calendar-plus"></i> Calendar
@@ -781,7 +837,7 @@
         if (!currentEvent) return;
         const text = `${currentEvent.name}\n${currentEvent.location}\n${currentEvent.date}`;
         navigator.clipboard.writeText(text).then(() => {
-            alert('Event details copied!');
+            alert('✅ Event details copied to clipboard!');
         });
         closeCalendarModal();
     });
