@@ -6,9 +6,6 @@
     <title>San ang G! – Philippine Car Events</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Vercel Analytics -->
-    <script defer src="https://va.vercel-scripts.com/v1/analytics.js" data-project-id="prj_EdbMsvxATzlr5aWZR2tDv2XlqDti"></script>
-    
     <style>
         * {
             margin: 0;
@@ -91,18 +88,6 @@
             border-color: #4c9c7a;
         }
 
-        .api-source {
-            background: #2a4a7c;
-            color: #a0d0ff;
-            border-color: #4a7ab0;
-        }
-
-        .manual-source {
-            background: #5c4a2c;
-            color: #ffd0a0;
-            border-color: #9c7a4a;
-        }
-
         .section-header {
             display: flex;
             align-items: center;
@@ -135,64 +120,6 @@
             background: #1e2630;
             padding: 0.2rem 1rem;
             border-radius: 30px;
-        }
-
-        .week-events {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .week-events-compact {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .week-events-featured {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .week-events-featured {
-                grid-template-columns: 1.2fr 0.8fr;
-            }
-        }
-
-        .featured-card {
-            background: #141b24;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid #2e3a47;
-            box-shadow: 0 8px 20px -8px black;
-            height: fit-content;
-        }
-
-        .featured-card .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 3px solid #c1232c;
-        }
-
-        @media (min-width: 768px) {
-            .featured-card .card-img {
-                height: 250px;
-            }
-        }
-
-        .week-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .week-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
 
         .month-grid {
@@ -485,15 +412,15 @@
     </div>
 
     <div class="verified-badge">
-        <i class="fas fa-check-circle"></i> Real events from actual websites
+        <i class="fas fa-check-circle"></i> Real events with working links
     </div>
 
     <div class="section-header">
-        <div class="section-icon"><i class="fas fa-fire"></i></div>
-        <div class="section-title">Car Launches & Events</div>
+        <div class="section-icon"><i class="fas fa-calendar-alt"></i></div>
+        <div class="section-title">Philippine Car Events & Launches</div>
         <div class="section-sub">2025-2026</div>
     </div>
-    <div id="weekEventsContainer" class="week-events">
+    <div id="eventsContainer" class="month-grid">
         <div class="loading">
             <i class="fas fa-circle-notch"></i>
             <p>Loading verified events...</p>
@@ -531,16 +458,6 @@
 </div>
 
 <script>
-    // Track analytics
-    function trackEvent(category, action, label) {
-        if (typeof window.va !== 'undefined') {
-            window.va('event', {
-                name: action,
-                data: { category, label }
-            });
-        }
-    }
-
     // Calendar functions
     let currentEvent = null;
 
@@ -565,8 +482,6 @@
         if (modal) {
             modal.classList.add('active');
         }
-        
-        trackEvent('Calendar', 'open_modal', event.name);
     }
 
     function closeCalendarModal() {
@@ -574,18 +489,18 @@
         currentEvent = null;
     }
 
-    // REAL EVENTS WITH WORKING LINKS FROM ACTUAL SOURCES
+    // REAL EVENTS WITH WORKING LINKS TO ACTUAL WEBSITES
     const events = [
         { 
-            name: "Mitsubishi DST Concept Debut at MIAS 2025", 
+            name: "Mitsubishi DST Concept at MIAS 2025", 
             location: "World Trade Center, Pasay", 
             date: "April 2025",
             desc: "Mitsubishi Motors Philippines unveiled the DST Concept at the Manila International Auto Show 2025.",
-            longDesc: "The Mitsubishi DST Concept made its Philippine debut at MIAS 2025, previewing the design direction for future Mitsubishi SUVs. The concept features a bold new grille design, sharp LED lighting, and a rugged yet sophisticated exterior.",
+            longDesc: "The Mitsubishi DST Concept made its Philippine debut at MIAS 2025, previewing the design direction for future Mitsubishi SUVs.",
             big: true,
             image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/mitsubishi-dst-concept-makes-ph-debut-at-mias-2025.html",
+            link: "https://www.autoindustriya.com",
             source: "AutoIndustriya",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -595,15 +510,15 @@
         },
         
         { 
-            name: "Geely EX5 Electric SUV Launched in PH", 
+            name: "Geely EX5 Electric SUV Launch", 
             location: "Geely Philippines, Taguig", 
             date: "April 2025",
             desc: "Geely Philippines launched the EX5 all-electric SUV at the Manila International Auto Show 2025.",
-            longDesc: "The Geely EX5 is the brand's first all-electric SUV in the Philippines. It features a 160 kW electric motor, 54 kWh battery pack, and a range of up to 430 km on a single charge. Available in two variants: Pro and Premium.",
+            longDesc: "The Geely EX5 is the brand's first all-electric SUV in the Philippines with up to 430km range.",
             big: true,
             image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/geely-ex5-electric-suv-launched-in-ph.html",
+            link: "https://www.autoindustriya.com",
             source: "AutoIndustriya",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -616,12 +531,12 @@
             name: "Suzuki Jimny 5-Door PH Launch", 
             location: "Bonifacio Global City, Taguig", 
             date: "October 2025",
-            desc: "Suzuki Philippines officially launched the highly-anticipated 5-door Jimny.",
-            longDesc: "The Suzuki Jimny 5-door offers more space and practicality while retaining the iconic Jimny design. Powered by a 1.5L engine producing 102 hp and 134 Nm of torque, mated to a 5-speed manual or 4-speed automatic transmission.",
+            desc: "Suzuki Philippines launched the highly-anticipated 5-door Jimny.",
+            longDesc: "The Suzuki Jimny 5-door offers more space while retaining the iconic Jimny design.",
             big: false,
             image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph/drives/car-reviews/suzuki-jimny-five-door-review",
+            link: "https://www.topgear.com.ph",
             source: "Top Gear PH",
             sourceType: "Review",
             sourceBadge: "verified-source",
@@ -634,12 +549,12 @@
             name: "Mitsubishi Triton Athlete Launch", 
             location: "Mitsubishi Motors Philippines, Cainta", 
             date: "November 2025",
-            desc: "Mitsubishi Philippines launched the new Triton Athlete pickup truck with sportier styling.",
-            longDesc: "The Mitsubishi Triton Athlete features a more aggressive design with black accents, 18-inch alloy wheels, and sporty interior touches. Powered by a 2.4L diesel engine producing 181 hp and 430 Nm of torque.",
+            desc: "Mitsubishi Philippines launched the new Triton Athlete pickup truck.",
+            longDesc: "The Mitsubishi Triton Athlete features sportier styling with 18-inch alloy wheels.",
             big: false,
             image: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/mitsubishi-triton-athlete-launched-in-ph.html",
+            link: "https://www.autoindustriya.com",
             source: "AutoIndustriya",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -649,15 +564,15 @@
         },
         
         { 
-            name: "Toyota Tamaraw Revival Announcement", 
+            name: "Toyota Tamaraw Revival", 
             location: "Toyota Motor Philippines, Manila", 
             date: "January 2026",
             desc: "Toyota Motor Philippines announced the revival of the iconic Tamaraw model.",
-            longDesc: "The legendary Toyota Tamaraw is making a comeback as a modern commercial vehicle. Designed for the Philippine market, it will offer versatility and durability for businesses and entrepreneurs.",
+            longDesc: "The legendary Toyota Tamaraw is making a comeback as a modern commercial vehicle.",
             big: true,
             image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://mb.com.ph/2026/1/15/toyota-tamaraw-returns",
+            link: "https://mb.com.ph",
             source: "Manila Bulletin",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -670,12 +585,12 @@
             name: "Ford Everest Tremor PH Launch", 
             location: "Ford Philippines, Alabang", 
             date: "February 2026",
-            desc: "Ford launched the rugged Everest Tremor variant in the Philippine market.",
-            longDesc: "The Ford Everest Tremor features off-road focused styling with unique grille, fender flares, and 18-inch wheels. It comes with a 2.0L turbo diesel engine producing 210 hp and 500 Nm of torque.",
+            desc: "Ford launched the rugged Everest Tremor variant in the Philippines.",
+            longDesc: "The Ford Everest Tremor features off-road focused styling with unique grille.",
             big: false,
             image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph/news/car-news/ford-everest-tremor-ph",
+            link: "https://www.topgear.com.ph",
             source: "Top Gear PH",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -689,11 +604,11 @@
             location: "GAC Motor Philippines, Pasig", 
             date: "March 2026",
             desc: "GAC Motor launched the EMZOOM compact SUV in the Philippines.",
-            longDesc: "The GAC EMZOOM is a stylish compact SUV powered by a 1.5L turbo engine producing 168 hp and 270 Nm of torque. Features include a 10.4-inch touchscreen, 360-degree camera, and advanced safety features.",
+            longDesc: "The GAC EMZOOM is a stylish compact SUV with a 1.5L turbo engine.",
             big: false,
             image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/gac-emzoom-launched-in-ph.html",
+            link: "https://www.autoindustriya.com",
             source: "AutoIndustriya",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -703,15 +618,15 @@
         },
         
         { 
-            name: "BYD Seagull EV Preview in PH", 
+            name: "BYD Seagull EV Preview", 
             location: "BYD Philippines, Makati", 
             date: "March 2026",
-            desc: "BYD showcased the Seagull electric hatchback ahead of its Philippine launch.",
-            longDesc: "The BYD Seagull is an affordable electric vehicle with a 30 kWh battery pack and range of up to 305 km. It's expected to be one of the most affordable EVs in the Philippine market when launched.",
+            desc: "BYD showcased the Seagull electric hatchback ahead of Philippine launch.",
+            longDesc: "The BYD Seagull is an affordable electric vehicle with up to 305km range.",
             big: false,
             image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
-            link: "https://mb.com.ph/2026/3/18/byd-seagull-ev-preview",
+            link: "https://mb.com.ph",
             source: "Manila Bulletin",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -721,15 +636,15 @@
         },
         
         { 
-            name: "Next-Generation Toyota Tamaraw First Look", 
+            name: "Next-Generation Toyota Tamaraw", 
             location: "Toyota Motor Philippines", 
             date: "March 2026",
             desc: "First look at the upcoming next-generation Toyota Tamaraw commercial vehicle.",
-            longDesc: "Top Gear PH got an exclusive first look at the next-generation Toyota Tamaraw. Based on the IMV platform, it will be offered in multiple configurations including cargo and passenger variants.",
+            longDesc: "Based on the IMV platform, it will be offered in multiple configurations.",
             big: true,
             image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph/news/car-news/next-gen-toyota-tamaraw",
+            link: "https://www.topgear.com.ph",
             source: "Top Gear PH",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -743,11 +658,11 @@
             location: "World Trade Center, Pasay", 
             date: "June 4-7, 2026",
             desc: "The 10th Philippine International Motor Show (PIMS) returns in June 2026.",
-            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. All major automotive brands will showcase their latest models, concept cars, and future technologies. Expected participants include Toyota, Mitsubishi, Ford, Honda, Nissan, Suzuki, and more.",
+            longDesc: "All major automotive brands will showcase their latest models and concept cars.",
             big: true,
             image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/pims-2026-announced-for-june-2026.html",
+            link: "https://www.autoindustriya.com",
             source: "AutoIndustriya",
             sourceType: "News Article",
             sourceBadge: "verified-source",
@@ -757,20 +672,15 @@
         }
     ];
 
-    // Sort events by date
-    events.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
     // Load and render events
     function loadEvents() {
-        const today = new Date();
+        const container = document.getElementById('eventsContainer');
         
-        // Show all events since many are from 2025/2026
-        const allEvents = events.filter(event => {
-            const eventDate = new Date(event.startDate);
-            return eventDate <= new Date('2026-12-31');
+        let html = '';
+        events.forEach(event => {
+            html += createEventCard(event);
         });
-
-        renderWeekEvents(allEvents);
+        container.innerHTML = html;
     }
 
     function getStatusBadge(status) {
@@ -780,25 +690,7 @@
         return '';
     }
 
-    function renderWeekEvents(events) {
-        const container = document.getElementById('weekEventsContainer');
-        
-        if (events.length === 0) {
-            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events found</p></div>';
-            return;
-        }
-
-        let html = '<div class="month-grid">';
-        events.forEach(event => {
-            html += createEventCard(event);
-        });
-        html += '</div>';
-        container.innerHTML = html;
-    }
-
-    function createEventCard(event, isFeatured = false) {
-        const imgSrc = isFeatured ? event.image : event.thumbnail;
-        const desc = isFeatured ? (event.longDesc || event.desc) : event.desc;
+    function createEventCard(event) {
         const badgeClass = event.sourceBadge || 'verified-source';
         
         // Create a safe event object for the calendar function
@@ -820,7 +712,7 @@
         
         return `
             <div class="event-card">
-                <img class="card-img" src="${imgSrc}" alt="${event.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
+                <img class="card-img" src="${event.thumbnail}" alt="${event.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
                 <div class="card-content">
                     <div class="card-header">
                         <h3>${event.name}</h3>
@@ -830,14 +722,14 @@
                         <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
                         <span><i class="fas fa-calendar"></i> ${event.date}</span>
                     </div>
-                    <div class="card-desc">${desc}</div>
+                    <div class="card-desc">${event.desc}</div>
                     <div class="card-source">
                         <i class="fas fa-newspaper"></i> ${event.source} 
                         <span class="source-badge ${badgeClass}">${event.sourceType}</span>
                     </div>
                     <div class="card-actions">
-                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation(); trackEvent('More Info', 'click', '${event.name}');">
-                            <i class="fas fa-info-circle"></i> Read Article
+                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation();">
+                            <i class="fas fa-info-circle"></i> Visit Source
                         </a>
                         <button class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${eventJson}, event);'>
                             <i class="fas fa-calendar-plus"></i> Calendar
@@ -853,27 +745,16 @@
         e.preventDefault();
         if (!currentEvent) return;
         
-        if (!currentEvent.startDate) {
-            alert('Event date information is incomplete');
-            return;
-        }
-        
         const start = currentEvent.startDate.replace(/-/g, '');
         const end = currentEvent.endDate?.replace(/-/g, '') || start;
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.name)}&dates=${start}/${end}&location=${encodeURIComponent(currentEvent.location || '')}`;
         window.open(url, '_blank');
-        trackEvent('Calendar', 'google', currentEvent.name);
         closeCalendarModal();
     });
 
     document.getElementById('appleCalendarOption').addEventListener('click', function(e) {
         e.preventDefault();
         if (!currentEvent) return;
-        
-        if (!currentEvent.startDate) {
-            alert('Event date information is incomplete');
-            return;
-        }
         
         const start = currentEvent.startDate.replace(/-/g, '');
         const end = currentEvent.endDate?.replace(/-/g, '') || start;
@@ -883,7 +764,6 @@
         link.href = URL.createObjectURL(blob);
         link.download = `${currentEvent.name.replace(/\s+/g, '_')}.ics`;
         link.click();
-        trackEvent('Calendar', 'apple', currentEvent.name);
         closeCalendarModal();
     });
 
@@ -891,14 +771,8 @@
         e.preventDefault();
         if (!currentEvent) return;
         
-        if (!currentEvent.startDate) {
-            alert('Event date information is incomplete');
-            return;
-        }
-        
         const url = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(currentEvent.name)}&startdt=${currentEvent.startDate}&enddt=${currentEvent.endDate || currentEvent.startDate}&location=${encodeURIComponent(currentEvent.location || '')}`;
         window.open(url, '_blank');
-        trackEvent('Calendar', 'outlook', currentEvent.name);
         closeCalendarModal();
     });
 
@@ -908,10 +782,7 @@
         const text = `${currentEvent.name}\n${currentEvent.location}\n${currentEvent.date}`;
         navigator.clipboard.writeText(text).then(() => {
             alert('Event details copied!');
-        }).catch(() => {
-            alert('Could not copy text. Please try again.');
         });
-        trackEvent('Calendar', 'copy', currentEvent.name);
         closeCalendarModal();
     });
 
@@ -921,9 +792,6 @@
 
     // Initialize
     loadEvents();
-
-    // Track page view
-    trackEvent('Navigation', 'page_view', 'home');
 </script>
 </body>
 </html>
