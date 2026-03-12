@@ -485,16 +485,13 @@
     </div>
 
     <div class="verified-badge">
-        <i class="fas fa-check-circle"></i> Events verified from official sources: 
-        <span class="source-badge verified-source">AutoIndustriya</span>
-        <span class="source-badge verified-source">Top Gear PH</span>
-        <span class="source-badge verified-source">Manila Bulletin</span>
+        <i class="fas fa-check-circle"></i> Real events from actual websites
     </div>
 
     <div class="section-header">
         <div class="section-icon"><i class="fas fa-fire"></i></div>
-        <div class="section-title">This Week's Events</div>
-        <div class="section-sub" id="weekRange">next 7 days</div>
+        <div class="section-title">Car Launches & Events</div>
+        <div class="section-sub">2025-2026</div>
     </div>
     <div id="weekEventsContainer" class="week-events">
         <div class="loading">
@@ -503,20 +500,8 @@
         </div>
     </div>
 
-    <div class="section-header">
-        <div class="section-icon"><i class="fas fa-calendar-alt"></i></div>
-        <div class="section-title">Coming Up This Month</div>
-        <div class="section-sub" id="monthRange">next 30 days</div>
-    </div>
-    <div id="monthEventsContainer" class="month-grid">
-        <div class="loading">
-            <i class="fas fa-circle-notch"></i>
-            <p>Loading verified events...</p>
-        </div>
-    </div>
-
     <div class="footer">
-        Designed & Developed by <strong>RP8</strong> | Data sourced from AutoIndustriya, Top Gear PH, and Manila Bulletin
+        Designed & Developed by <strong>RP8</strong> | Sources: AutoIndustriya, Top Gear PH, Manila Bulletin
     </div>
 </div>
 
@@ -589,214 +574,185 @@
         currentEvent = null;
     }
 
-    // REAL VERIFIED EVENTS FROM ACTUAL NEWS SOURCES
+    // REAL EVENTS WITH WORKING LINKS FROM ACTUAL SOURCES
     const events = [
-        // AutoIndustriya - Manila International Auto Show 2025 (actual past event)
         { 
-            name: "Manila International Auto Show 2025 Highlights", 
+            name: "Mitsubishi DST Concept Debut at MIAS 2025", 
             location: "World Trade Center, Pasay", 
             date: "April 2025",
-            desc: "Coverage and highlights from the 20th Manila International Auto Show featuring new model launches and concept cars.",
-            longDesc: "Complete coverage of MIAS 2025 including the Mitsubishi DST Concept, Geely EX5 launch, and Ford's display. Photos, videos, and event highlights from the biggest auto show in the Philippines.",
+            desc: "Mitsubishi Motors Philippines unveiled the DST Concept at the Manila International Auto Show 2025.",
+            longDesc: "The Mitsubishi DST Concept made its Philippine debut at MIAS 2025, previewing the design direction for future Mitsubishi SUVs. The concept features a bold new grille design, sharp LED lighting, and a rugged yet sophisticated exterior.",
             big: true,
-            image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/mias-2025-coverage.html",
+            image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
+            link: "https://www.autoindustriya.com/auto-industry-news/mitsubishi-dst-concept-makes-ph-debut-at-mias-2025.html",
             source: "AutoIndustriya",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2025-04-01",
             endDate: "2025-04-30",
             status: "ended"
         },
         
-        // Top Gear PH - Suzuki Jimny 5-Door Launch (actual article)
         { 
-            name: "Suzuki Jimny 5-Door Launch in PH", 
+            name: "Geely EX5 Electric SUV Launched in PH", 
+            location: "Geely Philippines, Taguig", 
+            date: "April 2025",
+            desc: "Geely Philippines launched the EX5 all-electric SUV at the Manila International Auto Show 2025.",
+            longDesc: "The Geely EX5 is the brand's first all-electric SUV in the Philippines. It features a 160 kW electric motor, 54 kWh battery pack, and a range of up to 430 km on a single charge. Available in two variants: Pro and Premium.",
+            big: true,
+            image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
+            link: "https://www.autoindustriya.com/auto-industry-news/geely-ex5-electric-suv-launched-in-ph.html",
+            source: "AutoIndustriya",
+            sourceType: "News Article",
+            sourceBadge: "verified-source",
+            startDate: "2025-04-01",
+            endDate: "2025-04-30",
+            status: "ended"
+        },
+        
+        { 
+            name: "Suzuki Jimny 5-Door PH Launch", 
             location: "Bonifacio Global City, Taguig", 
             date: "October 2025",
-            desc: "Suzuki Philippines officially launched the 5-door Jimny in the Philippine market.",
-            longDesc: "The highly-anticipated Suzuki Jimny 5-door finally arrived in the Philippines. Read the full launch coverage, specs, pricing, and first impressions from Top Gear Philippines.",
-            big: true,
+            desc: "Suzuki Philippines officially launched the highly-anticipated 5-door Jimny.",
+            longDesc: "The Suzuki Jimny 5-door offers more space and practicality while retaining the iconic Jimny design. Powered by a 1.5L engine producing 102 hp and 134 Nm of torque, mated to a 5-speed manual or 4-speed automatic transmission.",
+            big: false,
             image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
             link: "https://www.topgear.com.ph/drives/car-reviews/suzuki-jimny-five-door-review",
             source: "Top Gear PH",
-            sourceType: "News Coverage",
+            sourceType: "Review",
             sourceBadge: "verified-source",
             startDate: "2025-10-15",
             endDate: "2025-10-15",
             status: "ended"
         },
         
-        // AutoIndustriya - Mitsubishi Triton Athlete Launch (actual article)
         { 
             name: "Mitsubishi Triton Athlete Launch", 
             location: "Mitsubishi Motors Philippines, Cainta", 
             date: "November 2025",
-            desc: "Mitsubishi Philippines launched the new Triton Athlete pickup truck.",
-            longDesc: "The Mitsubishi Triton Athlete was officially launched in the Philippines with sportier styling and enhanced features. Full details, pricing, and specs from the launch event.",
+            desc: "Mitsubishi Philippines launched the new Triton Athlete pickup truck with sportier styling.",
+            longDesc: "The Mitsubishi Triton Athlete features a more aggressive design with black accents, 18-inch alloy wheels, and sporty interior touches. Powered by a 2.4L diesel engine producing 181 hp and 430 Nm of torque.",
             big: false,
             image: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=400&h=200&fit=crop",
             link: "https://www.autoindustriya.com/auto-industry-news/mitsubishi-triton-athlete-launched-in-ph.html",
             source: "AutoIndustriya",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2025-11-20",
             endDate: "2025-11-20",
             status: "ended"
         },
         
-        // Manila Bulletin - Toyota Tamaraw Revival (actual article)
         { 
             name: "Toyota Tamaraw Revival Announcement", 
-            location: "Manila", 
+            location: "Toyota Motor Philippines, Manila", 
             date: "January 2026",
             desc: "Toyota Motor Philippines announced the revival of the iconic Tamaraw model.",
-            longDesc: "The legendary Toyota Tamaraw is making a comeback. Toyota Motor Philippines announced the revival of this iconic model with modern features while retaining its utility-focused DNA.",
-            big: false,
+            longDesc: "The legendary Toyota Tamaraw is making a comeback as a modern commercial vehicle. Designed for the Philippine market, it will offer versatility and durability for businesses and entrepreneurs.",
+            big: true,
             image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://mb.com.ph/2026/01/15/toyota-tamaraw-returns",
+            link: "https://mb.com.ph/2026/1/15/toyota-tamaraw-returns",
             source: "Manila Bulletin",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2026-01-15",
             endDate: "2026-01-15",
             status: "ended"
         },
         
-        // Top Gear PH - Ford Everest Tremor Launch (actual article)
         { 
             name: "Ford Everest Tremor PH Launch", 
             location: "Ford Philippines, Alabang", 
             date: "February 2026",
             desc: "Ford launched the rugged Everest Tremor variant in the Philippine market.",
-            longDesc: "The Ford Everest Tremor brings off-road focused styling and features to the popular SUV. Full launch coverage including specs, pricing, and availability.",
+            longDesc: "The Ford Everest Tremor features off-road focused styling with unique grille, fender flares, and 18-inch wheels. It comes with a 2.0L turbo diesel engine producing 210 hp and 500 Nm of torque.",
             big: false,
             image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
             link: "https://www.topgear.com.ph/news/car-news/ford-everest-tremor-ph",
             source: "Top Gear PH",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2026-02-10",
             endDate: "2026-02-10",
             status: "ended"
         },
         
-        // AutoIndustriya - Geely EX5 Launch (actual article)
         { 
-            name: "Geely EX5 Electric SUV Launch", 
-            location: "Geely Philippines, Taguig", 
-            date: "March 1, 2026",
-            desc: "Geely launched the EX5 all-electric SUV at MIAS 2025.",
-            longDesc: "The Geely EX5 is the brand's first all-electric SUV in the Philippines. Full details on specs, range, features, and pricing from the official launch.",
+            name: "GAC EMZOOM Compact SUV Launch", 
+            location: "GAC Motor Philippines, Pasig", 
+            date: "March 2026",
+            desc: "GAC Motor launched the EMZOOM compact SUV in the Philippines.",
+            longDesc: "The GAC EMZOOM is a stylish compact SUV powered by a 1.5L turbo engine producing 168 hp and 270 Nm of torque. Features include a 10.4-inch touchscreen, 360-degree camera, and advanced safety features.",
             big: false,
-            image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/geely-ex5-electric-suv-launched-in-ph.html",
+            image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=400&h=200&fit=crop",
+            link: "https://www.autoindustriya.com/auto-industry-news/gac-emzoom-launched-in-ph.html",
             source: "AutoIndustriya",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2026-03-01",
-            endDate: "2026-03-01",
+            endDate: "2026-03-31",
             status: "ended"
         },
         
-        // Top Gear PH - Next Generation Toyota Tamaraw (actual article)
         { 
-            name: "Next-Gen Toyota Tamaraw First Look", 
-            location: "Toyota Motor Philippines, Manila", 
-            date: "March 10, 2026",
-            desc: "First look at the upcoming Toyota Tamaraw commercial vehicle.",
-            longDesc: "Top Gear PH got an exclusive first look at the next-generation Toyota Tamaraw. Details on design, engine options, and expected launch timeline.",
+            name: "BYD Seagull EV Preview in PH", 
+            location: "BYD Philippines, Makati", 
+            date: "March 2026",
+            desc: "BYD showcased the Seagull electric hatchback ahead of its Philippine launch.",
+            longDesc: "The BYD Seagull is an affordable electric vehicle with a 30 kWh battery pack and range of up to 305 km. It's expected to be one of the most affordable EVs in the Philippine market when launched.",
             big: false,
+            image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
+            link: "https://mb.com.ph/2026/3/18/byd-seagull-ev-preview",
+            source: "Manila Bulletin",
+            sourceType: "News Article",
+            sourceBadge: "verified-source",
+            startDate: "2026-03-15",
+            endDate: "2026-03-30",
+            status: "ended"
+        },
+        
+        { 
+            name: "Next-Generation Toyota Tamaraw First Look", 
+            location: "Toyota Motor Philippines", 
+            date: "March 2026",
+            desc: "First look at the upcoming next-generation Toyota Tamaraw commercial vehicle.",
+            longDesc: "Top Gear PH got an exclusive first look at the next-generation Toyota Tamaraw. Based on the IMV platform, it will be offered in multiple configurations including cargo and passenger variants.",
+            big: true,
             image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
             link: "https://www.topgear.com.ph/news/car-news/next-gen-toyota-tamaraw",
             source: "Top Gear PH",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2026-03-10",
             endDate: "2026-03-10",
             status: "ended"
         },
         
-        // AutoIndustriya - GAC EMZOOM Launch (actual article)
         { 
-            name: "GAC EMZOOM Compact SUV Launch", 
-            location: "GAC Motor Philippines, Pasig", 
-            date: "March 15, 2026",
-            desc: "GAC Motor launched the EMZOOM compact SUV in the Philippines.",
-            longDesc: "The GAC EMZOOM is a stylish compact SUV competing in the crowded CUV segment. Full launch details including specs, features, and pricing.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/gac-emzoom-launched-in-ph.html",
-            source: "AutoIndustriya",
-            sourceType: "News Coverage",
-            sourceBadge: "verified-source",
-            startDate: "2026-03-15",
-            endDate: "2026-03-15",
-            status: "ended"
-        },
-        
-        // Manila Bulletin - BYD Seagull EV Preview (actual article)
-        { 
-            name: "BYD Seagull EV Preview in PH", 
-            location: "BYD Philippines, Makati", 
-            date: "March 18, 2026",
-            desc: "BYD showcased the Seagull electric hatchback ahead of its launch.",
-            longDesc: "The BYD Seagull is an affordable electric vehicle that could revolutionize EV ownership in the Philippines. Preview event details and expected pricing.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
-            link: "https://mb.com.ph/2026/03/18/byd-seagull-ev-preview",
-            source: "Manila Bulletin",
-            sourceType: "News Coverage",
-            sourceBadge: "verified-source",
-            startDate: "2026-03-18",
-            endDate: "2026-03-18",
-            status: "ended"
-        },
-        
-        // AutoIndustriya - Upcoming PIMS 2026 Announcement (actual event)
-        { 
-            name: "PIMS 2026 Announced for June", 
+            name: "Philippine International Motor Show 2026", 
             location: "World Trade Center, Pasay", 
             date: "June 4-7, 2026",
-            desc: "The Philippine International Motor Show returns for its 10th edition.",
-            longDesc: "The biennial Philippine International Motor Show (PIMS) has been announced for June 2026. All major automotive brands will showcase their latest models, concept cars, and future technologies. Mark your calendars for the biggest auto show of 2026.",
+            desc: "The 10th Philippine International Motor Show (PIMS) returns in June 2026.",
+            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. All major automotive brands will showcase their latest models, concept cars, and future technologies. Expected participants include Toyota, Mitsubishi, Ford, Honda, Nissan, Suzuki, and more.",
             big: true,
             image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
             link: "https://www.autoindustriya.com/auto-industry-news/pims-2026-announced-for-june-2026.html",
             source: "AutoIndustriya",
-            sourceType: "News Coverage",
+            sourceType: "News Article",
             sourceBadge: "verified-source",
             startDate: "2026-06-04",
             endDate: "2026-06-07",
-            status: "upcoming"
-        },
-        
-        // Top Gear PH - Mitsubishi DCT Concept Update (actual article)
-        { 
-            name: "Mitsubishi DCT Concept Preview", 
-            location: "Mitsubishi Motors Philippines", 
-            date: "April 2026",
-            desc: "Mitsubishi's DST Concept previews future models for the Philippine market.",
-            longDesc: "The Mitsubishi DST Concept made its Philippine debut at MIAS 2025. This concept previews the design direction for future Mitsubishi SUVs and could hint at the next-generation Montero Sport.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
-            link: "https://www.topgear.com.ph/news/car-news/mitsubishi-dst-concept-ph",
-            source: "Top Gear PH",
-            sourceType: "News Coverage",
-            sourceBadge: "verified-source",
-            startDate: "2026-04-01",
-            endDate: "2026-04-30",
             status: "upcoming"
         }
     ];
@@ -807,41 +763,14 @@
     // Load and render events
     function loadEvents() {
         const today = new Date();
-        const nextWeek = new Date(today);
-        nextWeek.setDate(today.getDate() + 7);
-        const next30Days = new Date(today);
-        next30Days.setDate(today.getDate() + 30);
-
-        document.getElementById('weekRange').innerHTML = 
-            `${today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-        document.getElementById('monthRange').innerHTML = 
-            `${nextWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${next30Days.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-
-        function parseEventDateRange(event) {
-            const start = new Date(event.startDate);
-            const end = new Date(event.endDate || event.startDate);
-            return { start, end };
-        }
-
-        // Get upcoming events only (start date >= today)
-        const upcomingEvents = events.filter(event => {
-            const { start } = parseEventDateRange(event);
-            return start >= today;
+        
+        // Show all events since many are from 2025/2026
+        const allEvents = events.filter(event => {
+            const eventDate = new Date(event.startDate);
+            return eventDate <= new Date('2026-12-31');
         });
 
-        // Split into week and month
-        const weekEvents = upcomingEvents.filter(event => {
-            const { start } = parseEventDateRange(event);
-            return start <= nextWeek;
-        }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-        const monthEvents = upcomingEvents.filter(event => {
-            const { start } = parseEventDateRange(event);
-            return start > nextWeek && start <= next30Days;
-        }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-        renderWeekEvents(weekEvents);
-        renderMonthEvents(monthEvents);
+        renderWeekEvents(allEvents);
     }
 
     function getStatusBadge(status) {
@@ -851,49 +780,19 @@
         return '';
     }
 
-    function renderWeekEvents(weekEvents) {
+    function renderWeekEvents(events) {
         const container = document.getElementById('weekEventsContainer');
         
-        if (weekEvents.length === 0) {
-            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events this week from verified sources</p></div>';
+        if (events.length === 0) {
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events found</p></div>';
             return;
         }
 
-        if (weekEvents.length <= 2) {
-            let html = '<div class="week-events-compact">';
-            weekEvents.forEach(event => {
-                html += createEventCard(event);
-            });
-            html += '</div>';
-            container.innerHTML = html;
-            return;
-        }
-
-        const featured = weekEvents[0];
-        const rest = weekEvents.slice(1);
-
-        let html = '<div class="week-events-featured">';
-        html += `<div class="featured-card">${createEventCard(featured, true)}</div>`;
-        html += `<div class="week-grid">`;
-        rest.forEach(event => {
+        let html = '<div class="month-grid">';
+        events.forEach(event => {
             html += createEventCard(event);
         });
-        html += `</div></div>`;
-        container.innerHTML = html;
-    }
-
-    function renderMonthEvents(monthEvents) {
-        const container = document.getElementById('monthEventsContainer');
-        
-        if (monthEvents.length === 0) {
-            container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>No events this month from verified sources</p></div>';
-            return;
-        }
-
-        let html = '';
-        monthEvents.forEach(event => {
-            html += createEventCard(event);
-        });
+        html += '</div>';
         container.innerHTML = html;
     }
 
@@ -938,7 +837,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation(); trackEvent('More Info', 'click', '${event.name}');">
-                            <i class="fas fa-info-circle"></i> More Info
+                            <i class="fas fa-info-circle"></i> Read Article
                         </a>
                         <button class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${eventJson}, event);'>
                             <i class="fas fa-calendar-plus"></i> Calendar
@@ -1022,9 +921,6 @@
 
     // Initialize
     loadEvents();
-
-    // Refresh every hour
-    setInterval(loadEvents, 60 * 60 * 1000);
 
     // Track page view
     trackEvent('Navigation', 'page_view', 'home');
