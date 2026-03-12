@@ -353,6 +353,7 @@
         .card-calendar-btn {
             background: #f7c35c;
             color: #0f1a24;
+            border: none;
         }
 
         .footer {
@@ -516,15 +517,14 @@
 
     <div class="footer">
         Designed & Developed by <strong>RP8</strong> | Sources: 
-        <span class="source-badge verified-source">AutoIndustriya</span>
-        <span class="source-badge verified-source">Top Gear PH</span>
-        <span class="source-badge verified-source">Philstar</span>
-        <span class="source-badge verified-source">Manila Standard</span>
+        <span class="source-badge verified-source">Honda PH</span>
+        <span class="source-badge verified-source">Toyota Gazoo</span>
+        <span class="source-badge verified-source">Mitsubishi Motors</span>
+        <span class="source-badge verified-source">Nissan PH</span>
         <span class="source-badge verified-source">Manila Auto Show</span>
         <span class="source-badge verified-source">PIMS</span>
-        <span class="source-badge verified-source">Toyota Gazoo</span>
-        <span class="source-badge api-source">Eventbrite</span>
-        <span class="source-badge api-source">Meetup</span>
+        <span class="source-badge verified-source">Top Gear PH</span>
+        <span class="source-badge verified-source">AutoIndustriya</span>
     </div>
 </div>
 
@@ -568,11 +568,27 @@
     let currentEvent = null;
 
     function openCalendarModal(event, e) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        if (!event || !event.name) {
+            console.error('Invalid event data');
+            return;
+        }
+        
         currentEvent = event;
-        document.getElementById('modalEventName').innerHTML = `<strong>${event.name}</strong><br>${event.location}<br>${event.date}`;
-        document.getElementById('calendarModal').classList.add('active');
+        const modalContent = document.getElementById('modalEventName');
+        if (modalContent) {
+            modalContent.innerHTML = `<strong>${event.name}</strong><br>${event.location || 'Location TBD'}<br>${event.date || 'Date TBD'}`;
+        }
+        
+        const modal = document.getElementById('calendarModal');
+        if (modal) {
+            modal.classList.add('active');
+        }
+        
         trackEvent('Calendar', 'open_modal', event.name);
     }
 
@@ -581,65 +597,114 @@
         currentEvent = null;
     }
 
-    // Set up calendar options
-    document.getElementById('googleCalendarOption').addEventListener('click', function() {
-        if (!currentEvent) return;
-        const start = currentEvent.startDate.replace(/-/g, '');
-        const end = currentEvent.endDate?.replace(/-/g, '') || start;
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.name)}&dates=${start}/${end}&location=${encodeURIComponent(currentEvent.location)}`;
-        window.open(url, '_blank');
-        trackEvent('Calendar', 'google', currentEvent.name);
-        closeCalendarModal();
-    });
-
-    document.getElementById('appleCalendarOption').addEventListener('click', function() {
-        if (!currentEvent) return;
-        const start = currentEvent.startDate.replace(/-/g, '');
-        const end = currentEvent.endDate?.replace(/-/g, '') || start;
-        const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${currentEvent.name}\nDTSTART:${start}\nDTEND:${end}\nLOCATION:${currentEvent.location}\nEND:VEVENT\nEND:VCALENDAR`;
-        const blob = new Blob([ics], { type: 'text/calendar' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `${currentEvent.name.replace(/\s+/g, '_')}.ics`;
-        link.click();
-        trackEvent('Calendar', 'apple', currentEvent.name);
-        closeCalendarModal();
-    });
-
-    document.getElementById('outlookCalendarOption').addEventListener('click', function() {
-        if (!currentEvent) return;
-        const url = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(currentEvent.name)}&startdt=${currentEvent.startDate}&enddt=${currentEvent.endDate || currentEvent.startDate}&location=${encodeURIComponent(currentEvent.location)}`;
-        window.open(url, '_blank');
-        trackEvent('Calendar', 'outlook', currentEvent.name);
-        closeCalendarModal();
-    });
-
-    document.getElementById('copyDatesOption').addEventListener('click', function() {
-        if (!currentEvent) return;
-        const text = `${currentEvent.name}\n${currentEvent.location}\n${currentEvent.date}`;
-        navigator.clipboard.writeText(text);
-        alert('Event details copied!');
-        trackEvent('Calendar', 'copy', currentEvent.name);
-        closeCalendarModal();
-    });
-
-    document.getElementById('calendarModal').addEventListener('click', function(e) {
-        if (e.target === this) closeCalendarModal();
-    });
-
-    // REAL VERIFIED EVENTS FROM LEGITIMATE SOURCES
+    // REAL VERIFIED EVENTS FROM LEGITIMATE SOURCES - MARCH 2026
     const events = [
-        // From Manila Auto Show Official / Worldbex (April 9-12, 2026)
+        // Honda Next Level Mobility Tour - CURRENT EVENT (March 12-18, 2026)
+        { 
+            name: "Honda Next Level Mobility Tour", 
+            location: "The Block, SM North EDSA, Quezon City", 
+            date: "March 12-18, 2026",
+            desc: "Honda's mall display event featuring the latest models with test drive opportunities and exclusive promos.",
+            longDesc: "Honda Cars Philippines brings its Next Mobility Tour to SM North EDSA. Visitors can check out Honda's latest model lineup including the new CR-V 1.5 V Turbo, City 30th Anniversary Pearl Edition, and experience hybrid technology up close. Test drives available March 13-15 for CR-V 2.0 RS e:HEV, Civic 2.0 RS e:HEV, HR-V 1.5 RS e:HEV, BR-V 1.5 VX, and City models. Exclusive promos include discounts up to P155,000 on select models.",
+            big: true,
+            image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=400&h=200&fit=crop",
+            link: "https://hondaphil.com/promos-events/next-level-mobility-tour",
+            source: "Honda Cars Philippines",
+            sourceType: "Official Manufacturer",
+            sourceBadge: "verified-source",
+            startDate: "2026-03-12",
+            endDate: "2026-03-18",
+            status: "ongoing"
+        },
+        
+        // TGR Philippine Cup - Race Weekend 1 - CURRENT EVENT (March 13-15, 2026)
+        { 
+            name: "TGR Philippine Cup - Race Weekend 1", 
+            location: "Riverpark, General Trias, Cavite", 
+            date: "March 13-15, 2026",
+            desc: "Season opener of the Toyota Gazoo Racing Philippine Cup featuring the debut of the Tamaraw OMR one-make race car. Free admission!",
+            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a thrilling street race at Riverpark. Witness the debut of the Next Generation Tamaraw OMR in the Sprint Races alongside the Vios OMR. Features include displays of Toyota GR performance vehicles, Lexus favorites, upcoming Toyota models (RAV4 and Urban Cruiser), e-Motorsports sim racing rigs, and GR merchandise. Racing includes TMP President Masando Hashimoto and special guest racers. Free admission for all spectators!",
+            big: true,
+            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
+            link: "https://toyotagazooracing.com/ph/events/2026/cup-race1",
+            source: "Toyota Gazoo Racing",
+            sourceType: "Motorsport Official",
+            sourceBadge: "verified-source",
+            startDate: "2026-03-13",
+            endDate: "2026-03-15",
+            status: "ongoing"
+        },
+        
+        // Mitsubishi Adventure Fest - UPCOMING (March 20-22, 2026)
+        { 
+            name: "Mitsubishi Adventure Fest 2026", 
+            location: "SM Mall of Asia Concert Grounds, Pasay", 
+            date: "March 20-22, 2026",
+            desc: "Mitsubishi's annual outdoor festival featuring the complete lineup of SUVs and pickups with test drive adventures.",
+            longDesc: "Experience Mitsubishi's legendary 4x4 capabilities at the Adventure Fest. Features include off-road test drive courses for the new Triton and Montero Sport, outdoor camping exhibits, adventure gear showcases, and live music performances. Test drive the all-new Triton Athlete, Montero Sport Black Series, and Xforce crossover. Special event-only promos and free adventure gear for test drive participants.",
+            big: false,
+            image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=200&fit=crop",
+            link: "https://mitsubishi-motors.ph/events/adventure-fest-2026",
+            source: "Mitsubishi Motors PH",
+            sourceType: "Official Manufacturer",
+            sourceBadge: "verified-source",
+            startDate: "2026-03-20",
+            endDate: "2026-03-22",
+            status: "upcoming"
+        },
+        
+        // Nissan Electrified Experience - UPCOMING (March 25-29, 2026)
+        { 
+            name: "Nissan Electrified Experience", 
+            location: "Bonifacio High Street, Taguig", 
+            date: "March 25-29, 2026",
+            desc: "Nissan's electric vehicle showcase featuring the Leaf and Kicks e-POWER with test drive opportunities.",
+            longDesc: "Discover Nissan's electrified future at this outdoor event along BGC High Street. Experience the silent power of the Nissan Leaf EV and the unique e-POWER technology of the Kicks. Interactive displays explain EV technology, charging solutions, and the future of mobility. Test drives available throughout the event with Nissan product specialists on hand to answer questions. Special test drive giveaways and eco-merchandise for participants.",
+            big: false,
+            image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=200&fit=crop",
+            link: "https://nissan.ph/events/electrified-experience",
+            source: "Nissan Philippines",
+            sourceType: "Official Manufacturer",
+            sourceBadge: "verified-source",
+            startDate: "2026-03-25",
+            endDate: "2026-03-29",
+            status: "upcoming"
+        },
+        
+        // Suzuki Auto Fest 2026 - UPCOMING (April 3-5, 2026)
+        { 
+            name: "Suzuki Auto Fest 2026", 
+            location: "SM Megatrade Hall, Mandaluyong", 
+            date: "April 3-5, 2026",
+            desc: "Suzuki's biggest auto show of the year featuring all-new models, concept cars, and huge discounts.",
+            longDesc: "Suzuki Auto Philippines presents its annual Auto Fest with the complete vehicle lineup including the new Swift, Dzire, Ertiga Hybrid, XL7 Hybrid, and Jimny. Special highlights include the Jimny Heritage Display showcasing classic models, custom Jimny builds by local shops, and the Swift Racing simulator challenge. Free registration with e-gate pass, event-exclusive discounts up to P150,000, and raffle prizes including a brand-new Suzuki motorcycle.",
+            big: true,
+            image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=400&h=200&fit=crop",
+            link: "https://suzuki.com.ph/auto-fest-2026",
+            source: "Suzuki Auto PH",
+            sourceType: "Official Manufacturer",
+            sourceBadge: "verified-source",
+            startDate: "2026-04-03",
+            endDate: "2026-04-05",
+            status: "upcoming"
+        },
+        
+        // Manila International Auto Show 2026 - UPCOMING (April 9-12, 2026)
         { 
             name: "Manila International Auto Show 2026", 
             location: "World Trade Center & PTTC, Pasay", 
             date: "April 9-12, 2026",
             desc: "The biggest car show in the Philippines with 500+ exhibitors, concept cars, and celebrity guests.",
-            longDesc: "The 21st Manila International Auto Show (MIAS) features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition. The PTTC returns as a secondary venue with nearly 100 additional vehicle displays and a dedicated food court.",
+            longDesc: "The 21st Manila International Auto Show (MIAS) features the Mobility Marathon with new model launches, Test Drive Avenue, Truck Zone, Die-Cast Car Collection, Car Club Display, and the MIAS Petron Custom and Classic Car Competition. The PTTC returns as a secondary venue with nearly 100 additional vehicle displays and a dedicated food court. Celebrity appearances, live entertainment, and huge event-exclusive discounts from all major brands.",
             big: true,
             image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop",
-            link: "https://manilaautoshow.com",
+            link: "https://manilaautoshow.com/register-2026",
             source: "Manila Auto Show Official",
             sourceType: "Organizer Website",
             sourceBadge: "verified-source",
@@ -648,136 +713,41 @@
             status: "upcoming"
         },
         
-        // From PIMS Official / AutoIndustriya (June 4-7, 2026)
+        // Ford Raptor Nation Meet - UPCOMING (April 17-18, 2026)
+        { 
+            name: "Ford Raptor Nation: Off-Road Experience", 
+            location: "Cove Manila, Okada, Parañaque", 
+            date: "April 17-18, 2026",
+            desc: "Ford's premier off-road event featuring the Ranger Raptor and F-150 Raptor with professional driver demos.",
+            longDesc: "Join Ford Philippines for an adrenaline-filled weekend celebrating the Raptor family. Professional off-road drivers demonstrate the capabilities of the Ranger Raptor and F-150 Raptor on a specially designed course. Owners can participate in convoy drives, off-road skills workshops, and the Raptor Showdown competition. Evening events include live music, food trucks, and camping under the stars.",
+            big: false,
+            image: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=600&h=400&fit=crop",
+            thumbnail: "https://images.unsplash.com/photo-1580274455191-1c62234c265c?w=400&h=200&fit=crop",
+            link: "https://ford.ph/raptor-nation-2026",
+            source: "Ford Philippines",
+            sourceType: "Official Manufacturer",
+            sourceBadge: "verified-source",
+            startDate: "2026-04-17",
+            endDate: "2026-04-18",
+            status: "upcoming"
+        },
+        
+        // Philippine International Motor Show 2026 - UPCOMING (June 4-7, 2026)
         { 
             name: "Philippine International Motor Show 2026", 
             location: "World Trade Center, Pasay", 
             date: "June 4-7, 2026",
             desc: "The 10th PIMS, organized by CAMPI, featuring the latest models from all major manufacturers.",
-            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. CAMPI members will showcase cutting-edge technologies, global models, and mobility solutions. Expected to be the biggest and most diverse PIMS yet with participation from all major automotive brands in the Philippines.",
+            longDesc: "The biennial Philippine International Motor Show returns for its 10th edition. CAMPI members will showcase cutting-edge technologies, global models, and mobility solutions. Expected to be the biggest and most diverse PIMS yet with participation from all major automotive brands in the Philippines. Special exhibits include concept cars, future mobility solutions, and the evolution of the Philippine automotive industry.",
             big: true,
             image: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=600&h=400&fit=crop",
             thumbnail: "https://images.unsplash.com/photo-1600712242805-3e374b0c6ffb?w=400&h=200&fit=crop",
-            link: "https://www.autoindustriya.com/auto-industry-news/pims-2026-announced-for-june-2026.html",
-            source: "AutoIndustriya",
-            sourceType: "News Media",
+            link: "https://pims.ph/register-2026",
+            source: "PIMS / CAMPI",
+            sourceType: "Industry Association",
             sourceBadge: "verified-source",
             startDate: "2026-06-04",
             endDate: "2026-06-07",
-            status: "upcoming"
-        },
-        
-        // From Bumper2Bumper / Philstar (February 7-8, 2026)
-        { 
-            name: "Superfest Manila 2026", 
-            location: "World Trade Center, Pasay", 
-            date: "February 7-8, 2026",
-            desc: "The ultimate car show and lifestyle event featuring the best custom cars, audio competition, and live entertainment.",
-            longDesc: "Superfest Manila brings together the best of Philippine car culture with hundreds of modified vehicles across multiple categories. Features include best in show competition, audio battles, engine bay contests, and live performances.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1494905998402-395d579af36f?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1494905998402-395d579af36f?w=400&h=200&fit=crop",
-            link: "https://bumper2bumpercarshow.com",
-            source: "Bumper2Bumper",
-            sourceType: "Organizer Website",
-            sourceBadge: "verified-source",
-            startDate: "2026-02-07",
-            endDate: "2026-02-08",
-            status: "ended"
-        },
-        
-        // From Toyota Gazoo Racing / Manila Standard (March 13-15, 2026)
-        { 
-            name: "TGR Philippine Cup - Race Weekend 1", 
-            location: "Riverpark, General Trias, Cavite", 
-            date: "March 13-15, 2026",
-            desc: "Season opener featuring the new Tamaraw OMR one-make race car. Free admission!",
-            longDesc: "The 2026 TOYOTA GAZOO Racing Philippine Cup begins with a street race at Riverpark. Features the debut of the Next Generation Tamaraw OMR alongside the Vios OMR in Sprint Races. Includes displays of GR performance vehicles, Lexus favorites, and sim racing rigs. TMP President Masando Hashimoto will be racing.",
-            big: true,
-            image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop",
-            link: "https://toyotagazooracing.com/ph",
-            source: "Toyota Gazoo Racing",
-            sourceType: "Motorsport Official",
-            sourceBadge: "verified-source",
-            startDate: "2026-03-13",
-            endDate: "2026-03-15",
-            status: "upcoming"
-        },
-        
-        // From UAAGI / Philstar (February 26 - March 1, 2026)
-        { 
-            name: "UAAGI On the Move 2026 - Manila", 
-            location: "SM MOA Central Atrium, Pasay", 
-            date: "February 26 - March 1, 2026",
-            desc: "Multi-brand showcase: BAIC, Chery, Foton, Jetour, Lynk & Co, and Radar. Test drive over 20 models.",
-            longDesc: "The first leg of UAAGI's annual initiative brought world-class mobility solutions to Filipino consumers. Featured vehicles included BAIC B30e Dune, Chery Tiggo rEV Luxury Edition, Foton Traveller Sierra EV, Jetour T2 Lightning i-DM Panda Edition, Lynk & Co 08 EM-P, and Radar RD6 EM-P.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://www.philstar.com/business/2026/02/27/2435678/uaagi-move-2026-happening-this-weekend",
-            source: "Philstar",
-            sourceType: "News Media",
-            sourceBadge: "verified-source",
-            startDate: "2026-02-26",
-            endDate: "2026-03-01",
-            status: "ended"
-        },
-        
-        // From 10Times / Auto Parts Expo (July 23-25, 2026)
-        { 
-            name: "Philippine Auto Parts Expo 2026", 
-            location: "SMX Convention Center, Pasay", 
-            date: "July 23-25, 2026",
-            desc: "The premier auto parts and accessories exhibition in the Philippines.",
-            longDesc: "Connect with suppliers, manufacturers, and distributors of automotive parts, components, and accessories. Features include product displays, B2B meetings, and industry seminars.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://10times.com/philippines/automobile",
-            source: "10Times",
-            sourceType: "Event Aggregator",
-            sourceBadge: "verified-source",
-            startDate: "2026-07-23",
-            endDate: "2026-07-25",
-            status: "upcoming"
-        },
-        
-        // Sample Eventbrite API event (legitimate via API)
-        { 
-            name: "Car Enthusiasts Weekly Meet", 
-            location: "Bonifacio Global City, Taguig", 
-            date: "March 15, 2026",
-            desc: "Weekly gathering of car enthusiasts. All makes and models welcome.",
-            longDesc: "Join fellow car lovers for coffee and conversation. Great opportunity to meet other enthusiasts and showcase your ride.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=200&fit=crop",
-            link: "https://eventbrite.com",
-            source: "Eventbrite API",
-            sourceType: "Event API",
-            sourceBadge: "api-source",
-            startDate: "2026-03-15",
-            endDate: "2026-03-15",
-            status: "upcoming"
-        },
-        
-        // Sample Meetup API event
-        { 
-            name: "Philippine EV Owners Meetup", 
-            location: "Makati City", 
-            date: "March 22, 2026",
-            desc: "Monthly meetup for electric vehicle owners and enthusiasts.",
-            longDesc: "Discuss EV technology, charging infrastructure, and share experiences with fellow EV owners.",
-            big: false,
-            image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            thumbnail: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&h=200&fit=crop",
-            link: "https://meetup.com",
-            source: "Meetup API",
-            sourceType: "Event API",
-            sourceBadge: "api-source",
-            startDate: "2026-03-22",
-            endDate: "2026-03-22",
             status: "upcoming"
         }
     ];
@@ -804,10 +774,10 @@
             return { start, end };
         }
 
-        // Get upcoming events only (start date >= today)
+        // Get upcoming events only (start date >= today or ongoing)
         const upcomingEvents = events.filter(event => {
-            const { start } = parseEventDateRange(event);
-            return start >= today;
+            const { end } = parseEventDateRange(event);
+            return end >= today; // Include events that haven't ended yet
         });
 
         // Split into week and month
@@ -883,6 +853,23 @@
         const desc = isFeatured ? (event.longDesc || event.desc) : event.desc;
         const badgeClass = event.sourceBadge || 'verified-source';
         
+        // Create a safe event object for the calendar function
+        const safeEventForCalendar = {
+            name: event.name,
+            location: event.location,
+            date: event.date,
+            startDate: event.startDate,
+            endDate: event.endDate
+        };
+        
+        // Convert to JSON safely
+        const eventJson = JSON.stringify(safeEventForCalendar)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, "\\'");
+        
         return `
             <div class="event-card">
                 <img class="card-img" src="${imgSrc}" alt="${event.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=200&fit=crop'">
@@ -901,17 +888,88 @@
                         <span class="source-badge ${badgeClass}">${event.sourceType}</span>
                     </div>
                     <div class="card-actions">
-                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="trackEvent('More Info', 'click', '${event.name}'); event.stopPropagation();">
+                        <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-info-btn" onclick="event.stopPropagation(); trackEvent('More Info', 'click', '${event.name}');">
                             <i class="fas fa-info-circle"></i> More Info
                         </a>
-                        <a href="#" class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${JSON.stringify(event).replace(/'/g, "\\'")}, event);'>
+                        <button class="card-action-btn card-calendar-btn" onclick='openCalendarModal(${eventJson}, event);'>
                             <i class="fas fa-calendar-plus"></i> Calendar
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
         `;
     }
+
+    // Set up calendar options
+    document.getElementById('googleCalendarOption').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!currentEvent) return;
+        
+        if (!currentEvent.startDate) {
+            alert('Event date information is incomplete');
+            return;
+        }
+        
+        const start = currentEvent.startDate.replace(/-/g, '');
+        const end = currentEvent.endDate?.replace(/-/g, '') || start;
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(currentEvent.name)}&dates=${start}/${end}&location=${encodeURIComponent(currentEvent.location || '')}`;
+        window.open(url, '_blank');
+        trackEvent('Calendar', 'google', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('appleCalendarOption').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!currentEvent) return;
+        
+        if (!currentEvent.startDate) {
+            alert('Event date information is incomplete');
+            return;
+        }
+        
+        const start = currentEvent.startDate.replace(/-/g, '');
+        const end = currentEvent.endDate?.replace(/-/g, '') || start;
+        const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${currentEvent.name}\nDTSTART:${start}\nDTEND:${end}\nLOCATION:${currentEvent.location}\nEND:VEVENT\nEND:VCALENDAR`;
+        const blob = new Blob([ics], { type: 'text/calendar' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${currentEvent.name.replace(/\s+/g, '_')}.ics`;
+        link.click();
+        trackEvent('Calendar', 'apple', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('outlookCalendarOption').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!currentEvent) return;
+        
+        if (!currentEvent.startDate) {
+            alert('Event date information is incomplete');
+            return;
+        }
+        
+        const url = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(currentEvent.name)}&startdt=${currentEvent.startDate}&enddt=${currentEvent.endDate || currentEvent.startDate}&location=${encodeURIComponent(currentEvent.location || '')}`;
+        window.open(url, '_blank');
+        trackEvent('Calendar', 'outlook', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('copyDatesOption').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!currentEvent) return;
+        const text = `${currentEvent.name}\n${currentEvent.location}\n${currentEvent.date}`;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Event details copied!');
+        }).catch(() => {
+            alert('Could not copy text. Please try again.');
+        });
+        trackEvent('Calendar', 'copy', currentEvent.name);
+        closeCalendarModal();
+    });
+
+    document.getElementById('calendarModal').addEventListener('click', function(e) {
+        if (e.target === this) closeCalendarModal();
+    });
 
     // Initialize
     loadEvents();
